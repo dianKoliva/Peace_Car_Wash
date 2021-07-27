@@ -1,10 +1,18 @@
-import Login from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Login></Login>
+      <Router>
+        <Switch>
+          <Route path="/" exact component={Login}></Route>
+          <Route path="/dashboard" component={Dashboard}></Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
