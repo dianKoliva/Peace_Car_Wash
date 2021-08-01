@@ -1,5 +1,6 @@
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import SignUp from "./pages/SignUp";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import "./App.css";
@@ -10,7 +11,8 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={Login}></Route>
-          <Route path="/dashboard" component={Dashboard}></Route>
+          <Route path="/dashboard" exact component={Dashboard}></Route>
+          <Route path="/signup" exact component={SignUp}></Route>
         </Switch>
       </Router>
     </div>

@@ -4,67 +4,62 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import PeopleIcon from "@material-ui/icons/People";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import LayersIcon from "@material-ui/icons/Layers";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-
+import BuildIcon from "@material-ui/icons/Build";
+import AssessmentIcon from "@material-ui/icons/Assessment";
+import SettingsIcon from "@material-ui/icons/Settings";
+import EqualizerOutlinedIcon from "@material-ui/icons/EqualizerOutlined";
+import ContactSupportOutlinedIcon from "@material-ui/icons/ContactSupportOutlined";
+import QuestionAnswerOutlinedIcon from "@material-ui/icons/QuestionAnswerOutlined";
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <ListItem button className="hover:text-blue-700 ">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
+
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button>
+    <ListItem button className="hover:text-blue-700 ">
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <BuildIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="Services" />
     </ListItem>
-    <ListItem button>
+    <ListItem button className="hover:text-blue-700 ">
       <ListItemIcon>
-        <PeopleIcon />
+        <AssessmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Rent" />
     </ListItem>
-    <ListItem button>
+    <ListItem button className="hover:text-blue-700 ">
       <ListItemIcon>
-        <BarChartIcon />
+        <SettingsIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="Settings" />
     </ListItem>
   </div>
 );
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
+    <ListSubheader inset>Support and Statistics</ListSubheader>
+    <ListItem button className="hover:text-blue-700 ">
       <ListItemIcon>
-        <AssignmentIcon />
+        <ContactSupportOutlinedIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Support" />
     </ListItem>
-    <ListItem button>
+    <ListItem button className="hover:text-blue-700 ">
       <ListItemIcon>
-        <AssignmentIcon />
+        <QuestionAnswerOutlinedIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="Comment" />
     </ListItem>
-    <ListItem button>
+    <ListItem button className="hover:text-blue-700 ">
       <ListItemIcon>
-        <AssignmentIcon />
+        <EqualizerOutlinedIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText className="text-sm" primary=" Reports" />
     </ListItem>
   </div>
 );
