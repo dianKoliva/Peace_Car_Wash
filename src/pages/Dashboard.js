@@ -17,6 +17,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { mainListItems, secondaryListItems } from "../components/listItems";
 import DayServices from "../components/DayServices";
+import VehichlePayment from "../components/VehichlePayment";
 
 const drawerWidth = 240;
 
@@ -156,7 +157,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <DayServices></DayServices>
+          <VehichlePayment></VehichlePayment>
         </Container>
       </main>
     </div>

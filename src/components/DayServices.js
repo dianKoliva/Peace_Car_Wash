@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     marginTop: "10px",
   },
+  low: {
+    textTransform: "capitalize",
+  },
 }));
 
 function DayServices() {
@@ -42,7 +45,7 @@ function DayServices() {
           <Typography variant="h6">Register New Vehicle</Typography>
         </Grid>
         <Grid item xs={12} className={classes.container}>
-          <Typography variant="body1">At Service in Peace Car Wash</Typography>
+          <p className="text-lg font-bold">At Service in Peace Car Wash</p>
           <p className="text-gray-500">
             Register new vehicle attending Peace Car Wash Services
           </p>
@@ -161,7 +164,7 @@ function DayServices() {
             <Grid item xs={6}>
               <Button
                 variant="contained"
-                className={`${classes.blueBut} ${classes.width}`}
+                className={`${classes.blueBut} ${classes.width} ${classes.low}`}
               >
                 Save
               </Button>
@@ -170,7 +173,7 @@ function DayServices() {
               <Button
                 variant="contained"
                 color="primary"
-                className={`${classes.greenBut} ${classes.width}`}
+                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
               >
                 Continue Payment
               </Button>
