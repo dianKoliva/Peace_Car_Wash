@@ -16,9 +16,9 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { mainListItems, secondaryListItems } from "../components/listItems";
 import DayServices from "../components/dayServices/DayServices";
-import VehichlePayment from "../components/VehichlePayment";
+import VehichlePayment from "../components/dayServices/VehichlePayment";
 import ServiceList from "../components/dayServices/ServiceList";
-import RentingRegister from "../components/renting/RentingRegister.js";
+import RentPayment from "../components/renting/RentPayement.js";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -157,7 +157,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <RentingRegister></RentingRegister>
+          <RentPayment></RentPayment>
         </Container>
       </main>
     </div>
