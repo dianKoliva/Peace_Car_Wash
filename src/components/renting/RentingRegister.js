@@ -29,10 +29,13 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   margin: {
-    marginTop: "10px",
+    marginTop: "20px",
   },
-  low: {
-    textTransform: "capitalize",
+  otherMarg: {
+    marginTop: "30px",
+  },
+  color: {
+    color: "black",
   },
 }));
 
@@ -57,7 +60,7 @@ function DayServices() {
                 label="First Name"
                 variant="outlined"
                 size="small"
-                className={classes.width}
+                className={`${classes.width} ${classes.color}`}
               />
               <TextField
                 margin="dense"
@@ -66,16 +69,20 @@ function DayServices() {
                 // inputProps={{ style: { fontSize: 17 } }}
                 // InputLabelProps={{ style: { fontSize: 15 } }}
                 size="small"
-                className={classes.width}
+                className={`${classes.width} ${classes.otherMarg}`}
               />
               <TextField
                 margin="dense"
-                label="Car Types"
+                id="date"
+                label="Entry Date"
                 variant="outlined"
-                // inputProps={{ style: { fontSize: 17 } }}
-                // InputLabelProps={{ style: { fontSize: 15 } }}
+                type="date"
+                defaultValue="2017-05-24"
                 size="small"
-                className={classes.width}
+                className={`${classes.width} ${classes.otherMarg}`}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -91,14 +98,14 @@ function DayServices() {
                 label="What he do"
                 variant="outlined"
                 size="small"
-                className={classes.width}
+                className={`${classes.width} ${classes.otherMarg}`}
               />
               <TextField
                 margin="dense"
                 label="Amount to pay"
                 variant="outlined"
                 size="small"
-                className={classes.width}
+                className={`${classes.width} ${classes.otherMarg}`}
               />
             </Grid>
           </Grid>
@@ -107,7 +114,7 @@ function DayServices() {
             <Grid item xs={6}>
               <Button
                 variant="contained"
-                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
+                className={`${classes.greenBut} ${classes.width}  ${classes.otherMarg}`}
               >
                 CONTINUE WITH PAYMENTS
               </Button>
@@ -116,7 +123,7 @@ function DayServices() {
               <Button
                 variant="contained"
                 color="primary"
-                className={`${classes.blueBut} ${classes.width} ${classes.low}`}
+                className={`${classes.blueBut} ${classes.width} ${classes.otherMarg}`}
               >
                 FINISH
               </Button>
