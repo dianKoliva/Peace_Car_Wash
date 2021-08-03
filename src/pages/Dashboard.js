@@ -11,16 +11,16 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
-
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { mainListItems, secondaryListItems } from "../components/listItems";
-import DayServices from "../components/DayServices";
+import DayServices from "../components/dayServices/DayServices";
 import VehichlePayment from "../components/VehichlePayment";
+import ServiceList from "../components/dayServices/ServiceList";
+import RentingRegister from "../components/renting/RentingRegister.js";
 
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -157,7 +157,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <VehichlePayment></VehichlePayment>
+          <RentingRegister></RentingRegister>
         </Container>
       </main>
     </div>
