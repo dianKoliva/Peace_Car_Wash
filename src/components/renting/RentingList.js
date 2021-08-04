@@ -9,78 +9,33 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import EditIcon from "@material-ui/icons/Edit";
 import { Grid } from "@material-ui/core";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 
 const columns = [
-  { id: "plate", label: "Plate_no", minWidth: 100, align: "left" },
-  { id: "customer", label: "Customer", minWidth: 170, align: "left" },
-  { id: "phone", label: "Phone_no", minWidth: 100, align: "left" },
-  { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
-  { id: "out_date", label: "Out Date", minWidth: 100, align: "left" },
-  { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
-  { id: "services", label: "Service", minWidth: 100, align: "left" },
-  { id: "amount", label: "Amount", minWidth: 100, align: "left" },
-  { id: "observation", label: "Observation", minWidth: 100 },
+  { id: "plot", label: "Plot Id", minWidth: 100, align: "left" },
+  { id: "customer", label: "Customer", minWidth: 100, align: "left" },
+  { id: "date", label: "Date", minWidth: 100, align: "left" },
+  { id: "status", label: "Status", minWidth: 100, align: "left" },
+  { id: "actions", label: "Actions", minWidth: 100, align: "left" },
 ];
 
-function createData(
-  plate,
-  customer,
-  phone,
-  entry_date,
-  out_date,
-  car_type,
-  services,
-  amount,
-  observation
-) {
+function createData(plot, customer, date, status, actions) {
   return {
-    plate,
+    plot,
     customer,
-    phone,
-    entry_date,
-    out_date,
-    car_type,
-    services,
-    amount,
-    observation,
+    date,
+    status,
+    actions,
   };
 }
 
 const rows = [
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "complete"
-  ),
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "incomplete"
-  ),
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "pending"
-  ),
+  createData("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "payed"),
+  createData("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "incomplete"),
+  createData("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "pending"),
 ];
 
 const useStyles = makeStyles({
@@ -126,7 +81,7 @@ export default function StickyHeadTable() {
       <Grid container spacing={3} xs="12">
         <Grid item xs="10">
           <div className="flex ml-4 mb-6 mt-4 ">
-            <p className="font-bold">List of vehicles</p>
+            <p className="font-bold">List of Renters</p>
             <p className="text-sm text-gray-500 ml-2">{rows.length} total</p>
           </div>
         </Grid>
@@ -147,7 +102,7 @@ export default function StickyHeadTable() {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
-                  className="classes.background"
+                  className={classes.background}
                 >
                   {column.label}
                 </TableCell>
@@ -159,47 +114,35 @@ export default function StickyHeadTable() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.plate}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.plot}>
                     {columns.map((column) => {
                       const value = row[column.id];
-                      if (column.id === "observation") {
-                        if (value === "complete") {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              <Button
-                                className={classes.complete}
-                                variant="contained"
-                                disabled
-                              >
-                                complete
-                              </Button>
-                            </TableCell>
-                          );
-                        } else if (value === "incomplete") {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              <Button
-                                variant="contained"
-                                className={classes.incomplete}
-                                color="primary"
-                              >
-                                incomplete
-                              </Button>
-                            </TableCell>
-                          );
-                        } else {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              <Button
-                                variant="contained"
-                                className={classes.pending}
-                                color="primary"
-                              >
-                                Pending
-                              </Button>
-                            </TableCell>
-                          );
-                        }
+
+                      if (column.id === "actions") {
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            <MoreVertIcon
+                              className="ml-1 text-gray-500"
+                              fontSize="small"
+                            ></MoreVertIcon>
+                            <EditIcon
+                              fontSize="small"
+                              className="ml-2 text-gray-500"
+                            ></EditIcon>
+                          </TableCell>
+                        );
+                      } else if (column.id === "status") {
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {value === "payed" ? (
+                              <p className="text-green-400">{value}</p>
+                            ) : value === "incomplete" ? (
+                              <p className="text-yellow-400">{value}</p>
+                            ) : (
+                              <p className="text-red-400">{value}</p>
+                            )}
+                          </TableCell>
+                        );
                       } else {
                         return (
                           <TableCell key={column.id} align={column.align}>
