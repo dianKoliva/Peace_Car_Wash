@@ -21,6 +21,7 @@ import ServiceList from "../components/dayServices/ServiceList";
 import RentPayment from "../components/renting/RentPayement.js";
 import RentingList from "../components/renting/RentingList.js";
 import Settings from "../components/Settings.js";
+import Dash from "../components/Dash.js"
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -159,7 +160,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Settings></Settings>
+          <Dash></Dash>
         </Container>
       </main>
     </div>

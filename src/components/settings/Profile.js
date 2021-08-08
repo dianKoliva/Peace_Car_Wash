@@ -4,7 +4,7 @@ import NotificationSettings from "./NotificationSettings.js";
 
 export default function Profile() {
   return (
-    <div>
+    <div className="ml-20">
       <div className="">
         <SavedInputs></SavedInputs>
       </div>
