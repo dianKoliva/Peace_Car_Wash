@@ -10,6 +10,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import EqualizerOutlinedIcon from "@material-ui/icons/EqualizerOutlined";
 import ContactSupportOutlinedIcon from "@material-ui/icons/ContactSupportOutlined";
 import QuestionAnswerOutlinedIcon from "@material-ui/icons/QuestionAnswerOutlined";
+import NestedList from "./NestedList.js";
 export const mainListItems = (
   <div>
     <ListItem button className="hover:text-blue-700 ">
@@ -19,12 +20,7 @@ export const mainListItems = (
 
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button className="hover:text-blue-700 ">
-      <ListItemIcon>
-        <BuildIcon />
-      </ListItemIcon>
-      <ListItemText primary="Services" />
-    </ListItem>
+    <NestedList></NestedList>
     <ListItem button className="hover:text-blue-700 ">
       <ListItemIcon>
         <AssessmentIcon />
