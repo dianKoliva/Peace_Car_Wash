@@ -4,15 +4,18 @@ export default function Cards() {
   return (
     <div>
       <Grid container xs="12">
-      <Paper>
         <Grid container xs="4">
-            
+            <Paper>
 <Grid item xs="12">
     <p>PROFITS</p>
+    <div className="flex font-bold text-lg"> 
+    <p>24,000</p>
+    <p>Frw</p>
+    </div>
+    
 </Grid>
-            
+            </Paper>
         </Grid>
-        </Paper>
         <Grid item xs="4"></Grid>
         <Grid item xs="4"></Grid>
       </Grid>
