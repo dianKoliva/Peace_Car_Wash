@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import bg from "../images/bg.jpg";
+import { Link as Linker } from "react-router-dom";
 
 // function Copyright() {
 //   return (
@@ -76,21 +77,21 @@ export default function SignInSide() {
                     className=" text-gray-500   text-sm"
                   ></KeyboardBackspaceIcon>
 
-                  <Typography className=" text-gray-500" variant="h9">
+                  <Typography className=" text-gray-500" variant="body2">
                     Go back
                   </Typography>
                 </div>
               </Grid>
               <Grid item>
-                <Typography className=" flex  text-gray-500" variant="h9">
+                <div className="flex text-gray-500">
                   No account?<p className=" underline">Sign Up</p>
-                </Typography>
+                </div>
               </Grid>
             </Grid>
 
             <div className=" mb-10">
               <Typography variant="h6">Sign In to Peace Carwash</Typography>
-              <Typography className="text-gray-500" variant="h9">
+              <Typography className="text-gray-500" variant="body2">
                 Sign In into the car wash, mechanic and rent management platform
               </Typography>
             </div>
@@ -128,6 +129,7 @@ export default function SignInSide() {
                   </span>
                 }
               />
+              <Linker to="/dashboard">
               <Button
                 type="submit"
                 fullWidth
@@ -137,6 +139,7 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
+              </Linker>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

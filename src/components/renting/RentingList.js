@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import EditIcon from "@material-ui/icons/Edit";
 import { Grid } from "@material-ui/core";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+
 
 const columns = [
   { id: "plot", label: "Plot Id", minWidth: 100, align: "left" },

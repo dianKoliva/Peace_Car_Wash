@@ -5,7 +5,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,14 +13,14 @@ import Container from "@material-ui/core/Container";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { mainListItems, secondaryListItems } from "../components/listItems";
 import DayServices from "../components/dayServices/DayServices";
 import VehichlePayment from "../components/dayServices/VehichlePayment";
-import ServiceList from "../components/dayServices/ServiceList";
 import RentPayment from "../components/renting/RentPayement.js";
 import RentingList from "../components/renting/RentingList.js";
 import Settings from "../components/Settings.js";
 import Dash from "../components/Dash.js"
+import Show from "../components/Show.js"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -153,14 +152,22 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
+        <Show></Show>
+        
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Dash></Dash>
+          <Router>
+        <Switch>
+          <Route path="/dashboard/day" exact component={DayServices}></Route>
+          <Route path="dashboard/daypay" exact component={VehichlePayment}></Route>
+          <Route path="dashboard/settings" exact component={Settings}></Route>
+          <Route path="dashboard/rent" exact component={RentingList}></Route>
+          <Route path="dashboard/payrent" exact component={RentPayment}></Route>
+        </Switch>
+      </Router>
         </Container>
       </main>
     </div>
