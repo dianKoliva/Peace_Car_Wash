@@ -1,11 +1,12 @@
 import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
-import React from "react";
+import React, { useContext } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
+import { MyContext } from "../../MyContext";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -41,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 function DayServices() {
   const classes = useStyles();
+  const {payRent,setPayRent}=useContext(MyContext);
+  const {newRenter,setNewRenter}=useContext(MyContext);
   return (
     <div>
       <Grid xs="12" container spacing={3}>
@@ -113,6 +116,7 @@ function DayServices() {
           <Grid xs={12} container spacing={3}>
             <Grid item xs={6}>
               <Button
+              onClick={()=>{setPayRent(true);setNewRenter(false)}}
                 variant="contained"
                 className={`${classes.greenBut} ${classes.width}  ${classes.otherMarg}`}
               >

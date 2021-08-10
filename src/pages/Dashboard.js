@@ -20,7 +20,11 @@ import RentingList from "../components/renting/RentingList.js";
 import Settings from "../components/Settings.js";
 import Dash from "../components/Dash.js"
 import Show from "../components/Show.js"
-import { useLocation } from 'react-router-dom';
+import { MyContext } from '../MyContext';
+import { useContext } from 'react';
+import RentingRegister from '../components/renting/RentingRegister'
+import Servicelist from "../components/dayServices/ServiceList"
+
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -94,10 +98,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
+  const {day,setDay}=useContext(MyContext);
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const location =useLocation();
-  var show=false;
+  const {settings,setSettings}=useContext(MyContext);
+  const{rent,setRenting}=useContext(MyContext);
+  const{newRenter,setNewRenter}=useContext(MyContext);
+  const {payRent,setPayRent}=useContext(MyContext);
+  const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
+  const {dayRecord,setDayRecord}=useContext(MyContext);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -160,7 +169,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-        {location.pathname==='/dashboard/settings'?show=true:null}
+        
 
           {/* {location.pathname==='/dashboard/day'?<DayServices/>
           :location.pathname==='/dashboard/daypay'?<VehichlePayment/>
@@ -170,7 +179,12 @@ export default function Dashboard() {
         :<Dash/>
         } */}
 
-         {show?<RentingList/>:null}
+         {day?<Servicelist/>:settings?<Settings/>:rent?<RentingList/>
+         :newRenter?<RentingRegister/>:
+         payRent?<RentPayment/>:
+         dayRecord?<DayServices/>:
+         dayServicePayment?<VehichlePayment/>
+         :<Dash/>}
        
         </Container>
       </main>

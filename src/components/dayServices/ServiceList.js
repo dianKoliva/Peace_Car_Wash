@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -10,6 +10,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
+import { MyContext } from "../../MyContext";
 
 const columns = [
   { id: "plate", label: "Plate_no", minWidth: 100, align: "left" },
@@ -111,6 +112,9 @@ export default function StickyHeadTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const {dayRecord,setDayRecord}=useContext(MyContext);
+  const {day,setDay}=useContext(MyContext);
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -132,7 +136,7 @@ export default function StickyHeadTable() {
         </Grid>
         <Grid item xs="2">
           <div className="ml-6 mb-2 mt-1">
-            <Button variant="outlined" color="primary" className="w-32">
+            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{setDayRecord(true);setDay(false)}}>
               New Record
             </Button>
           </div>

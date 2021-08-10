@@ -19,7 +19,9 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import { useHistory } from 'react-router-dom';
-import { useLocation,Link } from 'react-router-dom';
+// import { useLocation,Link } from 'react-router-dom';
+import { MyContext } from '../MyContext';
+import { useContext } from 'react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +37,16 @@ const useStyles = makeStyles((theme) => ({
 
   
 export default function Show(){
+
+  const {day,setDay}=useContext(MyContext);
+  const {settings,setSettings}=useContext(MyContext);
+  const{rent,setRenting}=useContext(MyContext);
+  const {dash,setDash}=useContext(MyContext);
+  const{newRenter,setNewRenter}=useContext(MyContext);
+  const {payRent,setPayRent}=useContext(MyContext);
+  const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
+
+  
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
    
@@ -43,13 +55,23 @@ export default function Show(){
       setOpen(!open);
     };
     const history =useHistory();
+    const changer=()=>{
+      if(settings===true){
+        console.log("settings true");
+      }
+    }
   
     return(
         <div>
             <div>
 <List>
     <ListItem button className="hover:text-blue-700 " 
-    onClick={()=>{history.push('/dashboard'); }}
+    onClick={()=>{setDash(true);
+      setRenting(false);setSettings(false);setDay(false)
+    setNewRenter(false);
+    setPayRent(false);
+    setDayServicepayment(false);
+    }}
     >
   
       <ListItemIcon>
@@ -68,13 +90,20 @@ export default function Show(){
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested} onClick={()=>history.push('/dashboard/day')}>
+          <ListItem button className={classes.nested} onClick={()=>
+            {setDay(true);
+              setSettings(false);
+              setRenting(false);
+        setNewRenter(false);
+        setPayRent(false);
+        setDayServicepayment(false);
+            }}>
             <ListItemIcon>
               <WbSunnyIcon />
             </ListItemIcon>
             <ListItemText primary="Day" />
           </ListItem>
-          <ListItem button className={classes.nested} onClick={()=>history.push('/dashboard/night')}>
+          <ListItem button className={classes.nested} >
             <ListItemIcon>
               <NightsStayIcon />
             </ListItemIcon>
@@ -82,13 +111,25 @@ export default function Show(){
           </ListItem>
         </List>
       </Collapse>
-    <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/dashboard/rent')}>
+    <ListItem button className="hover:text-blue-700 " onClick={()=>{setRenting(true);
+    setSettings(false);
+    setDay(false);
+    setNewRenter(false);
+    setPayRent(false);
+    setDayServicepayment(false);
+    }}>
       <ListItemIcon>
         <AssessmentIcon />
       </ListItemIcon>
       <ListItemText primary="Rent" />
     </ListItem>
-    <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/dashboard/settings')}>
+    <ListItem button className="hover:text-blue-700 " onClick={()=>{setSettings(true);
+    setDay(false);
+    setRenting(false);
+    setNewRenter(false);
+    setPayRent(false);
+    setDayServicepayment(false);
+    }}>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>

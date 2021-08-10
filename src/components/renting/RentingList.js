@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import EditIcon from "@material-ui/icons/Edit";
 import { Grid } from "@material-ui/core";
+import { MyContext } from "../../MyContext";
 
 
 const columns = [
@@ -76,6 +77,14 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
+  
+  const {day,setDay}=useContext(MyContext);
+  const {settings,setSettings}=useContext(MyContext);
+  const{rent,setRenting}=useContext(MyContext);
+  const {dash,setDash}=useContext(MyContext);
+
+  const { newRenter,setNewRenter}=useContext(MyContext);
+
   return (
     <Paper className={classes.root}>
       <Grid container spacing={3} xs="12">
@@ -87,7 +96,12 @@ export default function StickyHeadTable() {
         </Grid>
         <Grid item xs="2">
           <div className="ml-6 mb-2 mt-1">
-            <Button variant="outlined" color="primary" className="w-32">
+            <Button variant="outlined" color="primary" className="w-32" 
+            onClick={()=>{
+              setNewRenter(true);
+              setRenting(false);
+            }}
+            >
               New Record
             </Button>
           </div>
