@@ -20,7 +20,7 @@ import RentingList from "../components/renting/RentingList.js";
 import Settings from "../components/Settings.js";
 import Dash from "../components/Dash.js"
 import Show from "../components/Show.js"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -96,6 +96,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const location =useLocation();
+  var show=false;
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -158,16 +160,18 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Dash></Dash>
-          <Router>
-        <Switch>
-          <Route path="/dashboard/day" exact component={DayServices}></Route>
-          <Route path="dashboard/daypay" exact component={VehichlePayment}></Route>
-          <Route path="dashboard/settings" exact component={Settings}></Route>
-          <Route path="dashboard/rent" exact component={RentingList}></Route>
-          <Route path="dashboard/payrent" exact component={RentPayment}></Route>
-        </Switch>
-      </Router>
+        {location.pathname==='/dashboard/settings'?show=true:null}
+
+          {/* {location.pathname==='/dashboard/day'?<DayServices/>
+          :location.pathname==='/dashboard/daypay'?<VehichlePayment/>
+        :location.pathname==='/dashboard/settings'?<Settings/>
+        :location.pathname==='/dashboard/rent'?<RentingList/>
+        :location.pathname==='/dashboard/payrent'?<RentPayment/>
+        :<Dash/>
+        } */}
+
+         {show?<RentingList/>:null}
+       
         </Container>
       </main>
     </div>

@@ -4,7 +4,7 @@ export default function Dash() {
 
         return(
             <div>
-                <div><Cards></Cards></div>
+                <div>hheeee</div>
             </div>
             
         )

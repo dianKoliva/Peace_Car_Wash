@@ -19,7 +19,8 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import { useHistory } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useLocation,Link } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Show(){
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const location =useLocation();
+   
   
     const handleClick = () => {
       setOpen(!open);
@@ -48,7 +49,7 @@ export default function Show(){
             <div>
 <List>
     <ListItem button className="hover:text-blue-700 " 
-    onClick={()=>history.push('/dashboard')}
+    onClick={()=>{history.push('/dashboard'); }}
     >
   
       <ListItemIcon>
@@ -57,6 +58,7 @@ export default function Show(){
 
       <ListItemText primary="Dashboard" />
     </ListItem>
+    
     <ListItem button onClick={handleClick}>
         <ListItemIcon>
           <InboxIcon />
