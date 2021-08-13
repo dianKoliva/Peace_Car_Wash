@@ -1,84 +1,60 @@
 // import { Grid ,Paper} from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+
+import { Avatar, Grid, Paper } from "@material-ui/core";
+import BusinessIcon from '@material-ui/icons/Business';
 
 
 
-// const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
 
-//     margin:{
-//         marginLeft:'20px',
-//         marginTop:'20px',
-//         marginBottom:'10px',
-//         marginRight:'20px',
-//         paddingRight:'60px'
-//     }
+  avatar:{
+      backgroundColor:"#EC4C47"
+    },
+    paper:{
+height:"100%",
+width:"55%"
+    }
 
-// }))
+}))
 
+const cardInfo=[
+    {title:"profits",amount:"24,0000",period:"month"},
+    {title:"profits",amount:"24,0000",period:"month"},
+    {title:"profits",amount:"24,0000",period:"month"}
+];
 
 
 
 export default function Cards() {
-// const classes=useStyles();
+const classes=useStyles();
   return (
     <div>
-      {/* <Grid container xs="12" spacing={3}>
-        <Grid item xs="4">
+     <Grid container spacing={3} >
+       {cardInfo.map((info,index)=>(
+         <Grid item xs={4} key={index}>
+         <Paper className={classes.paper}>
+           <div className="flex">
+           <div className="ml-4 pt-2">
+           <p className="text-gray-500 font-bold uppercase">{info.title}</p>
+           <p className="text-lg mt-1">{info.amount}</p>
+           <p className="text-sm pt-2">Since {info.period}</p>
+           </div>
+           <div className="mt-4 ml-4 ">
+             <Avatar className={`
+               ${classes.avatar} sm:hidden md:hidden lg:hidden`
+             } > <BusinessIcon></BusinessIcon> </Avatar>
+           </div>
+           </div>
+           
+         </Paper>
+         </Grid>
+         
+       ))}
 
-        <Paper >
-<Grid item xs="12" className={classes.margin}>
-    <p className="text-gray-600">PROFITS</p>
-    <div className="flex font-bold text-lg mt-1"> 
-    <p>24,000</p>
-    <p>Frw</p>
-    </div>
 
-    <div className="flex text-gray-500 mt-2 text-md"> 
-    <p>Month:</p>
-    <p>September</p>
-    </div>
+     </Grid>
     
-</Grid>
-            </Paper>
-
-        </Grid>
-        <Grid item xs="4">
-        <Paper >
-<Grid item xs="12" className={classes.margin}>
-    <p className="text-gray-600">RENTERS</p>
-    <div className="flex font-bold text-lg mt-1"> 
-    <p>24,000</p>
-    <p>Frw</p>
-    </div>
-
-    <div className="flex text-gray-500 mt-2 text-md"> 
-    <p>Month:</p>
-    <p>September</p>
-    </div>
-    
-    
-</Grid>
-            </Paper>
-        </Grid>
-        <Grid item xs="4">
-        <Paper >
-<Grid item xs="12" className={classes.margin}>
-    <p className="text-gray-600">CARS RECIEVED</p>
-    <div className="flex font-bold text-lg mt-1"> 
-    <p>24,000</p>
-    <p>Frw</p>
-    </div>
-
-    <div className="flex text-gray-500 mt-2 text-md"> 
-    <p>Month:</p>
-    <p>September</p>
-    </div>
-    
-    
-</Grid>
-            </Paper>
-        </Grid>
-      </Grid> */}
     </div>
   );
 }
