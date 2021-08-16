@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,7 +10,6 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import bg from "../images/bg.jpg";
 import { Link as Linker } from "react-router-dom";
 
@@ -184,3 +184,4 @@ else{
     </div>
   );
 }
+/* eslint-disable no-unused-vars */

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import bg from "../images/bg.jpg";
 import Button from "@material-ui/core/Button";
@@ -10,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function SignUpSide() {
+
+  
   const classes = useStyles();
   const [fname,setFname]=useState("");
   const [lname,setLname]=useState("");
@@ -105,7 +108,22 @@ export default function SignUpSide() {
 
   }
 
+  
+
+
   }
+
+
+  const handleOnChange=(e)=>{
+    if(e.target.checked){
+    setRemember(true);
+    }
+    else{
+      setRemember(false);
+      console.log(remember);
+    }
+    
+    }
 
   
 
@@ -156,8 +174,9 @@ export default function SignUpSide() {
                 autoFocus
                 size="small"
                 inputProps={{ spellCheck: 'false' }}
-               
+                onBlur={(e)=>{handleOnblur(e);}}
               />
+              {lname==="n"?<p className="text-red-500"> Last Name required</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -169,8 +188,9 @@ export default function SignUpSide() {
                 autoComplete="phone number"
                 autoFocus
                 size="small"
-              
+                onBlur={(e)=>{handleOnblur(e);}}
               />
+              {phone==="n"?<p className="text-red-500">Phone Number required</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -182,11 +202,19 @@ export default function SignUpSide() {
                 id="password"
                 autoComplete="current-password"
                 size="small"
-                
+                onBlur={(e)=>{handleOnblur(e);}}
               />
+              {pass==="n"?<p className="text-red-500">Password required</p>:null}
               <FormControlLabel
                 control={
-                  <Checkbox value="remember" name="remember"   color="primary" fontSize="small" />
+                  <Checkbox value="remember" name="remember" 
+                  
+                  color="primary" fontSize="small"
+                  
+                  onChange={(e)=>{
+                    handleOnChange(e);
+                  }}
+                  />
                 }
                 label={
                   <span style={{ fontSize: "0.9em", color: "#9c9c9c" }}>
@@ -211,7 +239,7 @@ export default function SignUpSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/" variant="body2">
                     {"Already Have an account? Sign In"}
                   </Link>
                 </Grid>
@@ -224,3 +252,4 @@ export default function SignUpSide() {
     </div>
   );
 }
+/* eslint-enable no-unused-vars */
