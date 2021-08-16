@@ -12,7 +12,7 @@ export function Reports(){
 <div>
     {reports.map((report,index)=>(
 <div>
-<div className="flex mt-6" key={index}>
+<div className="flex mt-6" key={index+1}>
 <div>
     <AssessmentIcon fontSize="large" color="primary"></AssessmentIcon>
 </div>

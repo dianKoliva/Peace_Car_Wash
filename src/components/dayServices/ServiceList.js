@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -230,3 +231,5 @@ export default function StickyHeadTable() {
     </Paper>
   );
 }
+
+/* eslint-disable no-unused-vars */

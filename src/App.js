@@ -3,7 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import SignUp from "./pages/SignUp";
 import "./App.css";
 import { MyContext } from "./MyContext";
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import React, { useContext } from "react";
@@ -140,3 +141,4 @@ function DayServices() {
 }
 
 export default DayServices;
+/* eslint-disable no-unused-vars */

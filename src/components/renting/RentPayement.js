@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Grid, TextField, Typography, makeStyles } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -121,3 +122,5 @@ function RentingPayment(props) {
 }
 
 export default RentingPayment;
+
+/* eslint-disable no-unused-vars */
