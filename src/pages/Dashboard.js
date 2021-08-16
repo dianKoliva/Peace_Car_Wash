@@ -18,7 +18,7 @@ import DayServices from "../components/dayServices/DayServices";
 import VehichlePayment from "../components/dayServices/VehichlePayment";
 import RentPayment from "../components/renting/RentPayement.js";
 import RentingList from "../components/renting/RentingList.js";
-import Settings from "../components/Settings.js";
+
 import Dash from "../components/Dash.js"
 import Show from "../components/Show.js"
 import { MyContext } from '../MyContext';
@@ -180,7 +180,7 @@ export default function Dashboard() {
         :<Dash/>
         } */}
 
-         {day?<Servicelist/>:settings?<Settings/>:rent?<RentingList/>
+         {day?<Servicelist/>:rent?<RentingList/>
          :newRenter?<RentingRegister/>:
          payRent?<RentPayment/>:
          dayRecord?<DayServices/>:

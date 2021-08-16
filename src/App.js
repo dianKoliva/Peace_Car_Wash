@@ -4,10 +4,12 @@ import SignUp from "./pages/SignUp";
 import "./App.css";
 import { MyContext } from "./MyContext";
 import {  useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useRoutes } from 'react-router-dom';
+import routes from './routes';
 
 function App() {
 
+const routing=useRoutes(routes);
 const [day,setDay]=useState(false);
 const [settings,setSettings]=useState(false);
 const [rent,setRenting]=useState(false);
@@ -36,13 +38,7 @@ const [dayRecord,setDayRecord]=useState(false);
 
     <div className="App">
       
-      <Router>
-        <Switch>
-          <Route path="/" exact component={Login}></Route>
-          <Route path="/dashboard" exact component={Dashboard}></Route>
-          <Route path="/signup" exact component={SignUp}></Route>
-        </Switch>
-      </Router>
+   {routing}
     </div>
     </MyContext.Provider>
   );
