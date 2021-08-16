@@ -111,9 +111,9 @@ export default function StickyHeadTable() {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
+              {columns.map((column,index) => (
                 <TableCell
-                  key={column.id}
+                  key={index}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                   className={classes.background}
