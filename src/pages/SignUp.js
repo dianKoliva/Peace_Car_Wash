@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import bg from "../images/bg.jpg";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,18 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,41 +47,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function SignUpSide() {
   const classes = useStyles();
+  const [data,setData]=useState({first_name:null,last_name:null,phone:null,password:null,remember:false})
+  const handleInputs=(e)=>{
+  var name=e.target.name;
+  var value=e.target.value; 
+  if(e.target.type === 'checkbox'){
+    if(e.target.checked){
+        setData({"remember":true}) 
+    }
+    else{
+      setData({"remember":false})
+    }
+  }
+  else{
+    setData({[name]:value});
+  }
+  }
+
+
+
+  const handleSubmit=()=>{
+    for(var d in data){
+      console.log(data[d]);
+    }
+  }
+  
+
+
 
   return (
     <div className="w-2/3 h-96 ml-52">
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square >
           <div className={classes.paper}>
-            <Grid container className="mb-6">
-              <Grid item xs>
-                <div className="flex">
-                  <KeyboardBackspaceIcon
-                    fontSize="small"
-                    className=" text-gray-500   text-sm"
-                  ></KeyboardBackspaceIcon>
-
-                  <Typography className=" text-gray-500" variant="h9">
-                    Go back
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item>
-                <Typography className=" flex  text-gray-500" variant="h9">
-                  No account?<p className=" underline">Sign Up</p>
-                </Typography>
-              </Grid>
-            </Grid>
 
             <div className=" mb-4">
               <Typography variant="h6">Sign Up to Peace Carwash</Typography>
-              <Typography className="text-gray-500" variant="h9">
+              <Typography className="text-gray-500" variant="body2">
                 Sign In into the car wash, mechanic and rent management platform
               </Typography>
             </div>
+            <div className="text-red-500 text-sm"> 
+  
+   </div>
+            
 
             <form className={classes.form} noValidate>
               <TextField
@@ -100,36 +102,41 @@ export default function SignUpSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="first_name"
                 label="First Name"
-                name="fname"
-                autoComplete="fname"
+                name="first_name"
+                autoComplete="first_name"
                 size="small"
+                
                 autoFocus
+                inputProps={{ spellCheck: 'false' }}
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="lname"
                 label="Last Name"
-                name="lname"
+                name="last_name"
                 autoComplete="lname"
                 autoFocus
                 size="small"
+                inputProps={{ spellCheck: 'false' }}
+               
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="phone"
+                label="Phone number"
+                name="phone"
+                autoComplete="phone number"
                 autoFocus
                 size="small"
+              
               />
               <TextField
                 variant="outlined"
@@ -142,10 +149,11 @@ export default function SignUpSide() {
                 id="password"
                 autoComplete="current-password"
                 size="small"
+                
               />
               <FormControlLabel
                 control={
-                  <Checkbox value="remember" color="primary" fontSize="small" />
+                  <Checkbox value="remember" name="remember"   color="primary" fontSize="small" />
                 }
                 label={
                   <span style={{ fontSize: "0.9em", color: "#9c9c9c" }}>
@@ -154,13 +162,14 @@ export default function SignUpSide() {
                 }
               />
               <Button
-                type="submit"
+                // type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+               
               >
-                Sign In
+                Sign Up
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -170,7 +179,7 @@ export default function SignUpSide() {
                 </Grid>
                 <Grid item>
                   <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                    {"Already Have an account? Sign In"}
                   </Link>
                 </Grid>
               </Grid>

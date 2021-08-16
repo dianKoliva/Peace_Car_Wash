@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -13,18 +13,6 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import bg from "../images/bg.jpg";
 import { Link as Linker } from "react-router-dom";
 
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +49,44 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+  const [noEmail,setNoEmail]=useState(false);
+  const[email,setEmail]=useState("")
+  const[noPassword,setNoPassword]=useState(false);
+  const[password,setPassword]=useState("");
+  const[remember,setRemember]=useState(false);
+
+  const handleOnblur=(e)=>{
+if(e.target.name==="email"){
+  if(e.target.value===""){
+    setNoEmail(true);
+  }
+  else{
+    setNoEmail(false);
+   setEmail(e.target.value);
+  }
+
+}
+
+if(e.target.name==="password"){
+  if(e.target.value===""){
+    setNoPassword(true);
+  }
+  else{
+    setNoPassword(false);
+    setPassword(e.target.value);
+  }
+}
+  }
+
+const handleOnChange=(e)=>{
+if(e.target.checked){
+setRemember(true);
+}
+else{
+  setRemember(false);
+}
+
+}
 
   return (
     <div className="w-2/3 h-96 ml-52 bg-blue-50">
@@ -69,26 +95,7 @@ export default function SignInSide() {
         <Grid item xs={false} sm={4} md={6} className={classes.image} />
         <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
           <div className={classes.paper}>
-            <Grid container className="mb-6">
-              <Grid item xs>
-                <div className="flex">
-                  <KeyboardBackspaceIcon
-                    fontSize="small"
-                    className=" text-gray-500   text-sm"
-                  ></KeyboardBackspaceIcon>
-
-                  <Typography className=" text-gray-500" variant="body2">
-                    Go back
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item>
-                <div className="flex text-gray-500">
-                  No account?<p className=" underline">Sign Up</p>
-                </div>
-              </Grid>
-            </Grid>
-
+    
             <div className=" mb-10">
               <Typography variant="h6">Sign In to Peace Carwash</Typography>
               <Typography className="text-gray-500" variant="body2">
@@ -98,6 +105,7 @@ export default function SignInSide() {
 
             <form className={classes.form} noValidate>
               <TextField
+                defaultValue=""
                 variant="outlined"
                 margin="normal"
                 required
@@ -106,8 +114,14 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+               
+               
                 autoFocus
+                onBlur={(e)=>{
+                  handleOnblur(e);
+                }}
               />
+              {noEmail?<p className="text-sm text-red-500">Email required</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -118,10 +132,18 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onBlur={(e)=>{
+                  handleOnblur(e);
+                }}
+               
               />
+               {noPassword?<p className="text-sm text-red-500">Password Required</p>:null}
+            
               <FormControlLabel
                 control={
-                  <Checkbox value="remember" color="primary" fontSize="small" />
+                  <Checkbox value="remember" color="primary" fontSize="small"  onChange={(e)=>{
+                    handleOnChange(e);
+                  }}/>
                 }
                 label={
                   <span style={{ fontSize: "0.9em", color: "#9c9c9c" }}>
@@ -147,7 +169,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
