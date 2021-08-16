@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "80hv",
@@ -48,33 +49,65 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUpSide() {
   const classes = useStyles();
-  const [data,setData]=useState({first_name:null,last_name:null,phone:null,password:null,remember:false})
-  const handleInputs=(e)=>{
-  var name=e.target.name;
-  var value=e.target.value; 
-  if(e.target.type === 'checkbox'){
-    if(e.target.checked){
-        setData({"remember":true}) 
+  const [fname,setFname]=useState("");
+  const [lname,setLname]=useState("");
+  const [phone,setPhone]=useState("");
+  const [pass,setPass]=useState("");
+  const [remember,setRemember]=useState("");
+ const handleOnblur=(e)=>{
+
+  if(e.target.name==="fname"){
+
+    if(!e.target.value===""){
+      setFname(e.target.value);
+     
     }
     else{
-      setData({"remember":false})
+      setFname("n");
+      
     }
   }
-  else{
-    setData({[name]:value});
-  }
-  }
 
+  if(e.target.name==="lname"){
 
-
-  const handleSubmit=()=>{
-    for(var d in data){
-      console.log(data[d]);
+    if(!e.target.value===""){
+      setLname(e.target.value);
+     
+    }
+    else{
+      setLname("n");
+      
     }
   }
+
+
+  if(e.target.name==="pass"){
+
+    if(!e.target.value===""){
+      setPass(e.target.value);
+     
+    }
+    else{
+      setPass("n");
+      
+    }
+  }
+  if(e.target.name==="phone"){
+
+    if(!e.target.value===""){
+      setPhone(e.target.value);
+     
+    }
+    else{
+      setPhone("n");
+      
+    }
+
+  }
+
+  }
+
   
-
-
 
   return (
     <div className="w-2/3 h-96 ml-52">
@@ -102,13 +135,15 @@ export default function SignUpSide() {
                 fullWidth
                 id="first_name"
                 label="First Name"
-                name="first_name"
+                name="fname"
                 autoComplete="first_name"
                 size="small"
                 
                 autoFocus
                 inputProps={{ spellCheck: 'false' }}
+                onBlur={(e)=>{handleOnblur(e);}}
               />
+              {fname==="n"?<p className="text-red-500">First Name required</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -116,7 +151,7 @@ export default function SignUpSide() {
                 fullWidth
                 id="lname"
                 label="Last Name"
-                name="last_name"
+                name="lname"
                 autoComplete="lname"
                 autoFocus
                 size="small"
@@ -141,7 +176,7 @@ export default function SignUpSide() {
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                name="pass"
                 label="Password"
                 type="password"
                 id="password"
