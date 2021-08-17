@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from 'axios';
 
 
 
@@ -56,60 +57,54 @@ export default function SignUpSide() {
   const [lname,setLname]=useState("");
   const [phone,setPhone]=useState("");
   const [pass,setPass]=useState("");
+  const [inUse,setInUse]=useState(false);
   const [remember,setRemember]=useState("");
  const handleOnblur=(e)=>{
 
   if(e.target.name==="fname"){
 
-    if(!e.target.value===""){
-      setFname(e.target.value);
-     
+    if(e.target.value===""){
+ setFname("n");
     }
     else{
-      setFname("n");
+       setFname(e.target.value);
       
     }
   }
 
   if(e.target.name==="lname"){
 
-    if(!e.target.value===""){
-      setLname(e.target.value);
-     
+    if(e.target.value===""){
+ setLname("n");
     }
     else{
-      setLname("n");
+       setLname(e.target.value);
       
     }
   }
 
-
-  if(e.target.name==="pass"){
-
-    if(!e.target.value===""){
-      setPass(e.target.value);
-     
-    }
-    else{
-      setPass("n");
-      
-    }
-  }
   if(e.target.name==="phone"){
 
-    if(!e.target.value===""){
-      setPhone(e.target.value);
-     
+    if(e.target.value===""){
+ setPhone("n");
     }
     else{
-      setPhone("n");
+       setPhone(e.target.value);
       
     }
-
   }
 
-  
 
+if(e.target.name==="pass"){
+
+    if(e.target.value===""){
+ setPass("n");
+    }
+    else{
+       setPass(e.target.value);
+      
+    }
+  }
 
   }
 
@@ -123,6 +118,29 @@ export default function SignUpSide() {
       console.log(remember);
     }
     
+    }
+
+    const submit=async(
+        fname,lname,password,phone
+    )=>{
+ await axios.post('/users/signin', {
+ first_name: fname,
+  last_name: lname,
+  phone_number:phone,
+  role: "60ef38b745bc179852bb3ab9",
+  password: password
+})
+.then((response) => {
+  var message=response.data.message;
+  if(message==="Failed! Phone number is already in use!"){
+  setInUse(true);
+  }
+  else{
+    setInUse(false);
+  }
+}, (error) => {
+  console.log(error);
+});
     }
 
   
@@ -190,7 +208,7 @@ export default function SignUpSide() {
                 size="small"
                 onBlur={(e)=>{handleOnblur(e);}}
               />
-              {phone==="n"?<p className="text-red-500">Phone Number required</p>:null}
+              {phone==="n"?<p className="text-red-500">Phone Number required</p>:inUse?<p className="text-red-500">Change Number</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -228,6 +246,7 @@ export default function SignUpSide() {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={()=>{submit(fname,lname,pass)}}
                
               >
                 Sign Up

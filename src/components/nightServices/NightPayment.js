@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 function VehichlePayment(props) {
   const classes = useStyles();
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   return (
     <div>
       <Grid  container spacing={3}>
@@ -67,7 +69,8 @@ function VehichlePayment(props) {
               label="Payement Date"
               variant="outlined"
               type="date"
-              defaultValue="2017-05-24"
+            //   "2021-08-16"
+              defaultValue={date}
               size="small"
               className={classes.width}
               InputLabelProps={{

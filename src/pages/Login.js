@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import { useHistory } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -12,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import bg from "../images/bg.jpg";
 import { Link as Linker } from "react-router-dom";
+import axios from 'axios';
+import { MyContext } from "../MyContext";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,21 +51,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
+  const history=useHistory();
   const classes = useStyles();
-  const [noEmail,setNoEmail]=useState(false);
-  const[email,setEmail]=useState("")
+  const [noPhone,setNoPhone]=useState(false);
+  const[phone,setPhone]=useState("")
   const[noPassword,setNoPassword]=useState(false);
   const[password,setPassword]=useState("");
   const[remember,setRemember]=useState(false);
+  const{token,setToken}=useContext(MyContext);
+  const[go,setGo]=useState(false);
 
   const handleOnblur=(e)=>{
-if(e.target.name==="email"){
+if(e.target.name==="phone"){
   if(e.target.value===""){
-    setNoEmail(true);
+    setNoPhone(true);
   }
   else{
-    setNoEmail(false);
-   setEmail(e.target.value);
+    setNoPhone(false);
+   setPhone(e.target.value);
   }
 
 }
@@ -88,6 +94,35 @@ else{
 
 }
 
+    const submit=async(
+        pass,phone
+    )=>{
+      if(pass===""){
+        setNoPassword(true);
+      }
+      else if(phone===""){
+        setNoPhone(true);
+      }
+      else{
+
+await axios.post('/users/signin', {
+  phone_number:phone,
+  password: pass
+})
+.then((response) => {
+ if(response.data.message==="Success"){
+   setToken(response.data.token);
+   history.push("/dashboard")
+   
+ }
+}, (error) => {
+  console.log(error);
+});
+      }
+  
+
+    }
+
   return (
     <div className="w-2/3 h-96 ml-52 bg-blue-50">
       <Grid container component="main" className={classes.root}>
@@ -110,10 +145,10 @@ else{
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="phone"
+                label="Phone Number"
+                name="phone"
+                autoComplete="phone"
                
                
                 autoFocus
@@ -121,7 +156,7 @@ else{
                   handleOnblur(e);
                 }}
               />
-              {noEmail?<p className="text-sm text-red-500">Email required</p>:null}
+              {noPhone?<p className="text-sm text-red-500">Phone required</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -151,17 +186,21 @@ else{
                   </span>
                 }
               />
-              <Linker to="/dashboard">
+              {/* <Linker to="/dashboard"> */}
               <Button
-                type="submit"
+                // type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={()=>{
+                  submit(password,phone);
+                }}
               >
                 Sign In
               </Button>
-              </Linker>
+
+              {/* </Linker> */}
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

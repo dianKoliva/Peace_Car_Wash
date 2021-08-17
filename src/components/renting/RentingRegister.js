@@ -81,7 +81,6 @@ function DayServices() {
                 label="Entry Date"
                 variant="outlined"
                 type="date"
-                defaultValue="2017-05-24"
                 size="small"
                 className={`${classes.width} ${classes.otherMarg}`}
                 InputLabelProps={{

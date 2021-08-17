@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import NightList from "../components/nightServices/NightRegister";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -18,7 +19,7 @@ import DayServices from "../components/dayServices/DayServices";
 import VehichlePayment from "../components/dayServices/VehichlePayment";
 import RentPayment from "../components/renting/RentPayement.js";
 import RentingList from "../components/renting/RentingList.js";
-
+import Settings from "../components/Settings.js";
 import Dash from "../components/Dash.js"
 import Show from "../components/Show.js"
 import { MyContext } from '../MyContext';
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
+    
   },
   toolbarIcon: {
     display: "flex",
@@ -142,7 +144,7 @@ export default function Dashboard() {
             noWrap
             className={classes.title}
           >
-            Dashboard
+            Peace Carwash
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -180,12 +182,12 @@ export default function Dashboard() {
         :<Dash/>
         } */}
 
-         {day?<Servicelist/>:rent?<RentingList/>
+         {day?<Servicelist/>:settings?<Settings/>:rent?<RentingList/>
          :newRenter?<RentingRegister/>:
          payRent?<RentPayment/>:
          dayRecord?<DayServices/>:
          dayServicePayment?<VehichlePayment/>
-         :<Dash/>}
+         :<NightList/>}
        
         </Container>
       </main>

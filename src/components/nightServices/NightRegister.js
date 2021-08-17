@@ -8,9 +8,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
-import{useState} from 'react';
-import axios from '../../axios.js';
-
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -43,107 +40,8 @@ const useStyles = makeStyles((theme) => ({
 
 function DayServices() {
   const classes = useStyles();
-  const {token,setToken}=useContext(MyContext);
   const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
   const {dayRecord,setDayRecord}=useContext(MyContext);
-  const [plate,setPlate]=useState("");
-  const [type,setType]=useState("")
-  const [cus_name,setCusName]=useState("");
-  const[cus_phone,setCusPhone]=useState("");
-  const[care_fname,setCareFname]=useState("");
-  const[care_lname,setCareLname]=useState("");
-  const [care_phone,setCarePhone]=useState("");
-  const [service,setService]=useState("");
-  const [out_date,setOutDate]=useState();
-  const[entry_date,setEntryDate]=useState();
-
-const  handleBlur=(e)=>{
-
-  if(e.target.name==="plate"){
-    if (e.target.value==="") {
-      setPlate("n");
-    }
-    else{
-      setPlate(e.target.value);
-    }
-  }
-
-   if(e.target.name==="type"){
-    if (e.target.value==="") {
-      setType("n");
-    }
-    else{
-      setType(e.target.value);
-    }
-  }
-
-  if(e.target.name==="cus_name"){
-    if (e.target.value==="") {
-      setCusName("n");
-    }
-    else{
-      setCusName(e.target.value);
-    }
-  }
-
-  if(e.target.name==="cus_phone"){
-    if (e.target.value==="") {
-      setCusPhone("n");
-    }
-    else{
-      setCusPhone(e.target.value);
-    }
-  }
-
-   if(e.target.name==="care_phone"){
-    if (e.target.value==="") {
-      setCarePhone("n");
-    }
-    else{
-      setCarePhone(e.target.value);
-    }
-  }
-   if(e.target.name==="care_lname"){
-    if (e.target.value==="") {
-      setCareLname("n");
-    }
-    else{
-      setCareLname(e.target.value);
-    }
-  }
-   if(e.target.name==="care_fname"){
-    if (e.target.value==="") {
-      setCareFname("n");
-    }
-    else{
-      setCareFname(e.target.value);
-    }
-  }
-
-}
-
-const submit=async()=>{
-
-  const res = await axios.post('/dactivity', {  plate_number: "string",
-  car_type: "string",
-  entry_date: "string",
-  out_date: "string",
-  customer_name: "string",
-  phone_number: "string",
-  taker_fname: "string",
-  taker_lname: "string",
-  taker_number: "string",
-  service: "string" }, {
-  headers: {
-    'auth_token': token
-  }
-  
-});
-console.log(res);
-
-}
-
-
   return (
     <div>
       <Grid
@@ -167,12 +65,7 @@ console.log(res);
                 variant="outlined"
                 size="small"
                 className={classes.width}
-                name="plate"
-                onBlur={(e)=>{
-                  handleBlur(e);
-                }}
               />
-              {plate==="n"?<p className="text-red-500">plate number required</p>:null}
               <TextField
                 margin="dense"
                 label="Car Type"
@@ -181,12 +74,7 @@ console.log(res);
                 // InputLabelProps={{ style: { fontSize: 15 } }}
                 size="small"
                 className={classes.width}
-                name="type"
-                  onBlur={(e)=>{
-                  handleBlur(e);
-                }}
               />
-              {type==="n"?<p className="text-red-500 text-xs">Car Type required</p>:null}
             </Grid>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Customer Details</p>
@@ -195,28 +83,15 @@ console.log(res);
                 label="Customer's Name"
                 variant="outlined"
                 size="small"
-                name="cus_name"
                 className={classes.width}
-                onBlur={(e)=>{
-                  handleBlur(e);
-                }}
-
               />
-              {cus_name==="n"?<p className="text-red-500 text-xs">Customer name required</p>:null}
-
               <TextField
                 margin="dense"
                 label="Phone Number"
                 variant="outlined"
-                name="cus_phone"
-                
                 size="small"
                 className={classes.width}
-                onBlur={(e)=>{
-                  handleBlur(e);
-                }}
               />
-              {cus_phone==="n"?<p className="text-red-500 text-xs">Phone number required</p>:null}
             </Grid>
           </Grid>
           <Grid 
@@ -229,16 +104,26 @@ console.log(res);
                 className={` ${classes.width}`}
                 margin="dense"
               >
-                <InputLabel>Select</InputLabel>
-                <Select label="Service">
-                  {/* <MenuItem value="">
+                <InputLabel>Age</InputLabel>
+                <Select label="Age">
+                  <MenuItem value="">
                     <em>None</em>
-                  </MenuItem> */}
-                  <MenuItem value="mech">Mechanic</MenuItem>
-                  <MenuItem value="wash">Washing</MenuItem>
-                 
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
                 </Select>
               </FormControl>
+                <TextField
+                margin="dense"
+                label="Car Problem"
+                variant="outlined"
+                size="small"
+                className={classes.width}
+                // InputLabelProps={{
+                //   shrink: true,
+                // }}
+              />
               <br></br>
               <TextField
                 margin="dense"
@@ -246,7 +131,7 @@ console.log(res);
                 label="Entry Date"
                 variant="outlined"
                 type="date"
-                name="entry_date"
+                defaultValue="2017-05-24"
                 size="small"
                 className={classes.width}
                 InputLabelProps={{
@@ -254,19 +139,7 @@ console.log(res);
                 }}
               />
 
-            <TextField
-                margin="dense"
-                id="date"
-                label="Out Date"
-                variant="outlined"
-                type="date"
-                name="out_date"
-                size="small"
-                className={classes.width}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+            
             </Grid>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Care taker Details</p>
@@ -275,45 +148,22 @@ console.log(res);
                 label="First Name"
                 variant="outlined"
                 className={classes.width}
-                name="care_fname"
                 size="small"
-                 onBlur={
-                  (e)=>{
-                    handleBlur(e);
-                  }
-                }
               />
-              {care_fname==="n"?<p className="text-red-500 text-xs">First name required</p>:null}
               <TextField
                 margin="dense"
                 label="Last Name"
                 variant="outlined"
                 className={classes.width}
                 size="small"
-                name="care_lname"
-                 onBlur={
-                  (e)=>{
-                    handleBlur(e);
-                  }
-                }
               />
-              {care_lname==="n"?<p className="text-red-500 text-xs">Last name required</p>:null}
               <TextField
                 margin="dense"
                 label="Phone Number"
                 variant="outlined"
                 className={classes.width}
                 size="small"
-                name="care_phone"
-
-                onBlur={
-                  (e)=>{
-                    handleBlur(e);
-                  }
-                }
-                
               />
-              {care_phone==="n"?<p className="text-red-500 text-xs">Phone number required</p>:null}
             </Grid>
           </Grid>
           <Grid container spacing={3}>
@@ -321,9 +171,6 @@ console.log(res);
               <Button
                 variant="contained"
                 className={`${classes.blueBut} ${classes.width} ${classes.low}`}
-                onClick={()=>{
-                  submit();
-                }}
               >
                 Save
               </Button>
