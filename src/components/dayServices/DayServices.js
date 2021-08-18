@@ -56,6 +56,7 @@ function DayServices() {
   const [service,setService]=useState("");
   const [out_date,setOutDate]=useState();
   const[entry_date,setEntryDate]=useState();
+  const[error,setError]=useState();
 
 const  handleBlur=(e)=>{
 
@@ -123,31 +124,43 @@ const  handleBlur=(e)=>{
 }
 
 const submit=async()=>{
-
-  const json = JSON.stringify({plate_number: "string",
-  car_type: "string",
-  entry_date: "string",
-  out_date: "string",
-  customer_name: "string",
-  phone_number: "string",
-  taker_fname: "string",
-  taker_lname: "string",
-  taker_number: "string",
-  service: "string"})
- await axios.post('/dactivity',{
-  json
- },
- {
-  headers: {
-    'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjpudWxsLCJpYXQiOjE2MjkyMzY1MzksImV4cCI6MTYyOTMyMjkzOX0.6bcArCn1t-trWFp_0hLr2u2r7JWuSvHZg--15jsOCNI",
-    'Content-Type': 'application/json'
+  if(plate===""||type===""||cus_name===""||cus_phone===""||care_fname===""||care_lname===""||care_phone===""){
+   setError(true);
   }
-  
-}).then((response)=>{
-  console.log(response.data);
-}).catch(error=>{
-  console.log(error);
-})
+  else if(plate==="n"||type==="n"||cus_name==="n"||cus_phone==="n"||care_fname==="n"||care_lname==="n"||care_phone==="n"){
+    setError(false);
+  }
+  else{
+    setError(false);
+
+    const json = JSON.stringify({ 
+    plate_number: plate,
+    car_type: type,
+    entry_date: "2021-02-20",
+    out_date: "2021-02-20",
+    customer_name: cus_name,
+    phone_number: cus_phone,
+    taker_fname: care_fname,
+    taker_lname: care_lname,
+    taker_number: care_phone,
+    service: "60ef38b745bc179852bb3ab9"})
+   await axios.post('/dactivity',json,
+   {
+    headers: {
+      'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjpudWxsLCJpYXQiOjE2MjkyMzY1MzksImV4cCI6MTYyOTMyMjkzOX0.6bcArCn1t-trWFp_0hLr2u2r7JWuSvHZg--15jsOCNI",
+      'Content-Type': 'application/json'
+    }
+    
+  }).then((response)=>{
+    // console.log(response.data);
+  }).catch(error=>{
+    console.log(error);
+  })
+
+  }
+
+
+ 
 
 
 }
@@ -167,6 +180,7 @@ const submit=async()=>{
           <p className="text-gray-500">
             Register new vehicle attending Peace Car Wash Services
           </p>
+          {error?<p className="text-red-500 mt-2">No field should be left empty</p>:null}
           <Grid  container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Car Details</p>
