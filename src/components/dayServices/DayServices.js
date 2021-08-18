@@ -9,7 +9,7 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
 import{useState} from 'react';
-import axios from '../../axios.js';
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -124,7 +124,7 @@ const  handleBlur=(e)=>{
 
 const submit=async()=>{
 
-  const res = await axios.post('/dactivity', {  plate_number: "string",
+  const json = JSON.stringify({plate_number: "string",
   car_type: "string",
   entry_date: "string",
   out_date: "string",
@@ -133,13 +133,22 @@ const submit=async()=>{
   taker_fname: "string",
   taker_lname: "string",
   taker_number: "string",
-  service: "string" }, {
+  service: "string"})
+ await axios.post('/dactivity',{
+  json
+ },
+ {
   headers: {
-    'auth_token': token
+    'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjpudWxsLCJpYXQiOjE2MjkyMzY1MzksImV4cCI6MTYyOTMyMjkzOX0.6bcArCn1t-trWFp_0hLr2u2r7JWuSvHZg--15jsOCNI",
+    'Content-Type': 'application/json'
   }
   
-});
-console.log(res);
+}).then((response)=>{
+  console.log(response.data);
+}).catch(error=>{
+  console.log(error);
+})
+
 
 }
 

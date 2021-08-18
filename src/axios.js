@@ -1,11 +1,16 @@
-import axios from 'axios'
+// import axios from 'axios'
+// import {MyContext} from './MyContext';
+// import {useContext} from 'react';
 
-const axiosInstance = axios.create({
-  baseURL: "https://discipline--backend1.herokuapp.com",
-  headers: {
-    Authorization: localStorage.getItem("token"),
-  },
-  /* other custom settings */
-});
+// // const {token,setToken}=useContext(MyContext);
 
-export default axiosInstance;
+// const axiosInstance = axios.create({
+   
+//   baseURL: "https://garage--backend.herokuapp.com/api",
+//   headers: {
+//     Authorization: localStorage.getItem("token"),
+//   },
+//   /* other custom settings */
+// });
+
+// export default axiosInstance;

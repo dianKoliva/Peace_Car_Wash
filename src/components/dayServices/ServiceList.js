@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from "react";
+import React, { useContext,useEffect ,useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -12,11 +12,12 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
+import axios from 'axios';
 
 const columns = [
-  { id: "plate", label: "Plate_no", minWidth: 100, align: "left" },
-  { id: "customer", label: "Customer", minWidth: 170, align: "left" },
-  { id: "phone", label: "Phone_no", minWidth: 100, align: "left" },
+  { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
+  { id: "customer_name", label: "Customer", minWidth: 170, align: "left" },
+  { id: "phone_number", label: "Phone_no", minWidth: 100, align: "left" },
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
   { id: "out_date", label: "Out Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
@@ -26,6 +27,7 @@ const columns = [
 ];
 
 function createData(
+  id,
   plate,
   customer,
   phone,
@@ -37,6 +39,7 @@ function createData(
   observation
 ) {
   return {
+    id,
     plate,
     customer,
     phone,
@@ -49,7 +52,63 @@ function createData(
   };
 }
 
-const rows = [
+
+
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+  },
+  container: {
+    maxHeight: 440,
+  },
+  complete: {
+    backgroundColor: "#4AAF05",
+    width: "10em",
+  },
+  incomplete: {
+    backgroundColor: "#FB8832",
+    width: "10em",
+  },
+  pending: {
+    backgroundColor: "#FF5756",
+    width: "10em",
+  },
+  background: {
+    fontWeight: "bold",
+  },
+});
+
+export default function StickyHeadTable() {
+  const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const {dayRecord,setDayRecord}=useContext(MyContext);
+  const {day,setDay}=useContext(MyContext);
+  const {token,setToken}=useContext(MyContext);
+  const [data,setData]=useState("");
+
+  useEffect(()=>{
+   async function fetch(){
+    await axios.get('/dactivity',
+    {
+     headers: {
+       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjpudWxsLCJpYXQiOjE2MjkyMzY1MzksImV4cCI6MTYyOTMyMjkzOX0.6bcArCn1t-trWFp_0hLr2u2r7JWuSvHZg--15jsOCNI"
+     }
+     
+   }).then((response)=>{
+     setData(response.data);
+    
+    
+   }).catch(error=>{
+     console.log(error);
+   })
+   }
+   fetch();
+  },[data])
+
+
+
+  const rows = [
   createData(
     "RCA890G",
     "Gisa Kaze Fredson",
@@ -84,37 +143,6 @@ const rows = [
     "pending"
   ),
 ];
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-  container: {
-    maxHeight: 440,
-  },
-  complete: {
-    backgroundColor: "#4AAF05",
-    width: "10em",
-  },
-  incomplete: {
-    backgroundColor: "#FB8832",
-    width: "10em",
-  },
-  pending: {
-    backgroundColor: "#FF5756",
-    width: "10em",
-  },
-  background: {
-    fontWeight: "bold",
-  },
-});
-
-export default function StickyHeadTable() {
-  const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const {dayRecord,setDayRecord}=useContext(MyContext);
-  const {day,setDay}=useContext(MyContext);
 
 
   const handleChangePage = (event, newPage) => {
@@ -161,62 +189,21 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.plate}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      if (column.id === "observation") {
-                        if (value === "complete") {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              <Button
-                                className={classes.complete}
-                                variant="contained"
-                                disabled
-                              >
-                                complete
-                              </Button>
-                            </TableCell>
-                          );
-                        } else if (value === "incomplete") {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              <Button
-                                variant="contained"
-                                className={classes.incomplete}
-                                color="primary"
-                              >
-                                incomplete
-                              </Button>
-                            </TableCell>
-                          );
-                        } else {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              <Button
-                                variant="contained"
-                                className={classes.pending}
-                                color="primary"
-                              >
-                                Pending
-                              </Button>
-                            </TableCell>
-                          );
-                        }
-                      } else {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
+            {data?data.map((data,index)=>{
+              return(
+              <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+{columns.map((col,index)=>{
+
+const value = data[col.id];
+  return(
+ <TableCell key={index} align={col.align}>
                             {value}
                           </TableCell>
-                        );
-                      }
-                    })}
-                  </TableRow>
-                );
-              })}
+  )
+})}
+                </TableRow>
+              )
+            }):null}
           </TableBody>
         </Table>
       </TableContainer>
