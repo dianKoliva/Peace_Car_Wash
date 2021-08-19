@@ -12,7 +12,8 @@ import RegisterDay from "./components/dayServices/DayServices"
 import RentingList from "./components/renting/RentingList"
 import RentingRegister from "./components/renting/RentingRegister"
 import RentPayement from "./components/renting/RentPayement"
-import Settings from "./components/settings/Profile"
+import Settings from "./components/Settings"
+import RentingPayment from "./components/renting/RentPayement";
 
 
 function App() {
@@ -52,14 +53,11 @@ const [open, setOpen] =useState(true);
         <Switch>
           <Route path="/" exact component={Login}></Route>
           <Route path="/app" exact component={Dash}></Route>
-          <Route path="app/dayservices" exact component={DayServices}></Route>
-          <Route path="app/dayservices/payment" exact component={VehichlePayment}></Route>
-          <Route path="app/dayservices/register" exact component={RegisterDay}></Route>
-          <Route path="app/rent" exact component={RentingList}></Route>
-          <Route path="app/rent/register" exact component={RentingRegister}></Route>
-          <Route path="app/rent/Payement" exact component={RentPayement}></Route>
-          <Route path="app/settings" component={Settings}></Route>
-          
+          <Route path="/app/settings" exact component={Settings}></Route>
+          <Route path="/app/rent" exact component={RentingList}></Route>
+          <Route path="/app/rent/payment" exact component={RentingPayment}></Route>
+          <Route path="/app/rent/register" exact component={RentingRegister}></Route>
+        
           <Route path="/signup" exact component={SignUp}></Route>
         </Switch>
       </Router>

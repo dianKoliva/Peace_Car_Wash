@@ -67,12 +67,7 @@ export default function Show(){
             <div>
 <List>
     <ListItem button className="hover:text-blue-700 " 
-    onClick={()=>{setDash(true);
-      setRenting(false);setSettings(false);setDay(false)
-    setNewRenter(false);
-    setPayRent(false);
-    setDayServicepayment(false);
-    }}
+    onClick={()=>history.push("/app")}
     >
   
       <ListItemIcon>
