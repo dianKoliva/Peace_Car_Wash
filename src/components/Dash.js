@@ -2,6 +2,7 @@ import { Grid, makeStyles, Paper } from "@material-ui/core"
 import Cards from "./dashboard/Cards.js"
 import Chart from "./dashboard/Chart"
 import clsx from 'clsx';
+import Dashboard from "../layout/Dashboard.js";
 import { Reports } from "./dashboard/Reports.js";
 
 const useStyles=makeStyles((theme)=>({
@@ -24,6 +25,7 @@ export default function Dash() {
 const classes=useStyles();
 const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
         return(
+<Dashboard>
             <div>
                 <Cards></Cards>
                 <div className="flex">
@@ -44,6 +46,7 @@ const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
                    </Grid>
                 </div>
             </div>
+  </Dashboard>
             
         )
  

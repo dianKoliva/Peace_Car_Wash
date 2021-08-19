@@ -14,6 +14,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import EditIcon from "@material-ui/icons/Edit";
 import { Grid } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
+import Dashboard from "../../layout/Dashboard";
 
 
 const columns = [
@@ -87,6 +88,7 @@ export default function StickyHeadTable() {
   const { newRenter,setNewRenter}=useContext(MyContext);
 
   return (
+    <Dashboard>
     <Paper className={classes.root}>
       <Grid container spacing={3} xs="12">
         <Grid item xs="10">
@@ -182,6 +184,7 @@ export default function StickyHeadTable() {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
+    </Dashboard>
   );
 }
 /* eslint-disable no-unused-vars */

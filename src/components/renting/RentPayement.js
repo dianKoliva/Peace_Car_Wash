@@ -4,6 +4,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import React from "react";
+import Dashboard from "../../layout/Dashboard";
 
 const useStyles = makeStyles((theme) => ({
   width: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 function RentingPayment(props) {
   const classes = useStyles();
   return (
+    <Dashboard>
     <div>
       <Grid xs="12" container spacing={3}>
         <Grid item xs={6}>
@@ -118,6 +120,7 @@ function RentingPayment(props) {
         </Grid>
       </Grid>
     </div>
+    </Dashboard>
   );
 }
 

@@ -8,6 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
+import Dashboard from "../../layout/Dashboard";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -46,6 +47,7 @@ function DayServices() {
   const {payRent,setPayRent}=useContext(MyContext);
   const {newRenter,setNewRenter}=useContext(MyContext);
   return (
+    <Dashboard>
     <div>
       <Grid xs="12" container spacing={3}>
         <Grid item xs={6}>
@@ -135,7 +137,9 @@ function DayServices() {
           </Grid>
         </Grid>
       </Grid>
+      
     </div>
+    </Dashboard>
   );
 }
 

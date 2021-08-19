@@ -9,7 +9,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { MyContext } from '../../MyContext';
+import { MyContext } from '../MyContext';
 
 const drawerWidth = 240;
 
@@ -31,9 +31,12 @@ const useStyles = makeStyles((theme) => ({
           duration: theme.transitions.duration.enteringScreen,
         }),
       },
+      title: {
+        flexGrow: 1,
+      },
 }))
 
- function Side(){
+ function Header(){
     const classes = useStyles();
     const {open, setOpen} =useContext(MyContext) 
     const handleDrawerOpen = () => {
@@ -79,5 +82,4 @@ return(
 )
 
 }
-
-export default Side;
+export default Header;

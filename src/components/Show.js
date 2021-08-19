@@ -92,12 +92,8 @@ export default function Show(){
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem button className={classes.nested} onClick={()=>
-            {setDay(true);
-              setSettings(false);
-              setRenting(false);
-        setNewRenter(false);
-        setPayRent(false);
-        setDayServicepayment(false);
+            {
+
             }}>
             <ListItemIcon>
               <WbSunnyIcon />
@@ -112,25 +108,13 @@ export default function Show(){
           </ListItem>
         </List>
       </Collapse>
-    <ListItem button className="hover:text-blue-700 " onClick={()=>{setRenting(true);
-    setSettings(false);
-    setDay(false);
-    setNewRenter(false);
-    setPayRent(false);
-    setDayServicepayment(false);
-    }}>
+    <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/app/rent')}>
       <ListItemIcon>
         <AssessmentIcon />
       </ListItemIcon>
       <ListItemText primary="Rent" />
     </ListItem>
-    <ListItem button className="hover:text-blue-700 " onClick={()=>{setSettings(true);
-    setDay(false);
-    setRenting(false);
-    setNewRenter(false);
-    setPayRent(false);
-    setDayServicepayment(false);
-    }}>
+    <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/app/settings')}>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>
