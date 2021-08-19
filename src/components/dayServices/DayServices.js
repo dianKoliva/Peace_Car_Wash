@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function DayServices() {
+  var date=new Date();
+  var final=`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+  
   const classes = useStyles();
   const {token,setToken}=useContext(MyContext);
   const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
@@ -55,8 +58,11 @@ function DayServices() {
   const [care_phone,setCarePhone]=useState("");
   const [service,setService]=useState("");
   const [out_date,setOutDate]=useState();
-  const[entry_date,setEntryDate]=useState();
+  const[entry_date,setEntryDate]=useState(final);
   const[error,setError]=useState();
+  const[mech,setMech]=useState();
+  const[wash,setWash]=useState();
+
 
 const  handleBlur=(e)=>{
 
@@ -124,7 +130,7 @@ const  handleBlur=(e)=>{
 }
 
 const submit=async()=>{
-  if(plate===""||type===""||cus_name===""||cus_phone===""||care_fname===""||care_lname===""||care_phone===""){
+  if(plate===""||type===""||cus_name===""||cus_phone===""||care_fname===""||care_lname===""||care_phone===""||service===""){
    setError(true);
   }
   else if(plate==="n"||type==="n"||cus_name==="n"||cus_phone==="n"||care_fname==="n"||care_lname==="n"||care_phone==="n"){
@@ -180,7 +186,7 @@ const submit=async()=>{
           <p className="text-gray-500">
             Register new vehicle attending Peace Car Wash Services
           </p>
-          {error?<p className="text-red-500 mt-2">No field should be left empty</p>:null}
+          {error?<p className="text-red-500 mt-2">Some Fields shouldn't be left empty</p>:null}
           <Grid  container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Car Details</p>
@@ -253,15 +259,20 @@ const submit=async()=>{
                 margin="dense"
               >
                 <InputLabel>Select</InputLabel>
-                <Select label="Service">
-                  {/* <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem> */}
-                  <MenuItem value="mech">Mechanic</MenuItem>
-                  <MenuItem value="wash">Washing</MenuItem>
+                <Select label="Service"
+                onChange={(e)=>{
+                   setService (e.target.value);          
+                }}
+                >
+                 
+                  
+                  
+          <MenuItem value={mech}>Mechanic</MenuItem>
+          <MenuItem value={wash}>Wash</MenuItem>
                  
                 </Select>
               </FormControl>
+              
               <br></br>
               <TextField
                 margin="dense"
@@ -272,6 +283,11 @@ const submit=async()=>{
                 name="entry_date"
                 size="small"
                 className={classes.width}
+                onChange={(e)=>{setEntryDate(e.target.value);
+                }
+
+                  
+                }
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -347,6 +363,7 @@ const submit=async()=>{
                 onClick={()=>{
                   submit();
                 }}
+                color="primary"
               >
                 Save
               </Button>

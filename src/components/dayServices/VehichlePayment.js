@@ -25,7 +25,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function VehichlePayment(props) {
+  var dat=new Date();
+  var final=`${dat.getFullYear()}-${dat.getMonth()}-${dat.getDate()}`
   const classes = useStyles();
+  const [checked, setChecked] = React.useState(false);
+  const[agree,setAgree]=React.useState(false);
+  const[complete,setComplete]=React.useState(false);
+  const[amount,setAmount]=React.useState();
+  const[date,setDate]=React.useState(final);
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
   return (
     <div>
       <Grid  container spacing={3}>
@@ -45,16 +55,27 @@ function VehichlePayment(props) {
               variant="outlined"
               size="small"
               className={classes.width}
+              name=""
+              onBlur={(e)=>{
+              if(e.target.value===""){
+                setAmount("n")
+              }
+              else{
+                setAmount(e.target.value);
+              }
+              }}
             />
+            {amount==="n"?<p className="text-red-500 text-sm" >Amount required</p>:null}
             <br></br>
             <FormControlLabel
               control={
                 <Checkbox
-                  checked=""
-                  onChange=""
-                  name="checkedB"
-                  color="primary"
-                />
+                checked={checked}
+                onChange={handleChange}
+                color="primary"
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+                name="agree"
+              />
               }
               label="Accept Terms and Conditions"
             />
@@ -78,11 +99,12 @@ function VehichlePayment(props) {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked=""
-                  onChange=""
-                  name="checkedB"
-                  color="primary"
-                />
+                checked={checked}
+                onChange={handleChange}
+                color="primary"
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+                name="complete"
+              />
               }
               label="Completed Payment"
             />
