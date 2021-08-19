@@ -58,7 +58,7 @@ const [open, setOpen] =useState(true);
           <Route path="app/rent" exact component={RentingList}></Route>
           <Route path="app/rent/register" exact component={RentingRegister}></Route>
           <Route path="app/rent/Payement" exact component={RentPayement}></Route>
-          <Route path="app/settingss" component={Settings}></Route>
+          <Route path="app/settings" component={Settings}></Route>
           
           <Route path="/signup" exact component={SignUp}></Route>
         </Switch>
