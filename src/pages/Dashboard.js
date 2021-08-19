@@ -103,13 +103,13 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const {day,setDay}=useContext(MyContext);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
   const {settings,setSettings}=useContext(MyContext);
   const{rent,setRenting}=useContext(MyContext);
   const{newRenter,setNewRenter}=useContext(MyContext);
   const {payRent,setPayRent}=useContext(MyContext);
   const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
   const {dayRecord,setDayRecord}=useContext(MyContext);
+  const {open, setOpen} =useContext(MyContext) 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -120,39 +120,7 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            Peace Carwash
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      
       <Drawer
         variant="permanent"
         classes={{

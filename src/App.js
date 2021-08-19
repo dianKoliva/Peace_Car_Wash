@@ -18,6 +18,7 @@ const [payRent,setPayRent]=useState(false);
 const [dayServicePayment,setDayServicepayment]=useState(false);
 const [dayRecord,setDayRecord]=useState(false);
 const [token,setToken]=useState("");
+const [open, setOpen] =useState(true);
 
   return (
     <MyContext.Provider
@@ -31,7 +32,8 @@ const [token,setToken]=useState("");
       payRent,setPayRent,
       dayServicePayment,setDayServicepayment,
       dayRecord,setDayRecord,
-      token,setToken
+      token,setToken,
+      open, setOpen
     }}
 
     >
