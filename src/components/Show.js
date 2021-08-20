@@ -34,7 +34,12 @@ const useStyles = makeStyles((theme) => ({
     nested: {
       paddingLeft: theme.spacing(4),
     },
+    background:{
+      backgroundColor:"red"
+    }
   }));
+
+
 
   
 export default function Show(){
@@ -66,9 +71,10 @@ export default function Show(){
         <div>
             <div>
 <List>
-    <ListItem button className="hover:text-blue-700 " 
+    <ListItem button className={history.location.pathname==="/app"?classes.background:null} 
     onClick={()=>history.push("/app")}
     >
+    
   
       <ListItemIcon>
         <DashboardIcon />
@@ -88,7 +94,7 @@ export default function Show(){
         <List component="div" disablePadding>
           <ListItem button className={classes.nested} onClick={()=>
             {
-
+  history.push("app/dayservices")
             }}>
             <ListItemIcon>
               <WbSunnyIcon />

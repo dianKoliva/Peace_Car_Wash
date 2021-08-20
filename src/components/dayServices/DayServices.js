@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
 import{useState} from 'react';
 import axios from 'axios';
+import Dashboard from "../../layout/Dashboard";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,8 +61,8 @@ function DayServices() {
   const [out_date,setOutDate]=useState();
   const[entry_date,setEntryDate]=useState(final);
   const[error,setError]=useState();
-  const[mech,setMech]=useState();
-  const[wash,setWash]=useState();
+  const[mech,setMech]=useState("Mechanic");
+  const[wash,setWash]=useState("Wash");
 
 
 const  handleBlur=(e)=>{
@@ -173,6 +174,7 @@ const submit=async()=>{
 
 
   return (
+    <Dashboard>
     <div>
       <Grid
       
@@ -385,6 +387,7 @@ const submit=async()=>{
         </Grid>
       </Grid>
     </div>
+    </Dashboard>
   );
 }
 

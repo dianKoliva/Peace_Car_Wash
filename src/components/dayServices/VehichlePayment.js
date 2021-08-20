@@ -3,6 +3,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import React from "react";
+import Dashboard from "../../layout/Dashboard";
 
 const useStyles = makeStyles((theme) => ({
   width: {
@@ -37,6 +38,7 @@ function VehichlePayment(props) {
     setChecked(event.target.checked);
   };
   return (
+    <Dashboard>
     <div>
       <Grid  container spacing={3}>
         <Grid item xs={6}>
@@ -132,6 +134,7 @@ function VehichlePayment(props) {
         </Grid>
       </Grid>
     </div>
+    </Dashboard>
   );
 }
 

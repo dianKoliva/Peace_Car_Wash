@@ -53,10 +53,17 @@ const [open, setOpen] =useState(true);
         <Switch>
           <Route path="/" exact component={Login}></Route>
           <Route path="/app" exact component={Dash}></Route>
+
           <Route path="/app/settings" exact component={Settings}></Route>
+
           <Route path="/app/rent" exact component={RentingList}></Route>
           <Route path="/app/rent/payment" exact component={RentingPayment}></Route>
           <Route path="/app/rent/register" exact component={RentingRegister}></Route>
+
+          <Route path="/app/dayservices" exact component={DayServices}></Route>
+          <Route path="/app/dayservices/pay" exact component={VehichlePayment}></Route>
+          <Route path="/app/dayservices/register" exact component={RegisterDay}></Route>
+          
         
           <Route path="/signup" exact component={SignUp}></Route>
         </Switch>

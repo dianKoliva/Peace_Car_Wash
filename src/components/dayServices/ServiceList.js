@@ -12,7 +12,9 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
+import Dashboard from "../../layout/Dashboard";
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const columns = [
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
@@ -82,8 +84,6 @@ export default function StickyHeadTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const {dayRecord,setDayRecord}=useContext(MyContext);
-  const {day,setDay}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
 
@@ -92,7 +92,7 @@ export default function StickyHeadTable() {
     await axios.get('/dactivity',
     {
      headers: {
-       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjpudWxsLCJpYXQiOjE2MjkyMzY1MzksImV4cCI6MTYyOTMyMjkzOX0.6bcArCn1t-trWFp_0hLr2u2r7JWuSvHZg--15jsOCNI"
+       'Authorization': token
      }
      
    }).then((response)=>{
@@ -153,8 +153,10 @@ export default function StickyHeadTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const history=useHistory();
 
   return (
+    <Dashboard>
     <Paper className={classes.root}>
       <Grid container spacing={3} >
         <Grid item xs={10}>
@@ -166,7 +168,7 @@ export default function StickyHeadTable() {
         <Grid item xs={2}
         >
           <div className="ml-6 mb-2 mt-1">
-            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{setDayRecord(true);setDay(false)}}>
+            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/dayservices/register")}}>
               New Record
             </Button>
           </div>
@@ -217,6 +219,7 @@ const value = data[col.id];
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
+    </Dashboard>
   );
 }
 
