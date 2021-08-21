@@ -44,18 +44,10 @@ const useStyles = makeStyles((theme) => ({
   
 export default function Show(){
 
-  const {day,setDay}=useContext(MyContext);
   const {settings,setSettings}=useContext(MyContext);
-  const{rent,setRenting}=useContext(MyContext);
-  const {dash,setDash}=useContext(MyContext);
-  const{newRenter,setNewRenter}=useContext(MyContext);
-  const {payRent,setPayRent}=useContext(MyContext);
-  const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
-
-  
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-   
+  
   
     const handleClick = () => {
       setOpen(!open);
@@ -92,10 +84,7 @@ export default function Show(){
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested} onClick={()=>
-            {
-  history.push("app/dayservices")
-            }}>
+          <ListItem button className={classes.nested} onClick={()=>history.push('/app/dayservices')}>
             <ListItemIcon>
               <WbSunnyIcon />
             </ListItemIcon>

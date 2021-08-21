@@ -112,7 +112,7 @@ await axios.post('/users/signin', {
 .then((response) => {
  if(response.data.message==="Success"){
    setToken(response.data.token);
-   history.push("/dashboard")
+   history.push("/app")
    
  }
 }, (error) => {

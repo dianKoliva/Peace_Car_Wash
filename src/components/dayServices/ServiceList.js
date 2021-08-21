@@ -88,22 +88,23 @@ export default function StickyHeadTable() {
   const [data,setData]=useState("");
 
   useEffect(()=>{
+  
    async function fetch(){
     await axios.get('/dactivity',
     {
      headers: {
-       'Authorization': token
+       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTUxODk1MywiZXhwIjoxNjI5NjA1MzUzfQ.6bV9sc0v0g_vFHV43UYhIDWxYXz_iKOcpdu5V3TPwWE"
      }
      
    }).then((response)=>{
      setData(response.data);
-    
+     console.log(response)
     
    }).catch(error=>{
      console.log(error);
    })
    }
-   fetch();
+
   },[data])
 
 

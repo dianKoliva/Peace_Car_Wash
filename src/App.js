@@ -14,33 +14,19 @@ import RentingRegister from "./components/renting/RentingRegister"
 import RentPayement from "./components/renting/RentPayement"
 import Settings from "./components/Settings"
 import RentingPayment from "./components/renting/RentPayement";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 function App() {
 
-const [day,setDay]=useState(false);
-const [settings,setSettings]=useState(false);
-const [rent,setRenting]=useState(false);
-const [dash,setDash]=useState(false);
-const [newRenter,setNewRenter]=useState(false);
-const [payRent,setPayRent]=useState(false);
-const [dayServicePayment,setDayServicepayment]=useState(false);
-const [dayRecord,setDayRecord]=useState(false);
-const [token,setToken]=useState("");
+const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTUxODk1MywiZXhwIjoxNjI5NjA1MzUzfQ.6bV9sc0v0g_vFHV43UYhIDWxYXz_iKOcpdu5V3TPwWE");
 const [open, setOpen] =useState(true);
 
   return (
     <MyContext.Provider
     
     value={{
-      day,setDay,
-      settings,setSettings,
-      rent,setRenting,
-      dash,setDash,
-      newRenter,setNewRenter,
-      payRent,setPayRent,
-      dayServicePayment,setDayServicepayment,
-      dayRecord,setDayRecord,
+  
       token,setToken,
       open, setOpen
     }}
@@ -52,7 +38,7 @@ const [open, setOpen] =useState(true);
       <Router>
         <Switch>
           <Route path="/" exact component={Login}></Route>
-          <Route path="/app" exact component={Dash}></Route>
+          <ProtectedRoute path="/app" exact component={Dash}/>
 
           <Route path="/app/settings" exact component={Settings}></Route>
 
