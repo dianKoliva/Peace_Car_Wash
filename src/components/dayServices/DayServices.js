@@ -12,6 +12,7 @@ import{useState} from 'react';
 import axios from 'axios';
 import Dashboard from "../../layout/Dashboard";
 import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router";
 
 
 
@@ -76,6 +77,7 @@ function DayServices() {
   const[error,setError]=useState();
   const[mech,setMech]=useState("Mechanic");
   const[wash,setWash]=useState("Wash");
+  const{toBePayed,setToBePayed}=useContext(MyContext);
 
 
 
@@ -414,6 +416,10 @@ const submit=async()=>{
                 variant="contained"
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} ${classes.low}`}
+                onClick={()=>{
+                setToBePayed(plate)
+                  history.push("/app/dayservices/payment")
+                }}
                 
               >
                 Continue Payment
