@@ -1,14 +1,9 @@
-import axios from 'axios';
-import MyContext from './MyContext';
-import {useContext} from 'react';
+// import axios from 'axios';
+// import MyContext from './MyContext';
+// import {useContext} from 'react';
 
-const {token,setToken}=useContext(MyContext)
+// const {token,setToken}=useContext(MyContext)
 
-export default Class Requests(){
- setHeader(){
-  
-
- printer(){
-     console.log("Hello world");
- }
-}
+// export default Class Requests(){
+//  function getServices{}
+// }

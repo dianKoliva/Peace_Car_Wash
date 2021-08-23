@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -11,6 +11,8 @@ import { MyContext } from "../../MyContext";
 import{useState} from 'react';
 import axios from 'axios';
 import Dashboard from "../../layout/Dashboard";
+import { useHistory } from "react-router-dom";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,32 +46,71 @@ const useStyles = makeStyles((theme) => ({
 
 function DayServices() {
   var date=new Date();
-  var final=`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+  var month=date.getMonth();
+  var history=useHistory();
+  function check(){
+    if(month<10){
+      var h=month
+      month=`0${h}`
+    }
+   
+  }
+   check();
+   
+ 
+  var final=`${date.getFullYear()}-${month}-${date.getDate()}`
   
   const classes = useStyles();
   const {token,setToken}=useContext(MyContext);
-  const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
-  const {dayRecord,setDayRecord}=useContext(MyContext);
   const [plate,setPlate]=useState("");
   const [type,setType]=useState("")
   const [cus_name,setCusName]=useState("");
   const[cus_phone,setCusPhone]=useState("");
-  const[care_fname,setCareFname]=useState("");
+  const[taker_fname,setTakerFname]=useState("")
   const[care_lname,setCareLname]=useState("");
   const [care_phone,setCarePhone]=useState("");
   const [service,setService]=useState("");
-  const [out_date,setOutDate]=useState();
+  const [out_date,setOutDate]=useState("");
   const[entry_date,setEntryDate]=useState(final);
   const[error,setError]=useState();
   const[mech,setMech]=useState("Mechanic");
   const[wash,setWash]=useState("Wash");
+  const[data,setData]=useState("");
+
+
+  async function fetch(){
+    await axios.get('/services',
+    {
+     headers: {
+       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTcyMDY2MywiZXhwIjoxNjI5ODA3MDYzfQ.7nTeOEMvtYmWNuB2hlEtIxHkGBRhGh763znaxy5LnAE"
+     }
+     
+   }).then((response)=>{
+    
+    setData(response.data)
+  
+   }).catch(error=>{
+     console.log(error);
+   })
+   }
+  
+   
+
+  useEffect(()=>{
+fetch();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+
+  
 
 
 const  handleBlur=(e)=>{
 
   if(e.target.name==="plate"){
     if (e.target.value==="") {
-      setPlate("n");
+     
     }
     else{
       setPlate(e.target.value);
@@ -78,7 +119,7 @@ const  handleBlur=(e)=>{
 
    if(e.target.name==="type"){
     if (e.target.value==="") {
-      setType("n");
+    
     }
     else{
       setType(e.target.value);
@@ -87,7 +128,7 @@ const  handleBlur=(e)=>{
 
   if(e.target.name==="cus_name"){
     if (e.target.value==="") {
-      setCusName("n");
+      
     }
     else{
       setCusName(e.target.value);
@@ -96,7 +137,7 @@ const  handleBlur=(e)=>{
 
   if(e.target.name==="cus_phone"){
     if (e.target.value==="") {
-      setCusPhone("n");
+     
     }
     else{
       setCusPhone(e.target.value);
@@ -105,71 +146,92 @@ const  handleBlur=(e)=>{
 
    if(e.target.name==="care_phone"){
     if (e.target.value==="") {
-      setCarePhone("n");
+    
     }
     else{
       setCarePhone(e.target.value);
     }
   }
    if(e.target.name==="care_lname"){
-    if (e.target.value==="") {
-      setCareLname("n");
-    }
-    else{
+   
       setCareLname(e.target.value);
-    }
+
   }
    if(e.target.name==="care_fname"){
-    if (e.target.value==="") {
-      setCareFname("n");
-    }
-    else{
-      setCareFname(e.target.value);
-    }
+   setTakerFname(e.target.value)
+   console.log() 
   }
 
 }
 
+
 const submit=async()=>{
-  if(plate===""||type===""||cus_name===""||cus_phone===""||care_fname===""||care_lname===""||care_phone===""||service===""){
-   setError(true);
+
+  if(service==="Mechanic"){
+    for(var i=0; i<data.length;i++){
+      
+      if(data[i].name==="Mechanics"){
+        setService(data[i]._id);
+      
+      }
+    }
   }
-  else if(plate==="n"||type==="n"||cus_name==="n"||cus_phone==="n"||care_fname==="n"||care_lname==="n"||care_phone==="n"){
-    setError(false);
+  else if(service==="Wash"){
+    for(let i=0; i<data.length;i++){
+      if(data[i].name==="Washing"){
+        setService(data[i]._id);
+        console.log(service)
+      }
+    }
+  }
+
+  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""){
+   setError(true);
+   console.log(care_lname)
+  
   }
   else{
     setError(false);
+   
 
     const json = JSON.stringify({ 
     plate_number: plate,
     car_type: type,
-    entry_date: "2021-02-20",
-    out_date: "2021-02-20",
+    entry_date: entry_date,
+    out_date:entry_date,
     customer_name: cus_name,
     phone_number: cus_phone,
-    taker_fname: care_fname,
+    taker_fname: taker_fname,
     taker_lname: care_lname,
     taker_number: care_phone,
-    service: "60ef38b745bc179852bb3ab9"})
+    service: service})
    await axios.post('/dactivity',json,
    {
     headers: {
-      'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjpudWxsLCJpYXQiOjE2MjkyMzY1MzksImV4cCI6MTYyOTMyMjkzOX0.6bcArCn1t-trWFp_0hLr2u2r7JWuSvHZg--15jsOCNI",
+      'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTczOTQ4NSwiZXhwIjoxNjI5ODI1ODg1fQ.2Rm7Uqe9Mh_Ka3u4ywRyGrMJA54tRMcMQGgABHOXPtE",
       'Content-Type': 'application/json'
     }
     
   }).then((response)=>{
-    // console.log(response.data);
+
+   
+
+    setPlate("");
+    setType("");
+    setCusName("");
+    setCusPhone("");setTakerFname("");
+    setCareLname("");setCareLname("");
+    setCarePhone("");setService("");
+  
+  if(response.data.message==="Successfully created!"){
+    history.push("app/dayservices")
+  }
+
   }).catch(error=>{
     console.log(error);
   })
 
   }
-
-
- 
-
-
 }
 
 
@@ -199,11 +261,11 @@ const submit=async()=>{
                 size="small"
                 className={classes.width}
                 name="plate"
-                onBlur={(e)=>{
+                onChange={(e)=>{
                   handleBlur(e);
                 }}
               />
-              {plate==="n"?<p className="text-red-500">plate number required</p>:null}
+              
               <TextField
                 margin="dense"
                 label="Car Type"
@@ -213,11 +275,11 @@ const submit=async()=>{
                 size="small"
                 className={classes.width}
                 name="type"
-                  onBlur={(e)=>{
+                  onChange={(e)=>{
                   handleBlur(e);
                 }}
               />
-              {type==="n"?<p className="text-red-500 text-xs">Car Type required</p>:null}
+        
             </Grid>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Customer Details</p>
@@ -228,12 +290,12 @@ const submit=async()=>{
                 size="small"
                 name="cus_name"
                 className={classes.width}
-                onBlur={(e)=>{
+                onChange={(e)=>{
                   handleBlur(e);
                 }}
 
               />
-              {cus_name==="n"?<p className="text-red-500 text-xs">Customer name required</p>:null}
+            
 
               <TextField
                 margin="dense"
@@ -243,32 +305,34 @@ const submit=async()=>{
                 
                 size="small"
                 className={classes.width}
-                onBlur={(e)=>{
+                onChange={(e)=>{
                   handleBlur(e);
                 }}
               />
-              {cus_phone==="n"?<p className="text-red-500 text-xs">Phone number required</p>:null}
+              
             </Grid>
           </Grid>
           <Grid 
           container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Service</p>
+              <p className="text-lg text-gray-500">Service</p>   
               <FormControl
                 variant="outlined"
                 size="small"
                 className={` ${classes.width}`}
                 margin="dense"
+               
               >
                 <InputLabel>Select</InputLabel>
                 <Select label="Service"
                 onChange={(e)=>{
-                   setService (e.target.value);          
-                }}
+                  setService (e.target.value);          
+               }}
+
                 >
-                 
+              
                   
-                  
+             
           <MenuItem value={mech}>Mechanic</MenuItem>
           <MenuItem value={wash}>Wash</MenuItem>
                  
@@ -318,13 +382,14 @@ const submit=async()=>{
                 className={classes.width}
                 name="care_fname"
                 size="small"
-                 onBlur={
+                 onChange={
                   (e)=>{
                     handleBlur(e);
                   }
                 }
               />
-              {care_fname==="n"?<p className="text-red-500 text-xs">First name required</p>:null}
+              
+              
               <TextField
                 margin="dense"
                 label="Last Name"
@@ -332,13 +397,13 @@ const submit=async()=>{
                 className={classes.width}
                 size="small"
                 name="care_lname"
-                 onBlur={
+                 onChange={
                   (e)=>{
                     handleBlur(e);
                   }
                 }
               />
-              {care_lname==="n"?<p className="text-red-500 text-xs">Last name required</p>:null}
+             
               <TextField
                 margin="dense"
                 label="Phone Number"
@@ -347,14 +412,14 @@ const submit=async()=>{
                 size="small"
                 name="care_phone"
 
-                onBlur={
+                onChange={
                   (e)=>{
                     handleBlur(e);
                   }
                 }
                 
               />
-              {care_phone==="n"?<p className="text-red-500 text-xs">Phone number required</p>:null}
+            
             </Grid>
           </Grid>
           <Grid container spacing={3}>
@@ -375,10 +440,7 @@ const submit=async()=>{
                 variant="contained"
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} ${classes.low}`}
-                onClick={()=>{
-                  setDayServicepayment(true);
-                  setDayRecord(false);
-                }}
+                
               >
                 Continue Payment
               </Button>
