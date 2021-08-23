@@ -3,8 +3,9 @@ import { Grid, TextField, Typography, makeStyles } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import React from "react";
+import React, { useContext } from "react";
 import Dashboard from "../../layout/Dashboard";
+import { MyContext } from "../../MyContext";
 
 const useStyles = makeStyles((theme) => ({
   width: {
@@ -35,6 +36,7 @@ function VehichlePayment(props) {
   const[complete,setComplete]=React.useState(false);
   const[amount,setAmount]=React.useState();
   const[date,setDate]=React.useState(final);
+  const{toBepayed,setToBePayed}=useContext(MyContext)
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -49,7 +51,7 @@ function VehichlePayment(props) {
           <Grid item xs={12
           
           }>
-            <p className="text-lg font-bold">Pay for vehicle services</p>
+            <p className="text-lg font-bold">Pay for {toBepayed}</p>
           </Grid>
           <Grid item xs={6} className={classes.inputmag}>
             <TextField
@@ -122,15 +124,7 @@ function VehichlePayment(props) {
                 Save
               </Button>
             </Grid>
-            <Grid item xs={6}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
-              >
-                Continue Payment
-              </Button>
-            </Grid>
+            
           </Grid>
         </Grid>
       </Grid>
