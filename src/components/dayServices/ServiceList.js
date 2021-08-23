@@ -80,6 +80,9 @@ const useStyles = makeStyles({
   },
 });
 
+
+
+
 export default function StickyHeadTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -87,25 +90,29 @@ export default function StickyHeadTable() {
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
 
-  useEffect(()=>{
-  
-   async function fetch(){
+  async function fetch(){
     await axios.get('/dactivity',
     {
      headers: {
-       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTUxODk1MywiZXhwIjoxNjI5NjA1MzUzfQ.6bV9sc0v0g_vFHV43UYhIDWxYXz_iKOcpdu5V3TPwWE"
+       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTcyMDY2MywiZXhwIjoxNjI5ODA3MDYzfQ.7nTeOEMvtYmWNuB2hlEtIxHkGBRhGh763znaxy5LnAE"
      }
      
    }).then((response)=>{
-     setData(response.data);
-     console.log(response)
+     setData(response.data.activities);
+     
     
    }).catch(error=>{
      console.log(error);
    })
    }
 
-  },[data])
+
+  useEffect(()=>{
+  
+   
+   fetch()
+
+  },[])
 
 
 
@@ -163,7 +170,7 @@ export default function StickyHeadTable() {
         <Grid item xs={10}>
           <div className="flex ml-4 mb-6 mt-4 ">
             <p className="font-bold">List of vehicles</p>
-            <p className="text-sm text-gray-500 ml-2">{rows.length} total</p>
+            <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
           </div>
         </Grid>
         <Grid item xs={2}
@@ -194,7 +201,7 @@ export default function StickyHeadTable() {
           <TableBody>
             {data?data.map((data,index)=>{
               return(
-              <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+              <TableRow hover role="checkbox" tabIndex={-1} key={index} >
 {columns.map((col,index)=>{
 
 const value = data[col.id];
