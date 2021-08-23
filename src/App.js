@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import axios from 'axios'
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import "./App.css";
@@ -21,15 +22,27 @@ function App() {
 
 const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTczOTQ4NSwiZXhwIjoxNjI5ODI1ODg1fQ.2Rm7Uqe9Mh_Ka3u4ywRyGrMJA54tRMcMQGgABHOXPtE");
 const [open, setOpen] =useState(true);
-const [serviceList,getServiceList]=useState("");
+const [serviceList,setServiceList]=useState("");
 
-function getServices(){
-
+async function getServices(){
+  await axios.get('/services',
+    {
+     headers: {
+       'Authorization':token
+     }
+     
+   }).then((response)=>{
+    
+    setServiceList(response.data)
+  
+   }).catch(error=>{
+     console.log(error);
+   })
 }
 
   useEffect(()=>{
 
-  })
+  },[])
 
 
 
@@ -39,7 +52,8 @@ function getServices(){
     value={{
   
       token,setToken,
-      open, setOpen
+      open, setOpen,
+      serviceList,setServiceList
     }}
 
     >

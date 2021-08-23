@@ -62,6 +62,7 @@ function DayServices() {
   
   const classes = useStyles();
   const {token,setToken}=useContext(MyContext);
+  const {serviceList,setServiceList}=useContext(MyContext);
   const [plate,setPlate]=useState("");
   const [type,setType]=useState("")
   const [cus_name,setCusName]=useState("");
@@ -75,32 +76,14 @@ function DayServices() {
   const[error,setError]=useState();
   const[mech,setMech]=useState("Mechanic");
   const[wash,setWash]=useState("Wash");
-  const[data,setData]=useState("");
 
 
-  async function fetch(){
-    await axios.get('/services',
-    {
-     headers: {
-       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTczOTQ4NSwiZXhwIjoxNjI5ODI1ODg1fQ.2Rm7Uqe9Mh_Ka3u4ywRyGrMJA54tRMcMQGgABHOXPtE"
-     }
-     
-   }).then((response)=>{
-    
-    setData(response.data)
-  
-   }).catch(error=>{
-     console.log(error);
-   })
-   }
+
+ 
   
    
 
-  useEffect(()=>{
-fetch();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
 
 
   
@@ -168,18 +151,18 @@ const  handleBlur=(e)=>{
 const submit=async()=>{
 
   if(service==="Mechanic"){
-    for(var i=0; i<data.length;i++){
+    for(var i=0; i<serviceList.length;i++){
       
-      if(data[i].name==="Mechanics"){
-        setService(data[i]._id);
+      if(serviceList[i].name==="Mechanics"){
+        setService(serviceList[i]._id);
       
       }
     }
   }
   else if(service==="Wash"){
-    for(let i=0; i<data.length;i++){
-      if(data[i].name==="Washing"){
-        setService(data[i]._id);
+    for(let i=0; i<serviceList.length;i++){
+      if(serviceList[i].name==="Washing"){
+        setService(serviceList[i]._id);
         console.log(service)
       }
     }
