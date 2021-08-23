@@ -83,12 +83,6 @@ function DayServices() {
   
    
 
-
-
-
-  
-
-
 const  handleBlur=(e)=>{
 
   if(e.target.name==="plate"){
@@ -176,7 +170,7 @@ const submit=async()=>{
   else{
     setError(false);
    
-
+console.log(serviceList)
     const json = JSON.stringify({ 
     plate_number: plate,
     car_type: type,
