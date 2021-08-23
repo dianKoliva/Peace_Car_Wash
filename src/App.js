@@ -3,7 +3,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import "./App.css";
 import { MyContext } from "./MyContext";
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import Dash from "./components/Dash";
 import DayServices from "./components/dayServices/ServiceList"
 import VehichlePayment from "./components/dayServices/VehichlePayment";
@@ -19,8 +19,19 @@ import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
 
-const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTUxODk1MywiZXhwIjoxNjI5NjA1MzUzfQ.6bV9sc0v0g_vFHV43UYhIDWxYXz_iKOcpdu5V3TPwWE");
+const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTczOTQ4NSwiZXhwIjoxNjI5ODI1ODg1fQ.2Rm7Uqe9Mh_Ka3u4ywRyGrMJA54tRMcMQGgABHOXPtE");
 const [open, setOpen] =useState(true);
+const [serviceList,getServiceList]=useState("");
+
+function getServices(){
+
+}
+
+  useEffect(()=>{
+
+  })
+
+
 
   return (
     <MyContext.Provider
