@@ -17,7 +17,8 @@ import RentPayement from "./components/renting/RentPayement"
 import Settings from "./components/Settings"
 import RentingPayment from "./components/renting/RentPayement";
 import ProtectedRoute from "./ProtectedRoute";
-
+import NightList from "./components/nightServices/NightList"
+import NightRegister from "./components/nightServices/NightRegister"
 
 function App() {
 
@@ -77,6 +78,9 @@ async function getServices(){
           <Route path="/app/dayservices" exact component={DayServices}></Route>
           <Route path="/app/dayservices/payment" exact component={VehichlePayment}></Route>
           <Route path="/app/dayservices/register" exact component={RegisterDay}></Route>
+
+          <Route path="/app/nightservices" exact component={NightList}></Route>
+          <Route path="/app/nightservices/register" exact component={NightRegister}></Route>
           
         
           <Route path="/signup" exact component={SignUp}></Route>
