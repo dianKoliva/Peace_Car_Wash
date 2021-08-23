@@ -3,6 +3,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import React from "react";
+import Dashboard from "../../layout/Dashboard";
 
 const useStyles = makeStyles((theme) => ({
   width: {
@@ -24,11 +25,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10px",
   },
 }));
-function VehichlePayment(props) {
+function NightPayement(props) {
   const classes = useStyles();
   var today = new Date();
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   return (
+    <Dashboard>
     <div>
       <Grid  container spacing={3}>
         <Grid item xs={6}>
@@ -113,7 +115,8 @@ function VehichlePayment(props) {
         </Grid>
       </Grid>
     </div>
+    </Dashboard>
   );
 }
 
-export default VehichlePayment;
+export default NightPayement;
