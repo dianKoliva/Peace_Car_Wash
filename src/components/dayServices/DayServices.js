@@ -149,7 +149,6 @@ const submit=async()=>{
       
       if(serviceList[i].name==="Mechanics"){
         setService(serviceList[i]._id);
-      
       }
     }
   }
@@ -169,8 +168,6 @@ const submit=async()=>{
   }
   else{
     setError(false);
-   
-console.log(serviceList)
     const json = JSON.stringify({ 
     plate_number: plate,
     car_type: type,
