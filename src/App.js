@@ -38,7 +38,7 @@ const [open, setOpen] =useState(true);
       <Router>
         <Switch>
           <Route path="/" exact component={Login}></Route>
-          <ProtectedRoute path="/app" exact component={Dash}/>
+          <Route path="/app" exact component={Dash}/>
 
           <Route path="/app/settings" exact component={Settings}></Route>
 
