@@ -35,9 +35,11 @@ async function getServices(){
     {
      headers: {
        'Authorization':token
+       
      }
      
    }).then((response)=>{
+
     
     setServiceList(response.data)
   

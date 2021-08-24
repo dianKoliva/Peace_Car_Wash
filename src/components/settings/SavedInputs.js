@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import { Grid, makeStyles } from "@material-ui/core";
 import { Paper, TextField, Divider, Button } from "@material-ui/core";
 import { MyContext } from "../../MyContext.js";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
@@ -26,10 +28,11 @@ const useStyles = makeStyles((theme) => ({
 export default function SavedInputs() {
   const classes = useStyles();
   const {user,setUser}=useContext(MyContext);
-  const {token,setToken}=useContext(MyContext)
+  const {token,setToken}=useContext(MyContext);
+  const [log,setLog]=useState();
   async function fetch(){
 
-    await axios.get('/services',
+    await axios.get(`/users/${user.id}`,
     {
      headers: {
        'Authorization':token
@@ -37,12 +40,17 @@ export default function SavedInputs() {
      
    }).then((response)=>{
     
-    console.log(response.data);
+   setLog(response.data);
+   console.log(log)
   
    }).catch(error=>{
-     console.log(error);
+     console.log(error); 
    })
   }
+
+  useEffect(()=>{
+   fetch() 
+  },[])
   return (
     <Paper>
       <Grid container xs="12">
@@ -99,6 +107,7 @@ export default function SavedInputs() {
               variant="outlined"
               className={classes.margin}
               size="small"
+              value={user.last_name}
             />
             <TextField
               id="outlined-basic"
@@ -107,6 +116,7 @@ export default function SavedInputs() {
               variant="outlined"
               size="small"
               className={classes.margin}
+              value={user.phone_number}
             />
           </form>
         </Grid>
