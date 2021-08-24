@@ -57,6 +57,9 @@ export default function SavedInputs() {
               variant="outlined"
               size="small"
               className={classes.margin}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <TextField
               variant="outlined"
