@@ -2,6 +2,7 @@ import { Grid, makeStyles } from "@material-ui/core";
 import { Paper, TextField, Divider, Button } from "@material-ui/core";
 import { MyContext } from "../../MyContext.js";
 import React, { useContext } from "react";
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -25,7 +26,23 @@ const useStyles = makeStyles((theme) => ({
 export default function SavedInputs() {
   const classes = useStyles();
   const {user,setUser}=useContext(MyContext);
-  console.log(user)
+  const {token,setToken}=useContext(MyContext)
+  async function fetch(){
+
+    await axios.get('/services',
+    {
+     headers: {
+       'Authorization':token
+     }
+     
+   }).then((response)=>{
+    
+    console.log(response.data);
+  
+   }).catch(error=>{
+     console.log(error);
+   })
+  }
   return (
     <Paper>
       <Grid container xs="12">
