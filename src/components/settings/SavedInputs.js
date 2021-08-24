@@ -1,6 +1,7 @@
 import { Grid, makeStyles } from "@material-ui/core";
 import { Paper, TextField, Divider, Button } from "@material-ui/core";
-import React from "react";
+import { MyContext } from "../../MyContext.js";
+import React, { useContext } from "react";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -23,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SavedInputs() {
   const classes = useStyles();
+  const {user,setUser}=useContext(MyContext);
+  console.log(user)
   return (
     <Paper>
       <Grid container xs="12">
@@ -42,7 +45,11 @@ export default function SavedInputs() {
               label="First Name"
               variant="outlined"
               size="small"
+              value={user.first_name}
               className={classes.margin}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <TextField
               id="outlined-basic"

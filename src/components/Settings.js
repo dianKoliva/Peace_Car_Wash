@@ -8,11 +8,11 @@ export default function CenteredTabs() {
   return (
     <Dashboard>
     <div>
-      <Grid container xs="12" spacing={3}>
-        <Grid item xs="12">
+      <Grid container xs={12} spacing={3}>
+        <Grid item xs={12}>
           <Header></Header>
         </Grid>
-        <Grid item xs="8" className="mt-2">
+        <Grid item xs={8} className="mt-2">
           <Profile></Profile>
         </Grid>
       </Grid>

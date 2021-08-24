@@ -1,9 +1,11 @@
-import React from "react";
+
 import SavedInputs from "./SavedInputs.js";
 import NotificationSettings from "./NotificationSettings.js";
 
 
+
 export default function Profile() {
+
   return (
    
     <div className="ml-20">

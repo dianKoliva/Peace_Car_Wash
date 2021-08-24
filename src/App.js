@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import axios from 'axios'
+import axios from 'axios';
+import jwt from 'jwt-decode';
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import "./App.css";
@@ -23,10 +24,11 @@ import NightPayement from "./components/nightServices/NightPayment"
 
 function App() {
 
-const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTczOTQ4NSwiZXhwIjoxNjI5ODI1ODg1fQ.2Rm7Uqe9Mh_Ka3u4ywRyGrMJA54tRMcMQGgABHOXPtE");
+const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTc5ODA2MywiZXhwIjoxNjI5ODg0NDYzfQ.Lc-ZO1Yv7Rceb0-e9IN3cUREQqC-84bBbz4KuUCTso4");
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
+const [user,setUser]=useState(jwt(token));
 
 async function getServices(){
   await axios.get('/services',
@@ -58,7 +60,8 @@ async function getServices(){
       token,setToken,
       open, setOpen,
       serviceList,setServiceList,
-      toBePayed,setToBePayed
+      toBePayed,setToBePayed,
+      user,setUser
     }}
 
     >
