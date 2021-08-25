@@ -184,7 +184,7 @@ const submit=async()=>{
    await axios.post('/dactivity',json,
    {
     headers: {
-      'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTczOTQ4NSwiZXhwIjoxNjI5ODI1ODg1fQ.2Rm7Uqe9Mh_Ka3u4ywRyGrMJA54tRMcMQGgABHOXPtE",
+      'Authorization': token,
       'Content-Type': 'application/json'
     }
     
