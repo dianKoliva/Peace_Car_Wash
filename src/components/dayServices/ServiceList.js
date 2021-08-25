@@ -116,42 +116,6 @@ export default function StickyHeadTable() {
 
 
 
-  const rows = [
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "complete"
-  ),
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "incomplete"
-  ),
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "pending"
-  ),
-];
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -220,7 +184,7 @@ const value = data[col.id];
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
