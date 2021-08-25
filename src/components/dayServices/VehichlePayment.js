@@ -29,17 +29,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 function VehichlePayment(props) {
   var dat=new Date();
-  var final=`${dat.getFullYear()}-${dat.getMonth()}-${dat.getDate()}`
+  var month=dat.getMonth();
+  month+=1;
+  var final=`${dat.getFullYear()}-${month}-${dat.getDate()}`
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(false);
+
   const[agree,setAgree]=React.useState(false);
   const[complete,setComplete]=React.useState(false);
   const[amount,setAmount]=React.useState();
-  const[date,setDate]=React.useState(final);
+  const[date,setDate]=React.useState();
   const{toBepayed,setToBePayed}=useContext(MyContext)
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const handleAgree = (event) => {
+    setAgree(event.target.checked);
   };
+  const handleComp=(event)=>{
+ setComplete(event.target.checked)
+ console.log(date);
+  }
+
+  const handleChange=(e)=>{
+if(e.target.name==="date"){
+  
+}
+else if(e.target.name==="amount"){
+
+}
+  }
   return (
     <Dashboard>
     <div>
@@ -61,22 +76,15 @@ function VehichlePayment(props) {
               size="small"
               className={classes.width}
               name=""
-              onBlur={(e)=>{
-              if(e.target.value===""){
-                setAmount("n")
-              }
-              else{
-                setAmount(e.target.value);
-              }
-              }}
+              onChange={(e)=>handleChange(e)}
             />
             {amount==="n"?<p className="text-red-500 text-sm" >Amount required</p>:null}
             <br></br>
             <FormControlLabel
               control={
                 <Checkbox
-                checked={checked}
-                onChange={handleChange}
+                checked={agree}
+                onChange={handleAgree}
                 color="primary"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
                 name="agree"
@@ -90,10 +98,11 @@ function VehichlePayment(props) {
             <TextField
               margin="dense"
               id="date"
+              onChange={(e)=>handleChange(e)}
               label="Payement Date"
               variant="outlined"
               type="date"
-              defaultValue="2017-05-24"
+              value={date}
               size="small"
               className={classes.width}
               InputLabelProps={{
@@ -104,8 +113,8 @@ function VehichlePayment(props) {
             <FormControlLabel
               control={
                 <Checkbox
-                checked={checked}
-                onChange={handleChange}
+                checked={complete}
+                onChange={handleComp}
                 color="primary"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
                 name="complete"
@@ -121,7 +130,17 @@ function VehichlePayment(props) {
                 color="primary"
                 className={`${classes.blueBut} ${classes.width} ${classes.low}`}
               >
-                Save
+                Back
+              </Button>
+            </Grid>
+
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
+              >
+                Pay
               </Button>
             </Grid>
             
