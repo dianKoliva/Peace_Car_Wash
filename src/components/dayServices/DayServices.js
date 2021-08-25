@@ -190,6 +190,8 @@ const submit=async()=>{
   }
 
   }).catch(error=>{
+
+    
     console.log(error);
   })
 
@@ -293,11 +295,11 @@ const submit=async()=>{
 
                 >
               
-              {serviceList.map((s)=>{
+              {serviceList?serviceList.map((s)=>{
         return(
           <MenuItem value={s._id}>{s.name}</MenuItem>
         )
-              })}
+              }):null}
              
        
           
