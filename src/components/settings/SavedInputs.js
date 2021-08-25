@@ -3,6 +3,7 @@
 import { Grid, makeStyles } from "@material-ui/core";
 import { Paper, TextField, Divider, Button } from "@material-ui/core";
 import { MyContext } from "../../MyContext.js";
+import jwt from 'jwt-decode';
 import React, { useContext, useEffect, useState } from "react";
 import axios from 'axios'
 
@@ -30,6 +31,8 @@ export default function SavedInputs() {
   const {user,setUser}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
   const [log,setLog]=useState();
+  setUser(jwt(token))
+
   async function fetch(){
 
     await axios.get(`/users/${user.id}`,
