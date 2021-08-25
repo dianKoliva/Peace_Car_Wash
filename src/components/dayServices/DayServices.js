@@ -78,6 +78,7 @@ function DayServices() {
   const[mech,setMech]=useState("Mechanic");
   const[wash,setWash]=useState("Wash");
   const{toBePayed,setToBePayed}=useContext(MyContext);
+  const{success,setSuccess}=useState(false);
 
 
 
@@ -185,7 +186,7 @@ const submit=async()=>{
     setCarePhone("");setService("");
   
   if(response.data.message==="Successfully created!"){
-    history.push("app/dayservices")
+   setSuccess(true)
   }
 
   }).catch(error=>{
@@ -394,6 +395,7 @@ const submit=async()=>{
                 className={`${classes.blueBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
                   submit();
+            
                 }}
                 color="primary"
               >

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-
+import { createBrowserHistory } from 'history';
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import "./App.css";
@@ -10,7 +10,7 @@ import {  useEffect, useState } from "react";
 import Dash from "./components/Dash";
 import DayServices from "./components/dayServices/ServiceList"
 import VehichlePayment from "./components/dayServices/VehichlePayment";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import RegisterDay from "./components/dayServices/DayServices"
 import RentingList from "./components/renting/RentingList"
 import RentingRegister from "./components/renting/RentingRegister"
@@ -72,7 +72,7 @@ async function getServices(){
     getServices()
   },[])
 
-
+  const history = createBrowserHistory();
 
   return (
     <MyContext.Provider
@@ -90,7 +90,7 @@ async function getServices(){
 
     <div className="App">
       
-      <Router>
+      <Router history={history}  >
         <Switch>
           <Route path="/" exact component={Login}></Route>
           <Route path="/app" exact component={Dash}/>
