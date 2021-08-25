@@ -49,10 +49,12 @@ function VehichlePayment(props) {
 
   const handleChange=(e)=>{
 if(e.target.name==="date"){
-  
+  setDate(e.target.value)
+  console.log(date);
 }
 else if(e.target.name==="amount"){
-
+setAmount(e.target.value)
+console.log(amount);
 }
   }
   return (
@@ -76,6 +78,7 @@ else if(e.target.name==="amount"){
               size="small"
               className={classes.width}
               name=""
+              value={amount}
               onChange={(e)=>handleChange(e)}
             />
             {amount==="n"?<p className="text-red-500 text-sm" >Amount required</p>:null}
@@ -98,7 +101,7 @@ else if(e.target.name==="amount"){
             <TextField
               margin="dense"
               id="date"
-              onChange={(e)=>handleChange(e)}
+             
               label="Payement Date"
               variant="outlined"
               type="date"
@@ -108,6 +111,7 @@ else if(e.target.name==="amount"){
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e)=>handleChange(e)}
             />
             <br></br>
             <FormControlLabel
