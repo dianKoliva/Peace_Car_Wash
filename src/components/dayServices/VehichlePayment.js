@@ -47,7 +47,7 @@ function VehichlePayment(props) {
  console.log(date);
   }
 
-  const handleChange=(e)=>{
+function  handleChange(e){
 if(e.target.name==="date"){
   setDate(e.target.value)
   console.log(date);
@@ -79,7 +79,7 @@ console.log(amount);
               className={classes.width}
               name=""
               value={amount}
-              onChange={(e)=>handleChange(e)}
+              onChange={console.log("hello")}
             />
             {amount==="n"?<p className="text-red-500 text-sm" >Amount required</p>:null}
             <br></br>
