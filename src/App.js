@@ -24,7 +24,7 @@ import NightPayement from "./components/nightServices/NightPayment"
 
 function App() {
 
-const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTc5ODA2MywiZXhwIjoxNjI5ODg0NDYzfQ.Lc-ZO1Yv7Rceb0-e9IN3cUREQqC-84bBbz4KuUCTso4");
+const [token,setToken]=useState();
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
