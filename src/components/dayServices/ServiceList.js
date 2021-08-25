@@ -24,8 +24,8 @@ const columns = [
   { id: "out_date", label: "Out Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
   { id: "services", label: "Service", minWidth: 100, align: "left" },
-  { id: "amount", label: "Amount", minWidth: 100, align: "left" },
-  { id: "observation", label: "Observation", minWidth: 100 },
+  { id: "payement", label: "Amount", minWidth: 100, align: "left" },
+  { id: "observation", label: "status", minWidth: 100 },
 ];
 
 function createData(
