@@ -61,6 +61,7 @@ async function getServices(){
 
     
     setServiceList(response.data)
+    
   
    }).catch(error=>{
      console.log(error);

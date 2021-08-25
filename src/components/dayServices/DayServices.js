@@ -146,22 +146,6 @@ const  handleBlur=(e)=>{
 
 const submit=async()=>{
 
-  if(service==="Mechanic"){
-    for(var i=0; i<serviceList.length;i++){
-      
-      if(serviceList[i].name==="Mechanics"){
-        setService(serviceList[i]._id);
-      }
-    }
-  }
-  else if(service==="Wash"){
-    for(let i=0; i<serviceList.length;i++){
-      if(serviceList[i].name==="Washing"){
-        setService(serviceList[i]._id);
-        console.log(service)
-      }
-    }
-  }
 
   if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""){
    setError(true);
@@ -308,10 +292,14 @@ const submit=async()=>{
 
                 >
               
-                  
+              {serviceList.map((s)=>{
+        return(
+          <MenuItem value={s._id}>{s.name}</MenuItem>
+        )
+              })}
              
-          <MenuItem value={mech}>Mechanic</MenuItem>
-          <MenuItem value={wash}>Wash</MenuItem>
+       
+          
                  
                 </Select>
               </FormControl>
