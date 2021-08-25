@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-import jwt from 'jwt-decode';
+
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import "./App.css";
@@ -28,7 +28,7 @@ const [token,setToken]=useState();
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
-const [user,setUser]=useState(jwt(token));
+const [user,setUser]=useState();
 const [roles,setRoles]=useState();
 
 async function getRoles(){
