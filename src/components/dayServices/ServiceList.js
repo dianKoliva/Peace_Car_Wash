@@ -94,7 +94,7 @@ export default function StickyHeadTable() {
     await axios.get('/dactivity',
     {
      headers: {
-       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYyOTcyMDY2MywiZXhwIjoxNjI5ODA3MDYzfQ.7nTeOEMvtYmWNuB2hlEtIxHkGBRhGh763znaxy5LnAE"
+       'Authorization': token
      }
      
    }).then((response)=>{
