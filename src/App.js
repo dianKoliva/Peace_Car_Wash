@@ -29,13 +29,32 @@ const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
 const [user,setUser]=useState(jwt(token));
+const [roles,setRoles]=useState();
+
+async function getRoles(){
+  await axios.get('/roles',
+  {
+   headers: {
+     'Authorization':token
+
+   }
+   
+ }).then((response)=>{
+
+  
+  setServiceList(response.data)
+
+ }).catch(error=>{
+   console.log(error);
+ })
+}
 
 async function getServices(){
   await axios.get('/services',
     {
      headers: {
        'Authorization':token
-       
+
      }
      
    }).then((response)=>{
