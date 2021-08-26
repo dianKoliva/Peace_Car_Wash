@@ -58,7 +58,7 @@ const classes=useStyles();
     <div className="w-2/3 h-96 ml-52">
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-         <Grid item xs={6} >
+         <Grid item xs={12} >
          <Paper elevation={3} >
              hello
          </Paper>
