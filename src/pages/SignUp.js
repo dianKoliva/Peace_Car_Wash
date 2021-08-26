@@ -58,6 +58,8 @@ export default function SignUpSide() {
   const [lname,setLname]=useState("");
   const [phone,setPhone]=useState("");
   const [pass,setPass]=useState("");
+  const [email,setEmail]=useState("");
+  const [empty,setEmpty]=useState(false);
   const [inUse,setInUse]=useState(false);
   const [remember,setRemember]=useState("");
   const history =useHistory();
@@ -98,6 +100,15 @@ if(e.target.name==="pass"){
 
   }
 
+  if(e.target.name==="email"){
+
+   
+    setEmail(e.target.value);
+   
+
+
+}
+
  }
   const handleChange=(e)=>{
     if(e.target.checked){
@@ -115,34 +126,36 @@ if(e.target.name==="pass"){
 
       
 
-      if(fname===""&&lname===""&&password===""&&phone===""){
-  setFname("n");setLname("n");setPhone("n");setPass("n");
+      if(fname===""||lname===""||password===""||phone===""||email===""){
+  setEmpty(true);
       }
-    else if(fname===""){
-       setFname("n")
-     }
-     else if(lname===""){
-       setLname("n")
-     }
-     else if(password===""){
-       setPass("n")
-     }
-     else if(phone===""){
-       setPhone("n")
-    
-     }
-     else if(isNaN(phone)){
-        setPhone("un");
-    }
-    else if(phone.length>10){
-        setPhone("inv");
-    }
+      if(empty){
+        if(fname===""){
+          setFname("n")
+        }
+         if(lname===""){
+          setLname("n")
+        }
+         if(password===""){
+          setPass("n")
+        }
+        if(phone===""){
+          setPhone("n")
+       
+        }
+        if(isNaN(phone)){
+           setPhone("un");
+       }
+        if(phone.length>10){
+           setPhone("inv");
+       }
+      }
     else{
  await axios.post('/users/signup', {
  first_name: fname,
   last_name: lname,
   phone_number:phone,
-  email:"king@gmail.com",
+  email:email,
   role: "611d8a1191640d4534c50e62",
   password: password
 })
@@ -218,6 +231,20 @@ if(e.target.name==="pass"){
                 margin="normal"
                 required
                 fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="lname"
+                autoFocus
+                size="small"
+                inputProps={{ spellCheck: 'false' }}
+                onChange={(e)=>{handleOnChange(e);}}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
                 id="phone"
                 label="Phone number"
                 name="phone"
@@ -244,6 +271,8 @@ if(e.target.name==="pass"){
                 onChange={(e)=>{handleOnChange(e);}}
               />
               {pass==="n"?<p className="text-red-500 text-xs">Password required</p>:null}
+
+             
               <FormControlLabel
                 control={
                   <Checkbox value="remember" name="remember" 
