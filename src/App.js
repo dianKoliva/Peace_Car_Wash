@@ -21,6 +21,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import NightList from "./components/nightServices/NightList"
 import NightRegister from "./components/nightServices/NightRegister"
 import NightPayement from "./components/nightServices/NightPayment"
+import AfterSignUp from "./pages/AfterSigUp"
 
 function App() {
 
@@ -108,6 +109,8 @@ async function getServices(){
           <Route path="/app/nightservices" exact component={NightList}></Route>
           <Route path="/app/nightservices/register" exact component={NightRegister}></Route>
           <Route path="/app/nightservices/payment" exact component={NightPayement}></Route>
+
+          <Route path="/wait" exact component={AfterSignUp}></Route>
           
         
           <Route path="/signup" exact component={SignUp}></Route>
