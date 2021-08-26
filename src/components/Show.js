@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(4),
     },
     background:{
-      backgroundColor:"red"
+      backgroundColor:"#f2f3f7",
+      color:"#3F51B5"
     }
   }));
 
