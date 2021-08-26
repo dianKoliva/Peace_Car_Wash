@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -59,6 +60,7 @@ export default function SignUpSide() {
   const [pass,setPass]=useState("");
   const [inUse,setInUse]=useState(false);
   const [remember,setRemember]=useState("");
+  const history =useHistory();
  const handleOnChange=(e)=>{
 
   if(e.target.name==="fname"){
@@ -111,7 +113,12 @@ if(e.target.name==="pass"){
         fname,lname,password,phone
     )=>{
 
-     if(fname===""){
+      
+
+      if(fname===""&&lname===""&&password===""&&phone===""){
+  setFname("n");setLname("n");setPhone("n");setPass("n");
+      }
+    else if(fname===""){
        setFname("n")
      }
      else if(lname===""){
@@ -127,15 +134,16 @@ if(e.target.name==="pass"){
      else if(isNaN(phone)){
         setPhone("un");
     }
-    else if(phone.length>9){
+    else if(phone.length>10){
         setPhone("inv");
     }
     else{
- await axios.post('/users/signin', {
+ await axios.post('/users/signup', {
  first_name: fname,
   last_name: lname,
   phone_number:phone,
-  role: "611d8a2191640d4534c50e64",
+  email:"king@gmail.com",
+  role: "611d8a1191640d4534c50e62",
   password: password
 })
 .then((response) => {
@@ -145,6 +153,7 @@ if(e.target.name==="pass"){
   }
   else{
     setInUse(false);
+    history.push("/wait")
   }
 }, (error) => {
   console.log(error);
@@ -217,8 +226,8 @@ if(e.target.name==="pass"){
                 size="small"
                 onChange={(e)=>{handleOnChange(e);}}
               />
-              {phone==="n"?<p className="text-red-500 text-xs">Phone Number required</p>:inUse?<p className="text-red-500">Change Number</p>:
-            phone==="un"?  <p className="text-red-500 text-xs">Only numbers allowed</p>:phone==="inv"?
+              {phone==="n"?<p className="text-red-500 text-xs">Phone number required</p>:inUse?<p className="text-red-500">Change Number</p>:
+            phone==="un"?  <p className="text-red-500 text-xs">Only numbers are allowed</p>:phone==="inv"?
             <p className="text-red-500 text-xs">Invalid number</p>:null
             }
               <TextField

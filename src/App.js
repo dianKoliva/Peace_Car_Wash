@@ -31,6 +31,8 @@ const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
 const [user,setUser]=useState();
 const [roles,setRoles]=useState();
+const [loged,setLoged]=useState(false);
+
 
 async function getRoles(){
   await axios.get('/roles',
@@ -70,7 +72,10 @@ async function getServices(){
 }
 
   useEffect(()=>{
-    getServices()
+    if(loged){
+      getServices()
+    }
+    
   },[])
 
   const history = createBrowserHistory();

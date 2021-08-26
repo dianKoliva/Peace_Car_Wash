@@ -43,10 +43,10 @@ const classes=useStyles();
          <Grid item xs={12} >
          <Paper elevation={3} className="mt-28" >
            <div className="flex">
-           <img src={svg} alt="" className="w-64 pt-4 pb-4 ml-28"></img>
+           <img src={svg} alt="" className="sm:w-52  pt-4 pb-4 ml-28"></img>
              
              <div className="pl-20 pt-40 pb-40 ">
-             <Typography variant={"body"}   >We will send you a message after admin's aproval ........</Typography>
+             <Typography variant={"body1"}   >We will send you a message after admin's aproval ........</Typography>
              </div>
             
            </div> 

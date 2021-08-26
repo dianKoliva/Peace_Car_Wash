@@ -60,6 +60,7 @@ export default function SignInSide() {
   const[remember,setRemember]=useState(false);
   const{token,setToken}=useContext(MyContext);
   const[go,setGo]=useState(false);
+  const{loged,setLoged}=useContext(MyContext);
 
   const handleOnblur=(e)=>{
 if(e.target.name==="phone"){
@@ -112,6 +113,7 @@ await axios.post('/users/signin', {
 .then((response) => {
  if(response.data.message==="Success"){
    setToken(response.data.token);
+   setLoged(true);
    history.push("/app")
    
  }
