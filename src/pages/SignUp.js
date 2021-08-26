@@ -59,63 +59,50 @@ export default function SignUpSide() {
   const [pass,setPass]=useState("");
   const [inUse,setInUse]=useState(false);
   const [remember,setRemember]=useState("");
- const handleOnblur=(e)=>{
+ const handleOnChange=(e)=>{
 
   if(e.target.name==="fname"){
-
-    if(e.target.value===""){
- setFname("n");
-    }
-    else{
        setFname(e.target.value);
-      
-    }
+  
   }
 
   if(e.target.name==="lname"){
 
-    if(e.target.value===""){
- setLname("n");
-    }
-    else{
+
        setLname(e.target.value);
       
-    }
+
   }
 
   if(e.target.name==="phone"){
 
-    if(e.target.value===""){
- setPhone("n");
-    }
-    else{
+  
        setPhone(e.target.value);
+
+       if(phone.length>9){
+        
+       }
       
-    }
+       
   }
 
 
 if(e.target.name==="pass"){
 
-    if(e.target.value===""){
- setPass("n");
-    }
-    else{
+   
        setPass(e.target.value);
       
-    }
-  }
+ 
 
   }
 
-
-  const handleOnChange=(e)=>{
+ }
+  const handleChange=(e)=>{
     if(e.target.checked){
     setRemember(true);
     }
     else{
       setRemember(false);
-      console.log(remember);
     }
     
     }
@@ -123,6 +110,27 @@ if(e.target.name==="pass"){
     const submit=async(
         fname,lname,password,phone
     )=>{
+
+     if(fname===""){
+       setFname("n")
+     }
+     else if(lname===""){
+       setLname("n")
+     }
+     else if(password===""){
+       setPass("n")
+     }
+     else if(phone===""){
+       setPhone("n")
+    
+     }
+     else if(isNaN(phone)){
+        setPhone("un");
+    }
+    else if(phone.length>9){
+        setPhone("inv");
+    }
+    else{
  await axios.post('/users/signin', {
  first_name: fname,
   last_name: lname,
@@ -141,6 +149,7 @@ if(e.target.name==="pass"){
 }, (error) => {
   console.log(error);
 });
+    }
     }
 
   
@@ -177,9 +186,9 @@ if(e.target.name==="pass"){
                 
                 autoFocus
                 inputProps={{ spellCheck: 'false' }}
-                onBlur={(e)=>{handleOnblur(e);}}
+                onChange={(e)=>{handleOnChange(e);}}
               />
-              {fname==="n"?<p className="text-red-500">First Name required</p>:null}
+              {fname==="n"?<p className="text-red-500 text-xs">First Name required</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -192,9 +201,9 @@ if(e.target.name==="pass"){
                 autoFocus
                 size="small"
                 inputProps={{ spellCheck: 'false' }}
-                onBlur={(e)=>{handleOnblur(e);}}
+                onChange={(e)=>{handleOnChange(e);}}
               />
-              {lname==="n"?<p className="text-red-500"> Last Name required</p>:null}
+              {lname==="n"?<p className="text-red-500 text-xs"> Last Name required</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -206,9 +215,12 @@ if(e.target.name==="pass"){
                 autoComplete="phone number"
                 autoFocus
                 size="small"
-                onBlur={(e)=>{handleOnblur(e);}}
+                onChange={(e)=>{handleOnChange(e);}}
               />
-              {phone==="n"?<p className="text-red-500">Phone Number required</p>:inUse?<p className="text-red-500">Change Number</p>:null}
+              {phone==="n"?<p className="text-red-500 text-xs">Phone Number required</p>:inUse?<p className="text-red-500">Change Number</p>:
+            phone==="un"?  <p className="text-red-500 text-xs">Only numbers allowed</p>:phone==="inv"?
+            <p className="text-red-500 text-xs">Invalid number</p>:null
+            }
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -220,9 +232,9 @@ if(e.target.name==="pass"){
                 id="password"
                 autoComplete="current-password"
                 size="small"
-                onBlur={(e)=>{handleOnblur(e);}}
+                onChange={(e)=>{handleOnChange(e);}}
               />
-              {pass==="n"?<p className="text-red-500">Password required</p>:null}
+              {pass==="n"?<p className="text-red-500 text-xs">Password required</p>:null}
               <FormControlLabel
                 control={
                   <Checkbox value="remember" name="remember" 
@@ -230,7 +242,7 @@ if(e.target.name==="pass"){
                   color="primary" fontSize="small"
                   
                   onChange={(e)=>{
-                    handleOnChange(e);
+                    handleChange(e);
                   }}
                   />
                 }
@@ -246,7 +258,7 @@ if(e.target.name==="pass"){
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={()=>{submit(fname,lname,pass)}}
+                onClick={()=>{submit(fname,lname,pass,phone)}}
                
               >
                 Sign Up
