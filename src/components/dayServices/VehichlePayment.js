@@ -81,7 +81,7 @@ console.log(amount);
               value={amount}
               onChange={console.log("hello")}
             />
-            {amount==="n"?<p className="text-red-500 text-sm" >Amount required</p>:null}
+        
             <br></br>
             <FormControlLabel
               control={
