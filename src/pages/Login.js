@@ -53,9 +53,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const history=useHistory();
   const classes = useStyles();
-  const [noPhone,setNoPhone]=useState(false);
   const[phone,setPhone]=useState("")
-  const[noPassword,setNoPassword]=useState(false);
   const[password,setPassword]=useState("");
   const[remember,setRemember]=useState(false);
   const{token,setToken}=useContext(MyContext);
@@ -64,24 +62,16 @@ export default function SignInSide() {
 
   const handleOnblur=(e)=>{
 if(e.target.name==="phone"){
-  if(e.target.value===""){
-    setNoPhone(true);
-  }
-  else{
-    setNoPhone(false);
+  
    setPhone(e.target.value);
-  }
+ 
 
 }
 
 if(e.target.name==="password"){
-  if(e.target.value===""){
-    setNoPassword(true);
-  }
-  else{
-    setNoPassword(false);
+
     setPassword(e.target.value);
-  }
+ 
 }
   }
 
@@ -98,12 +88,14 @@ else{
     const submit=async(
         pass,phone
     )=>{
+
       if(pass===""){
-        setNoPassword(true);
+        setPassword("n")
       }
       else if(phone===""){
-        setNoPhone(true);
+        setPhone("n")
       }
+     
       else{
 
 await axios.post('/users/signin', {
@@ -158,7 +150,7 @@ await axios.post('/users/signin', {
                   handleOnblur(e);
                 }}
               />
-              {noPhone?<p className="text-sm text-red-500">Phone required</p>:null}
+              {phone==="n"?<p className="text-sm text-red-500">Phone required</p>:null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -174,7 +166,7 @@ await axios.post('/users/signin', {
                 }}
                
               />
-               {noPassword?<p className="text-sm text-red-500">Password Required</p>:null}
+               {password==="n"?<p className="text-sm text-red-500">Password Required</p>:null}
             
               <FormControlLabel
                 control={
