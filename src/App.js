@@ -10,7 +10,7 @@ import {  useEffect, useState } from "react";
 import Dash from "./components/Dash";
 import DayServices from "./components/dayServices/ServiceList"
 import VehichlePayment from "./components/dayServices/VehichlePayment";
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import { Router, Switch, Route} from "react-router-dom";
 import RegisterDay from "./components/dayServices/DayServices"
 import RentingList from "./components/renting/RentingList"
 import RentingRegister from "./components/renting/RentingRegister"
