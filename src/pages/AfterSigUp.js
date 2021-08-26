@@ -20,32 +20,13 @@ const useStyles = makeStyles((theme) => ({
     height: "80hv",
     marginTop: "30px",
   },
-  image: {
-    backgroundImage: `url(${bg})`,
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
+  
   paper: {
     margin: theme.spacing(4, 4),
     display: "flex",
     flexDirection: "column",
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+  
 }));
 
 
@@ -59,8 +40,8 @@ const classes=useStyles();
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
          <Grid item xs={12} >
-         <Paper elevation={3} >
-             hello
+         <Paper elevation={3} className="mt-40" >
+           
          </Paper>
          </Grid>
       </Grid>
