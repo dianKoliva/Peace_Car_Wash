@@ -11,8 +11,8 @@ export function Reports(){
 
 <div>
     {reports.map((report,index)=>(
-<div>
-<div className="flex mt-6" key={index+1}>
+<div key={index}>
+<div className="flex mt-6" >
 <div>
     <AssessmentIcon fontSize="large" color="primary"></AssessmentIcon>
 </div>
