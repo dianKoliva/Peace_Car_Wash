@@ -25,13 +25,13 @@ import AfterSignUp from "./pages/AfterSigUp"
 
 function App() {
 
-const [token,setToken]=useState();
+const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYzMDAxMjg1NSwiZXhwIjoxNjMwMDk5MjU1fQ.HcyUiDbauWnWs2UAYeiGllNLHcAnGr9sqeQr_fCWPEc");
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
 const [user,setUser]=useState();
 const [roles,setRoles]=useState();
-const [loged,setLoged]=useState(false);
+const [loged,setLoged]=useState(true);
 
 
 async function getRoles(){
