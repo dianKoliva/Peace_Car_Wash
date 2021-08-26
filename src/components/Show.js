@@ -76,7 +76,7 @@ export default function Show(){
       <ListItemText primary="Dashboard" />
     </ListItem>
     
-    <ListItem button onClick={handleClick}>
+    <ListItem button  onClick={handleClick}>
         <ListItemIcon>
           <InboxIcon />
         </ListItemIcon>
@@ -99,13 +99,13 @@ export default function Show(){
           </ListItem>
         </List>
       </Collapse>
-    <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/app/rent')}>
+    <ListItem button className={history.location.pathname==="/app/rent"?classes.background:null} onClick={()=>history.push('/app/rent')}>
       <ListItemIcon>
         <AssessmentIcon />
       </ListItemIcon>
       <ListItemText primary="Rent" />
     </ListItem>
-    <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/app/settings')}>
+    <ListItem button className={history.location.pathname==="/app/settings"?classes.background:null} onClick={()=>history.push('/app/settings')}>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>
