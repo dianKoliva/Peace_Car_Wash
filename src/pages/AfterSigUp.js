@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from 'axios';
+import svg from "../images/my.svg"
 
 
 
@@ -41,7 +42,17 @@ const classes=useStyles();
         <CssBaseline />
          <Grid item xs={12} >
          <Paper elevation={3} className="mt-28" >
-           hi
+           <div className="flex">
+           <img src={svg} alt="" className="w-64 pt-4 pb-4 ml-28"></img>
+             
+             <div className="pl-20 pt-40 pb-40 ">
+             <Typography variant={"body"}   >We will send you a message after admin's aproval ........</Typography>
+             </div>
+            
+           </div> 
+           
+            
+          
          </Paper>
          </Grid>
       </Grid>
