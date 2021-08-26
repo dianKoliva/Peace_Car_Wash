@@ -55,6 +55,7 @@ export default function SignInSide() {
   const classes = useStyles();
   const[phone,setPhone]=useState("")
   const[password,setPassword]=useState("");
+  const[not,setNot]=useState("");
   const[remember,setRemember]=useState(false);
   const{token,setToken}=useContext(MyContext);
   const[go,setGo]=useState(false);
@@ -106,11 +107,15 @@ await axios.post('/users/signin', {
  if(response.data.message==="Success"){
    setToken(response.data.token);
    setLoged(true);
+   setNot(false);
    history.push("/app")
    
  }
 }, (error) => {
-  console.log(error.message);
+  
+  if(error.message==="Request failed with status code 404"){
+setNot(true);
+  }
 });
       }
   
@@ -131,6 +136,11 @@ await axios.post('/users/signin', {
                 Sign In into the car wash, mechanic and rent management platform
               </Typography>
             </div>
+   {not?
+   <Typography className="text-red-500 text-xs " variant="body2">
+   invalid phone number or password
+ </Typography>:null}
+            
 
             <form className={classes.form} noValidate>
               <TextField
