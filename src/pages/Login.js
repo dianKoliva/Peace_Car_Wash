@@ -110,7 +110,7 @@ await axios.post('/users/signin', {
    
  }
 }, (error) => {
-  console.log(error);
+  console.log(error.message);
 });
       }
   
