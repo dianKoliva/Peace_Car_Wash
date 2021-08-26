@@ -89,7 +89,8 @@ async function getServices(){
       open, setOpen,
       serviceList,setServiceList,
       toBePayed,setToBePayed,
-      user,setUser
+      user,setUser,
+      loged,setLoged
     }}
 
     >
