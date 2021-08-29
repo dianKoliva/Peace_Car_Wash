@@ -30,30 +30,38 @@ export default function SavedInputs() {
   const classes = useStyles();
   const {user,setUser}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
-  const [log,setLog]=useState();
-  setUser(jwt(token))
-
-  async function fetch(){
-
-    await axios.get(`/users/${user.id}`,
-    {
-     headers: {
-       'Authorization':token
-     }
-     
-   }).then((response)=>{
-    
-   setLog(response.data);
-   console.log(log)
+  const [log,setLog]=useState("");
   
-   }).catch(error=>{
-     console.log(error); 
-   })
-  }
+
+ 
 
   useEffect(()=>{
-   fetch() 
+    setUser(jwt(token));
+  
+    async function fetch(){
+
+      await axios.get(`/users/${user.id}`,
+      {
+       headers: {
+         'Authorization':token
+       }
+       
+     }).then((response)=>{
+      
+     setLog(response.data);
+    
+    
+     }).catch(error=>{
+       console.log(error); 
+     })
+    }
+    fetch()
+    
   },[])
+
+  function handleChange(){
+
+  }
   return (
     <Paper>
       <Grid container xs="12">
@@ -69,7 +77,7 @@ export default function SavedInputs() {
         <Grid container xs="6">
           <form noValidate autoComplete="off" className={classes.marginBottom}>
             <TextField
-              id="outlined-basic"
+            
               label="First Name"
               variant="outlined"
               size="small"
@@ -78,9 +86,10 @@ export default function SavedInputs() {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e)=>handleChange(e)}
             />
             <TextField
-              id="outlined-basic"
+             
               label="Email"
               variant="outlined"
               size="small"
@@ -88,6 +97,7 @@ export default function SavedInputs() {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e)=>handleChange(e)}
             />
             <TextField
               variant="outlined"
@@ -99,21 +109,23 @@ export default function SavedInputs() {
               id="password"
               autoComplete="current-password"
               size="small"
+              onChange={(e)=>handleChange(e)}
             />
           </form>
         </Grid>
         <Grid xs="6" container>
           <form noValidate autoComplete="off">
             <TextField
-              id="outlined-basic"
+             
               label="Last Name"
               variant="outlined"
               className={classes.margin}
               size="small"
               value={user.last_name}
+              onChange={(e)=>handleChange(e)}
             />
             <TextField
-              id="outlined-basic"
+          
               label="
                 Phone Number"
               variant="outlined"

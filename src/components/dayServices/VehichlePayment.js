@@ -57,6 +57,10 @@ setAmount(e.target.value)
 console.log(amount);
 }
   }
+
+  function save(){
+  
+  }
   return (
     <Dashboard>
     <div>
@@ -143,6 +147,7 @@ console.log(amount);
                 variant="contained"
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} ${classes.low}`}
+                onClick={save()}
               >
                 Pay
               </Button>
