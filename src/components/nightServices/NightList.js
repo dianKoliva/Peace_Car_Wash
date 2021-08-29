@@ -27,6 +27,7 @@ const columns = [
   { id: "services", label: "Service", minWidth: 100, align: "left" },
   { id: "amount", label: "Amount", minWidth: 100, align: "left" },
   { id: "observation", label: "Observation", minWidth: 100 },
+  { id: "action", label: "Action", minWidth: 100 },
 ];
 
 function createData(
@@ -177,7 +178,7 @@ export default function StickyHeadTable() {
         <Grid item xs={2}
         >
           <div className="ml-6 mb-2 mt-1">
-            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/dayservices/register")}}>
+            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/nightservices/register")}}>
               New Record
             </Button>
           </div>
