@@ -16,6 +16,8 @@ import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const columns = [
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
@@ -27,6 +29,7 @@ const columns = [
   { id: "services", label: "Service", minWidth: 100, align: "left" },
   { id: "payement", label: "Amount", minWidth: 100, align: "left" },
   { id: "observation", label: "status", minWidth: 100 },
+  { id: "action", label: "Action", minWidth: 100 },
 ];
 
 function createData(
@@ -169,12 +172,23 @@ export default function StickyHeadTable() {
               <TableRow hover role="checkbox" tabIndex={-1} key={index} >
 {columns.map((col,index)=>{
 
+if(col.id==="action"){
+  return(
+<TableCell key={index} align={col.align}>
+  <CreateIcon></CreateIcon>
+  <DeleteIcon></DeleteIcon>
+                         
+                          </TableCell>
+  )
+}
+else{
 const value = data[col.id];
   return(
  <TableCell key={index} align={col.align}>
                             {value}
                           </TableCell>
   )
+}
 })}
                 </TableRow>
               )

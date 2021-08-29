@@ -72,7 +72,7 @@ console.log(amount);
           <Grid item xs={12
           
           }>
-            <p className="text-lg font-bold">Pay for {toBepayed}</p>
+            <p className="text-lg font-bold">Payment for {toBepayed}</p>
           </Grid>
           <Grid item xs={6} className={classes.inputmag}>
             <TextField
