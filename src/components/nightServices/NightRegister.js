@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -44,6 +44,56 @@ function DayServices() {
   const classes = useStyles();
   const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
   const {dayRecord,setDayRecord}=useContext(MyContext);
+  const {plate,setPlate}=useState("");
+  const {type,setType}=useState("");
+  const {driverName,setDriverName}=useState("");
+  const {driverPhone,setDriverPhone}=useState("");
+  const {fname,setFname}=useState("");
+  const {lname,setLname}=useState("");
+  const {carePhone,setCarePhone}=useState("");
+  const {service,setService}=useState("");
+  const{carProb,setCarProb}=useState("");
+  const {entry,setEntry}=useState("");
+  
+  function handleChange(e){
+
+if(e.target.name==="plate"){
+  setPlate(e.target.value);
+}
+else if(e.target.name==="type"){
+setType(e.target.value);
+}
+else if(e.target.name==="driver_name"){
+setDriverName(e.target.value)
+}
+else if(e.target.name==="driver_phone"){
+  setDriverPhone(e.target.value);
+}
+else if(e.target.name==="fname"){
+  setFname(e.target.value)
+}
+else if(e.target.name==="lname"){
+  setLname(e.target.value);
+
+}
+else if(e.target.name==="care_phone"){
+  setCarePhone(e.target.value)
+}
+else if(e.target.name==="prob"){
+  setCarProb(e.target.value);
+
+}
+else if(e.target.name==="entry_date"){
+  setEntry(e.target.value)
+
+}
+
+
+  }
+
+
+
+
   return (
     <Dashboard>
     <div>
@@ -66,8 +116,10 @@ function DayServices() {
                 margin="dense"
                 label="Plate Number"
                 variant="outlined"
+                name="palate"
                 size="small"
                 className={classes.width}
+                value={plate}
               />
               <TextField
                 margin="dense"
@@ -77,16 +129,20 @@ function DayServices() {
                 // InputLabelProps={{ style: { fontSize: 15 } }}
                 size="small"
                 className={classes.width}
+                value={type}
+                name="type"
               />
             </Grid>
             <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Customer Details</p>
+              <p className="text-lg text-gray-500">Driver Details</p>
               <TextField
                 margin="dense"
-                label="Customer's Name"
+                label="Driver's Name"
                 variant="outlined"
                 size="small"
                 className={classes.width}
+                value={driverName}
+                name="driver_name"
               />
               <TextField
                 margin="dense"
@@ -94,6 +150,8 @@ function DayServices() {
                 variant="outlined"
                 size="small"
                 className={classes.width}
+                value={driverPhone}
+                name="driver_phone"
               />
             </Grid>
           </Grid>
@@ -121,6 +179,8 @@ function DayServices() {
                 margin="dense"
                 label="Car Problem"
                 variant="outlined"
+                value={carProb}
+                name="prob"
                 size="small"
                 className={classes.width}
                 // InputLabelProps={{
@@ -133,9 +193,11 @@ function DayServices() {
                 id="date"
                 label="Entry Date"
                 variant="outlined"
+                value={entry}
                 type="date"
                 defaultValue="2017-05-24"
                 size="small"
+                name="entry_date"
                 className={classes.width}
                 InputLabelProps={{
                   shrink: true,
@@ -149,25 +211,32 @@ function DayServices() {
               <TextField
                 margin="dense"
                 label="First Name"
+                name="fname"
                 variant="outlined"
                 className={classes.width}
                 size="small"
+                value={fname}
               />
               <TextField
                 margin="dense"
                 label="Last Name"
+                name="lname"
                 variant="outlined"
                 className={classes.width}
                 size="small"
+                value={lname}
               />
               <TextField
+                value={carePhone}
                 margin="dense"
                 label="Phone Number"
                 variant="outlined"
                 className={classes.width}
                 size="small"
+                name="care_phone"
               />
             </Grid>
+
           </Grid>
           <Grid container spacing={3}>
             <Grid item xs={6}>
