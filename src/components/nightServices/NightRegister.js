@@ -54,9 +54,10 @@ function DayServices() {
   const {service,setService}=useState("");
   const{carProb,setCarProb}=useState("");
   const {entry,setEntry}=useState("");
+  const {mech,setMech}=useState("Mechanic");
+  const {wash,setWash}=useState("Washing");
   
   function handleChange(e){
-
 if(e.target.name==="plate"){
   setPlate(e.target.value);
 }
@@ -98,7 +99,7 @@ else if(e.target.name==="service"){
 
 
   function submit(){
-
+//  console.log(plate,type)
   }
 
 
@@ -124,10 +125,11 @@ else if(e.target.name==="service"){
                 margin="dense"
                 label="Plate Number"
                 variant="outlined"
-                name="palate"
+                name="plate"
                 size="small"
                 className={classes.width}
                 value={plate}
+                onChange={(e)=>handleChange(e)}
               />
               <TextField
                 margin="dense"
@@ -139,6 +141,7 @@ else if(e.target.name==="service"){
                 className={classes.width}
                 value={type}
                 name="type"
+                onChange={(e)=>handleChange(e)}
               />
             </Grid>
             <Grid item xs={6}>
@@ -151,6 +154,7 @@ else if(e.target.name==="service"){
                 className={classes.width}
                 value={driverName}
                 name="driver_name"
+                onChange={(e)=>handleChange(e)}
               />
               <TextField
                 margin="dense"
@@ -160,6 +164,7 @@ else if(e.target.name==="service"){
                 className={classes.width}
                 value={driverPhone}
                 name="driver_phone"
+                onChange={(e)=>handleChange(e)}
               />
             </Grid>
           </Grid>
@@ -174,13 +179,15 @@ else if(e.target.name==="service"){
                 margin="dense"
               >
                 <InputLabel>Service</InputLabel>
-                <Select label="Sevice" name="service">
+                <Select label="Sevice" name="service"
+                 onChange={(e)=>handleChange(e)}
+                >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                
+                  <MenuItem value={mech}>Mechanic</MenuItem>
+                  <MenuItem value={wash}>Washing</MenuItem>
                 </Select>
               </FormControl>
                 <TextField
@@ -194,6 +201,7 @@ else if(e.target.name==="service"){
                 // InputLabelProps={{
                 //   shrink: true,
                 // }}
+                onChange={(e)=>handleChange(e)}
               />
               <br></br>
               <TextField
@@ -210,6 +218,7 @@ else if(e.target.name==="service"){
                 InputLabelProps={{
                   shrink: true,
                 }}
+                onChange={(e)=>handleChange(e)}
               />
 
             
@@ -224,6 +233,7 @@ else if(e.target.name==="service"){
                 className={classes.width}
                 size="small"
                 value={fname}
+                onChange={(e)=>handleChange(e)}
               />
               <TextField
                 margin="dense"
@@ -233,6 +243,7 @@ else if(e.target.name==="service"){
                 className={classes.width}
                 size="small"
                 value={lname}
+                onChange={(e)=>handleChange(e)}
               />
               <TextField
                 value={carePhone}
@@ -242,6 +253,7 @@ else if(e.target.name==="service"){
                 className={classes.width}
                 size="small"
                 name="care_phone"
+                onChange={(e)=>handleChange(e)}
               />
             </Grid>
 
@@ -251,6 +263,7 @@ else if(e.target.name==="service"){
               <Button
                 variant="contained"
                 className={`${classes.blueBut} ${classes.width} ${classes.low}`}
+                onClick={()=>submit()}
               >
                 Save
               </Button>
@@ -261,8 +274,7 @@ else if(e.target.name==="service"){
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
-                  setDayServicepayment(true);
-                  setDayRecord(false);
+                
                 }}
               >
                 Continue Payment
