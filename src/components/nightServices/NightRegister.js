@@ -87,6 +87,10 @@ else if(e.target.name==="entry_date"){
   setEntry(e.target.value)
 
 }
+else if(e.target.name==="service"){
+
+   setService(e.target.value);
+}
 
 
   }
