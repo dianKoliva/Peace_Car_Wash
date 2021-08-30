@@ -44,22 +44,23 @@ function DayServices() {
   const classes = useStyles();
   const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
   const {dayRecord,setDayRecord}=useContext(MyContext);
-  const {plate,setPlate}=useState("");
-  const {type,setType}=useState("");
-  const {driverName,setDriverName}=useState("");
-  const {driverPhone,setDriverPhone}=useState("");
-  const {fname,setFname}=useState("");
-  const {lname,setLname}=useState("");
-  const {carePhone,setCarePhone}=useState("");
-  const {service,setService}=useState("");
-  const{carProb,setCarProb}=useState("");
-  const {entry,setEntry}=useState("");
-  const {mech,setMech}=useState("Mechanic");
-  const {wash,setWash}=useState("Washing");
+  const [plate,setPlate]=useState("");
+  const [type,setType]=useState("");
+  const [driverName,setDriverName]=useState("");
+  const [driverPhone,setDriverPhone]=useState("");
+  const [fname,setFname]=useState("");
+  const [lname,setLname]=useState("");
+  const [carePhone,setCarePhone]=useState("");
+  const [service,setService]=useState("");
+  const[carProb,setCarProb]=useState("");
+  const [entry,setEntry]=useState("");
+  const [mech,setMech]=useState("Mechanic");
+  const [wash,setWash]=useState("Washing");
   
   function handleChange(e){
 if(e.target.name==="plate"){
   setPlate(e.target.value);
+  console.log(plate);
 }
 else if(e.target.name==="type"){
 setType(e.target.value);
