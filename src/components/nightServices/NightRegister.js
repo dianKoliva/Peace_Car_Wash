@@ -97,6 +97,10 @@ else if(e.target.name==="service"){
 
 
 
+  function submit(){
+
+  }
+
 
   return (
     <Dashboard>
@@ -170,7 +174,7 @@ else if(e.target.name==="service"){
                 margin="dense"
               >
                 <InputLabel>Service</InputLabel>
-                <Select label="Sevice">
+                <Select label="Sevice" name="service">
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
