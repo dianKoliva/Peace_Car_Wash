@@ -11,7 +11,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import axios from 'axios';
@@ -94,11 +94,12 @@ export default function StickyHeadTable() {
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
 
+
   async function fetch(){
     await axios.get('/dactivity',
     {
      headers: {
-       'Authorization': token
+       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNDMwNzMwLCJleHAiOjE2MzA1MTcxMzB9.HDle_1vNHJvffCk2LfWJBYPqneuryG8kOiOySZuPAtU"
      }
      
    }).then((response)=>{
@@ -175,9 +176,12 @@ export default function StickyHeadTable() {
 if(col.id==="action"){
   return(
 <TableCell key={index} align={col.align}>
-  <CreateIcon></CreateIcon>
-  <DeleteIcon></DeleteIcon>
-                         
+<IconButton size="small"  >
+  <CreateIcon  fontSize="small" className="text-gray-500"></CreateIcon>
+  </IconButton>
+  <IconButton size="small">
+  <DeleteIcon fontSize="small" className="text-gray-500" ></DeleteIcon>
+  </IconButton>   
                           </TableCell>
   )
 }

@@ -60,44 +60,41 @@ function DayServices() {
   function handleChange(e){
 if(e.target.name==="plate"){
   setPlate(e.target.value);
-  console.log(plate);
+  
 }
 else if(e.target.name==="type"){
 setType(e.target.value);
+
 }
 else if(e.target.name==="driver_name"){
 setDriverName(e.target.value)
 }
 else if(e.target.name==="driver_phone"){
   setDriverPhone(e.target.value);
+ 
 }
 else if(e.target.name==="fname"){
-  setFname(e.target.value)
+  setFname(e.target.value);
 }
 else if(e.target.name==="lname"){
   setLname(e.target.value);
-
 }
 else if(e.target.name==="care_phone"){
   setCarePhone(e.target.value)
 }
 else if(e.target.name==="prob"){
   setCarProb(e.target.value);
+  
 
 }
 else if(e.target.name==="entry_date"){
   setEntry(e.target.value)
-
 }
 else if(e.target.name==="service"){
 
    setService(e.target.value);
 }
-
-
   }
-
-
 
   function submit(){
 //  console.log(plate,type)
@@ -181,8 +178,9 @@ else if(e.target.name==="service"){
                 margin="dense"
               >
                 <InputLabel>Service</InputLabel>
-                <Select label="Sevice" name="service"
+                <Select label="Sevice" 
                  onChange={(e)=>handleChange(e)}
+                 value=''
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -213,7 +211,7 @@ else if(e.target.name==="service"){
                 variant="outlined"
                 value={entry}
                 type="date"
-                defaultValue="2017-05-24"
+            
                 size="small"
                 name="entry_date"
                 className={classes.width}

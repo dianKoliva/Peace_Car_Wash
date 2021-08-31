@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import bg from "../images/bg.jpg";
-import { Link as Linker } from "react-router-dom";
+import { Link as Linker, } from "react-router-dom";
 import axios from 'axios';
 import { MyContext } from "../MyContext";
 

@@ -10,7 +10,7 @@ import {  useEffect, useState } from "react";
 import Dash from "./components/Dash";
 import DayServices from "./components/dayServices/ServiceList"
 import VehichlePayment from "./components/dayServices/VehichlePayment";
-import { Router, Switch, Route} from "react-router-dom";
+import { Router, Switch, Route,BrowserRouter } from "react-router-dom";
 import RegisterDay from "./components/dayServices/DayServices"
 import RentingList from "./components/renting/RentingList"
 import RentingRegister from "./components/renting/RentingRegister"
@@ -22,6 +22,7 @@ import NightList from "./components/nightServices/NightList"
 import NightRegister from "./components/nightServices/NightRegister"
 import NightPayement from "./components/nightServices/NightPayment"
 import AfterSignUp from "./pages/AfterSigUp"
+import EditDayService from "./components/dayServices/EditDaySevice"
 
 function App() {
 
@@ -29,9 +30,11 @@ const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ij
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
-const [user,setUser]=useState();
+const [user,setUser]=useState(); 
 const [roles,setRoles]=useState();
 const [loged,setLoged]=useState(true);
+const [toEdit,setToEdit]=useState({plate:"",customer:"",car_type:"",fname:"",lname:"",
+care_phone:"",cus_phone:"",service:"",entry_date:"",out_date:""});
 
 
 async function getRoles(){
@@ -90,7 +93,8 @@ async function getServices(){
       serviceList,setServiceList,
       toBePayed,setToBePayed,
       user,setUser,
-      loged,setLoged
+      loged,setLoged,
+      toEdit,setToEdit
     }}
 
     >
@@ -111,6 +115,7 @@ async function getServices(){
           <Route path="/app/dayservices" exact component={DayServices}></Route>
           <Route path="/app/dayservices/payment" exact component={VehichlePayment}></Route>
           <Route path="/app/dayservices/register" exact component={RegisterDay}></Route>
+          <Route path="/app/dayservices/edit" exact component={EditDayService}></Route>
 
           <Route path="/app/nightservices" exact component={NightList}></Route>
           <Route path="/app/nightservices/register" exact component={NightRegister}></Route>
