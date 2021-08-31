@@ -78,7 +78,7 @@ function DayServices() {
   const[mech,setMech]=useState("Mechanic");
   const[wash,setWash]=useState("Wash");
   const{toBePayed,setToBePayed}=useContext(MyContext);
-  const{success,setSuccess}=useState(false);
+  const[success,setSuccess]=useState(false);
 
 
 
