@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -46,6 +47,7 @@ function DayServices() {
   const classes = useStyles();
   const {payRent,setPayRent}=useContext(MyContext);
   const {newRenter,setNewRenter}=useContext(MyContext);
+  const history=useHistory();
   return (
     <Dashboard>
     <div>
@@ -118,7 +120,11 @@ function DayServices() {
           <Grid xs={12} container spacing={3}>
             <Grid item xs={6}>
               <Button
-              onClick={()=>{setPayRent(true);setNewRenter(false)}}
+              onClick={()=>{
+                // setPayRent(true);
+                // setNewRenter(false)
+                history.push("/app/rent/payment")
+              }}
                 variant="contained"
                 className={`${classes.greenBut} ${classes.width}  ${classes.otherMarg}`}
               >
@@ -127,6 +133,9 @@ function DayServices() {
             </Grid>
             <Grid item xs={6}>
               <Button
+               onClick={()=>{
+                history.push("/app/rent")
+              }}
                 variant="contained"
                 color="primary"
                 className={`${classes.blueBut} ${classes.width} ${classes.otherMarg}`}
