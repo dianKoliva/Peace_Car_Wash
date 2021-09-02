@@ -72,7 +72,7 @@ function DayServices() {
   const[care_lname,setCareLname]=useState("");
   const [care_phone,setCarePhone]=useState("");
   const [service,setService]=useState("");
-  const [out_date,setOutDate]=useState("");
+  const [amount,setAMount]=useState("");
   const[entry_date,setEntryDate]=useState(final);
   const[error,setError]=useState();
   const[mech,setMech]=useState("Mechanic");
@@ -139,7 +139,11 @@ const  handleBlur=(e)=>{
   }
    if(e.target.name==="care_fname"){
    setTakerFname(e.target.value)
-   console.log() 
+  
+  }
+  if(e.target.name==="amount"){
+    setAMount(e.target.value);
+  
   }
 
 }
@@ -148,16 +152,15 @@ const  handleBlur=(e)=>{
 const submit=async()=>{
 
 
-  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""){
+  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""||amount===""){
    setError(true);
-   console.log(care_lname)
   
   }
   else{
     setError(false);
-    console.log(serviceList)
-    const json = JSON.stringify({ 
+    const json = JSON.stringify({
     plate_number: plate,
+    observation: "string",
     car_type: type,
     entry_date: entry_date,
     out_date:entry_date,
@@ -166,7 +169,12 @@ const submit=async()=>{
     taker_fname: taker_fname,
     taker_lname: care_lname,
     taker_number: care_phone,
-    service: service})
+    service: service,
+    status: "PENDING",
+    amount_to_pay: amount,
+    amount_payed: 0,
+
+  })
    await axios.post('/dactivity',json,
    {
     headers: {
@@ -176,22 +184,19 @@ const submit=async()=>{
     
   }).then((response)=>{
 
-   
-
-    setPlate("");
+  
+  
+  if(response.statusText==="Created"){
+history.push("/app/dayservices");
+  setPlate("");
     setType("");
     setCusName("");
     setCusPhone("");setTakerFname("");
     setCareLname("");setCareLname("");
     setCarePhone("");setService("");
-  
-  if(response.data.message==="Successfully created!"){
-   setSuccess(true)
   }
 
   }).catch(error=>{
-
-    
     console.log(error);
   })
 
@@ -292,7 +297,7 @@ const submit=async()=>{
                 onChange={(e)=>{
                   setService (e.target.value);          
                }}
-
+                
                 >
               
               {serviceList?serviceList.map((s)=>{
@@ -308,6 +313,18 @@ const submit=async()=>{
               </FormControl>
               
               <br></br>
+              <TextField
+                margin="dense"
+                id="amount"
+                label="Amount"
+                variant="outlined"
+                
+                name="amount"
+                size="small"
+                className={classes.width}
+                onChange={(e)=>{handleBlur(e)}}
+            
+              />
               <TextField
                 margin="dense"
                 id="date"
@@ -327,19 +344,7 @@ const submit=async()=>{
                 }}
               />
 
-            <TextField
-                margin="dense"
-                id="date"
-                label="Out Date"
-                variant="outlined"
-                type="date"
-                name="out_date"
-                size="small"
-                className={classes.width}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+           
             </Grid>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Care taker Details</p>

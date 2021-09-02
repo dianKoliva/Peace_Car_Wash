@@ -27,8 +27,8 @@ const columns = [
   { id: "out_date", label: "Out Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
   { id: "services", label: "Service", minWidth: 100, align: "left" },
-  { id: "payement", label: "Amount", minWidth: 100, align: "left" },
-  { id: "observation", label: "status", minWidth: 100 },
+  { id: "amount_to_pay", label: "Amount", minWidth: 100, align: "left" },
+  { id: "status", label: "status", minWidth: 100 },
   { id: "action", label: "Action", minWidth: 100 },
 ];
 
@@ -82,6 +82,9 @@ const useStyles = makeStyles({
   background: {
     fontWeight: "bold",
   },
+  buttonWid:{
+    width: "10em",
+  }
 });
 
 
@@ -93,13 +96,14 @@ export default function StickyHeadTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
+  const{ toEdit,setToEdit}=useContext(MyContext);
 
 
   async function fetch(){
     await axios.get('/dactivity',
     {
      headers: {
-       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNDMwNzMwLCJleHAiOjE2MzA1MTcxMzB9.HDle_1vNHJvffCk2LfWJBYPqneuryG8kOiOySZuPAtU"
+       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNTA1NzMyLCJleHAiOjE2MzA1OTIxMzJ9.yRDrYn-03QveShoAEurbkYDD6OjWx2vjVj1jKetP6UQ"
      }
      
    }).then((response)=>{
@@ -131,6 +135,9 @@ export default function StickyHeadTable() {
     setPage(0);
   };
   const history=useHistory();
+  const edit =(index)=>{
+    console.log(data[index])
+  }
 
   return (
     <Dashboard>
@@ -168,25 +175,42 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?data.map((data,index)=>{
+            {data?data.map((data,num)=>{
+            
               return(
-              <TableRow hover role="checkbox" tabIndex={-1} key={index} >
+              <TableRow hover role="checkbox" tabIndex={-1} key={num} >
 {columns.map((col,index)=>{
-
+  const value = data[col.id];
 if(col.id==="action"){
+  
   return(
 <TableCell key={index} align={col.align}>
-<IconButton size="small"  >
-  <CreateIcon  fontSize="small" className="text-gray-500"></CreateIcon>
+<IconButton value={index} size="small" onClick={()=>edit(num)}>
+  <CreateIcon   fontSize="small" className="text-gray-500"></CreateIcon>
   </IconButton>
-  <IconButton size="small">
-  <DeleteIcon fontSize="small" className="text-gray-500" ></DeleteIcon>
-  </IconButton>   
+  <IconButton size="small"   >
+  <DeleteIcon   fontSize="small" className="text-gray-500"></DeleteIcon>
+  </IconButton>
+
                           </TableCell>
+  )
+} else if(col.id==="status"){
+  return(
+  <TableCell key={index} align={col.align} >
+  {value==="PENDING"?
+   <Button variant="contained" color="secondary" className={classes.pending}>
+   {value}
+ </Button>:value==="INCOMPLETE"? <Button variant="contained" color="primary" className={classes.incomplete}>
+   {value}
+ </Button>:<Button variant="contained" disabled className={classes.buttonWid}>
+   {value}
+</Button>}
+  
+</TableCell>
   )
 }
 else{
-const value = data[col.id];
+
   return(
  <TableCell key={index} align={col.align}>
                             {value}

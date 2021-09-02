@@ -144,6 +144,8 @@ const  handleBlur=(e)=>{
 
 const submit=async()=>{
 
+  console.log(toEdit);
+
 
   if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""){
    setError(true);

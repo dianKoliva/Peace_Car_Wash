@@ -26,15 +26,14 @@ import EditDayService from "./components/dayServices/EditDaySevice"
 
 function App() {
 
-const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWI2ZGVjMzlmOWJjMDAxNmZkZGI5MyIsInBob25lX251bWJlciI6IjA3OTA3Nzg4NDgiLCJmaXJzdF9uYW1lIjoiUHJldHR5IiwibGFzdF9uYW1lIjoiRGlhbmUiLCJyb2xlIjp7Il9pZCI6IjYxMWQ4YTIxOTE2NDBkNDUzNGM1MGU2NCIsIm5hbWUiOiJ1c2VyIn0sImlhdCI6MTYzMDAxMjg1NSwiZXhwIjoxNjMwMDk5MjU1fQ.HcyUiDbauWnWs2UAYeiGllNLHcAnGr9sqeQr_fCWPEc");
+const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNTQ2MTM5LCJleHAiOjE2MzA2MzI1Mzl9.3NrJIZWg2cQ-22C1CbenXxF7yLThd4USjBqn4ksrooE");
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
 const [user,setUser]=useState(); 
 const [roles,setRoles]=useState();
 const [loged,setLoged]=useState(true);
-const [toEdit,setToEdit]=useState({plate:"",customer:"",car_type:"",fname:"",lname:"",
-care_phone:"",cus_phone:"",service:"",entry_date:"",out_date:""});
+const [toEdit,setToEdit]=useState("");
 
 
 async function getRoles(){

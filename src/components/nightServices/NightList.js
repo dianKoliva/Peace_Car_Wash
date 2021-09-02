@@ -22,11 +22,10 @@ const columns = [
   { id: "customer_name", label: "Customer", minWidth: 170, align: "left" },
   { id: "phone_number", label: "Phone_no", minWidth: 100, align: "left" },
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
-  { id: "out_date", label: "Out Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
   { id: "services", label: "Service", minWidth: 100, align: "left" },
-  { id: "amount", label: "Amount", minWidth: 100, align: "left" },
-  { id: "observation", label: "Observation", minWidth: 100 },
+  { id: "amount_to_pay", label: "Amount", minWidth: 100, align: "left" },
+  { id: "status", label: "Status", minWidth: 100 },
   { id: "action", label: "Action", minWidth: 100 },
 ];
 
@@ -93,14 +92,15 @@ export default function StickyHeadTable() {
   const [data,setData]=useState("");
 
   async function fetch(){
-    await axios.get('/dactivity',
+    await axios.get('/nactivity',
     {
      headers: {
-       'Authorization':token
+       'Authorization':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNDMwNzMwLCJleHAiOjE2MzA1MTcxMzB9.HDle_1vNHJvffCk2LfWJBYPqneuryG8kOiOySZuPAtU"
     }
      
    }).then((response)=>{
      setData(response.data.activities);
+     
      
     
    }).catch(error=>{
@@ -117,42 +117,6 @@ export default function StickyHeadTable() {
   },[])
 
 
-
-  const rows = [
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "complete"
-  ),
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "incomplete"
-  ),
-  createData(
-    "RCA890G",
-    "Gisa Kaze Fredson",
-    "07822443838",
-    "04/28/2021",
-    "04/28/2021",
-    "Costa",
-    "Repairing",
-    300,
-    "pending"
-  ),
-];
 
 
   const handleChangePage = (event, newPage) => {
@@ -201,10 +165,13 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?data.map((data,index)=>{
+            {data?data.map((data,num)=>{
+              
               return(
-              <TableRow hover role="checkbox" tabIndex={-1} key={index} >
+              <TableRow hover role="checkbox" tabIndex={-1} key={num} >
 {columns.map((col,index)=>{
+
+ 
 
 const value = data[col.id];
   return(
@@ -222,7 +189,7 @@ const value = data[col.id];
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
