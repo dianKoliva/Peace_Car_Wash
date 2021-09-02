@@ -128,18 +128,16 @@ export default function StickyHeadTable() {
 
     var id=data[index]._id;
 
-    await axios.delete(`/dactivity/{id}`,
+    await axios.delete(`/dactivity/${id}`,
     {
      headers: {
-       'Authorization': token
+       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNTQ2MTM5LCJleHAiOjE2MzA2MzI1Mzl9.3NrJIZWg2cQ-22C1CbenXxF7yLThd4USjBqn4ksrooE"
      }
      
    }).then((response)=>{
-     setData(response.data.activities);
-     
-    
+fetch();
    }).catch(error=>{
-     console.log(error);
+    //  console.log(error);
    })
 
   }
