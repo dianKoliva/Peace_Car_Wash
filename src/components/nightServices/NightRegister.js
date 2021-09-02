@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 function DayServices() {
   
   const classes = useStyles();
+  var history=useHistory();
   const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
   const {dayRecord,setDayRecord}=useContext(MyContext);
   const [plate,setPlate]=useState("");
@@ -135,7 +137,7 @@ else if(e.target.name==="service"){
        
      }).then((response)=>{
        if(response.statusText==="Created"){
-         history.push("")
+         history.push("app/nightservices");
        }
      })
      .catch(error=>{
