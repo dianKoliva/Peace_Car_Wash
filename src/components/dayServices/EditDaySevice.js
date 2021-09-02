@@ -81,6 +81,7 @@ function DayServices() {
   const[success,setSuccess]=useState(false);
   const{ toEdit,setToEdit}=useContext(MyContext);
 
+  console.log(toEdit);
    
 
 const  handleBlur=(e)=>{

@@ -154,9 +154,13 @@ fetch();
     setPage(0);
   };
   const history=useHistory();
-  
+
   const edit =(index)=>{
-    console.log(data[index])
+    setToEdit(data[index])
+    setTimeout(function(){
+
+      history.push("/app/dayservices/edit")
+    }, 3000);
   }
 
   return (
