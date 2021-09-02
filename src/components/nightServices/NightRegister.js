@@ -59,6 +59,7 @@ function DayServices() {
   const [wash,setWash]=useState("Washing");
   const[error,setError]=useState();
   const {token,setToken}=useContext(MyContext);
+  const {serviceList,setServiceList}=useContext(MyContext);
   
   function handleChange(e){
 if(e.target.name==="plate"){
@@ -231,18 +232,25 @@ else if(e.target.name==="service"){
                 size="small"
                 className={` ${classes.width}`}
                 margin="dense"
+               
               >
-                <InputLabel>Service</InputLabel>
-                <Select label="Sevice" 
-                 onChange={(e)=>handleChange(e)}
-                 value=''
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
+                <InputLabel>Select</InputLabel>
+                <Select label="Service"
+                onChange={(e)=>{
+                  setService (e.target.value);          
+               }}
                 
-                  <MenuItem value={mech}>Mechanic</MenuItem>
-                  <MenuItem value={wash}>Washing</MenuItem>
+                >
+              
+              {serviceList?serviceList.map((s)=>{
+        return(
+          <MenuItem value={s._id}>{s.name}</MenuItem>
+        )
+              }):null}
+             
+       
+          
+                 
                 </Select>
               </FormControl>
                 <TextField
