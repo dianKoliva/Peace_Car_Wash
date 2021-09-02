@@ -101,11 +101,11 @@ else if(e.target.name==="service"){
   }
 
   const submit=async()=>{
-    if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||service===""||carProb){
-      setError(true);
-     console.log(driverPhone);
-     }
-     else{
+    // if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||service===""||carProb,entry){
+    //   setError(true);
+    //  console.log(plate,type,driverName,driverPhone,fname,lname,carePhone,service,carProb,entry);
+    //  }
+    //  else{
       setError(false);
       const json = JSON.stringify({
         plate_number: plate,
@@ -139,7 +139,7 @@ else if(e.target.name==="service"){
      .catch(error=>{
       console.log(error);
     })
-  }
+  // }
   }
 
   
