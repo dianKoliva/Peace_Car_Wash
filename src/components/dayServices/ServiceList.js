@@ -154,6 +154,7 @@ fetch();
     setPage(0);
   };
   const history=useHistory();
+  
   const edit =(index)=>{
     console.log(data[index])
   }
