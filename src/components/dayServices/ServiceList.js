@@ -160,7 +160,7 @@ fetch();
     setTimeout(function(){
 
       history.push("/app/dayservices/edit")
-    }, 3000);
+    }, 1000);
   }
 
   return (
