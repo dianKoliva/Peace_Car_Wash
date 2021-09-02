@@ -103,7 +103,7 @@ else if(e.target.name==="service"){
   const submit=async()=>{
     if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||service===""||carProb){
       setError(true);
-     console.log(carePhone);
+     console.log(driverPhone);
      }
      else{
       setError(false);
