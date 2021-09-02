@@ -198,9 +198,9 @@ if(col.id==="action"){
   return(
   <TableCell key={index} align={col.align} >
   {value==="PENDING"?
-   <Button variant="contained" color="secondary" onClick={()=>{history.push("app/dayservices/payment")}} className={classes.pending}>
+   <Button variant="contained" color="secondary" onClick={()=>{history.push("/app/dayservices/payment")}} className={classes.pending}>
    {value}
- </Button>:value==="INCOMPLETE"? <Button variant="contained" color="primary" className={classes.incomplete}>
+ </Button>:value==="INCOMPLETE"? <Button variant="contained" onClick={()=>{history.push("/app/dayservices/payment")}} color="primary" className={classes.incomplete}>
    {value}
  </Button>:<Button variant="contained" disabled className={classes.buttonWid}>
    {value}

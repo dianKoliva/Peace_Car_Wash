@@ -137,7 +137,7 @@ else if(e.target.name==="service"){
        
      }).then((response)=>{
        if(response.statusText==="Created"){
-         history.push("app/nightservices");
+         history.push("/app/nightservices");
        }
      })
      .catch(error=>{
