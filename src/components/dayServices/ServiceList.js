@@ -124,6 +124,13 @@ export default function StickyHeadTable() {
   },[])
 
 
+  async function deleter(index){
+
+    console.log(data[index]);
+
+  }
+
+
 
 
   const handleChangePage = (event, newPage) => {
@@ -188,7 +195,7 @@ if(col.id==="action"){
 <IconButton value={index} size="small" onClick={()=>edit(num)}>
   <CreateIcon   fontSize="small" className="text-gray-500"></CreateIcon>
   </IconButton>
-  <IconButton size="small"   >
+  <IconButton size="small"  onClick={()=>edit(num)}  >
   <DeleteIcon   fontSize="small" className="text-gray-500"></DeleteIcon>
   </IconButton>
 
