@@ -103,7 +103,7 @@ export default function StickyHeadTable() {
     await axios.get('/dactivity',
     {
      headers: {
-       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNTA1NzMyLCJleHAiOjE2MzA1OTIxMzJ9.yRDrYn-03QveShoAEurbkYDD6OjWx2vjVj1jKetP6UQ"
+       'Authorization': token
      }
      
    }).then((response)=>{
@@ -126,7 +126,21 @@ export default function StickyHeadTable() {
 
   async function deleter(index){
 
-    console.log(data[index]._id);
+    var id=data[index]._id;
+
+    await axios.delete(`/dactivity/{id}`,
+    {
+     headers: {
+       'Authorization': token
+     }
+     
+   }).then((response)=>{
+     setData(response.data.activities);
+     
+    
+   }).catch(error=>{
+     console.log(error);
+   })
 
   }
 
