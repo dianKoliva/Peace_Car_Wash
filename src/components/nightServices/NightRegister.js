@@ -101,27 +101,12 @@ else if(e.target.name==="service"){
   }
 
   const submit=async()=>{
-    // "plate_number": "string",
-    // "car_type": "string",
-    // "entry_date": "string",
-    // "out_date": "string",
-    // "customer_name": "string",
-    // "phone_number": "string",
-    // "taker_fname": "string",
-    // "taker_lname": "string",
-    // "taker_number": "string",
-    // "service": "string",
-    // "observation": "string",
-    // "amount_to_pay": 0,
-    // "amount_payed": 0,
-    // "status": "string",
-    // "car_problem": "string"
-
     if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||service===""||carProb){
       setError(true);
-     
+     console.log(carePhone);
      }
      else{
+      setError(false);
       const json = JSON.stringify({
         plate_number: plate,
         observation: "string",
@@ -149,6 +134,7 @@ else if(e.target.name==="service"){
        }
        
      }).then((response)=>{
+       console.log(response);
      })
      .catch(error=>{
       console.log(error);
