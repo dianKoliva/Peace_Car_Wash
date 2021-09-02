@@ -10,7 +10,7 @@ import {  useEffect, useState } from "react";
 import Dash from "./components/Dash";
 import DayServices from "./components/dayServices/ServiceList"
 import VehichlePayment from "./components/dayServices/VehichlePayment";
-import { Router, Switch, Route,BrowserRouter } from "react-router-dom";
+import {  BrowserRouter as Router, Route, Link, Switch  } from "react-router-dom";
 import RegisterDay from "./components/dayServices/DayServices"
 import RentingList from "./components/renting/RentingList"
 import RentingRegister from "./components/renting/RentingRegister"
@@ -100,7 +100,7 @@ async function getServices(){
 
     <div className="App">
       
-      <Router history={history}  >
+      <Router  >
         <Switch>
           <Route path="/" exact component={Login}></Route>
           <Route path="/app" exact component={Dash}/>

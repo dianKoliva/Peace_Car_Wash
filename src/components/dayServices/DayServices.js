@@ -416,7 +416,7 @@ history.push("/app/dayservices");
                 className={`${classes.greenBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
                 setToBePayed(plate)
-                  history.push("/app/dayservices/payment")
+                  history.push("/payment")
                 }}
                 
               >
