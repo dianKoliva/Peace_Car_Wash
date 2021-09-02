@@ -133,7 +133,7 @@ else if(e.target.name==="service"){
         taker_lname: lname,
         taker_number: carePhone,
         service: service,
-        status: "COMPLETE",
+        status: "PENDING",
         amount_to_pay:0,
         amount_payed: 0,
         car_problem: "string"
