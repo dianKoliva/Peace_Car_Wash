@@ -126,7 +126,7 @@ export default function StickyHeadTable() {
 
   async function deleter(index){
 
-    console.log(data[index]);
+    console.log(data[index]._id);
 
   }
 
@@ -195,7 +195,7 @@ if(col.id==="action"){
 <IconButton value={index} size="small" onClick={()=>edit(num)}>
   <CreateIcon   fontSize="small" className="text-gray-500"></CreateIcon>
   </IconButton>
-  <IconButton size="small"  onClick={()=>edit(num)}  >
+  <IconButton size="small"  onClick={()=>deleter(num)}  >
   <DeleteIcon   fontSize="small" className="text-gray-500"></DeleteIcon>
   </IconButton>
 
