@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -56,6 +57,8 @@ function DayServices() {
   const [entry,setEntry]=useState("");
   const [mech,setMech]=useState("Mechanic");
   const [wash,setWash]=useState("Washing");
+  const[error,setError]=useState();
+  const {token,setToken}=useContext(MyContext);
   
   function handleChange(e){
 if(e.target.name==="plate"){
@@ -96,10 +99,61 @@ else if(e.target.name==="service"){
 }
   }
 
-  function submit(){
-//  console.log(plate,type)
-  }
+  const submit=async()=>{
+    // "plate_number": "string",
+    // "car_type": "string",
+    // "entry_date": "string",
+    // "out_date": "string",
+    // "customer_name": "string",
+    // "phone_number": "string",
+    // "taker_fname": "string",
+    // "taker_lname": "string",
+    // "taker_number": "string",
+    // "service": "string",
+    // "observation": "string",
+    // "amount_to_pay": 0,
+    // "amount_payed": 0,
+    // "status": "string",
+    // "car_problem": "string"
 
+    if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||service===""||carProb){
+      setError(true);
+     
+     }
+     else{
+      const json = JSON.stringify({
+        plate_number: plate,
+        observation: "string",
+        car_type: type,
+        entry_date: entry,
+        out_date:entry,
+        customer_name: driverName,
+        phone_number: driverPhone,
+        taker_fname:fname,
+        taker_lname: lname,
+        taker_number: carePhone,
+        service: service,
+        status: "COMPLETE",
+        amount_to_pay:0,
+        amount_payed: 0,
+        car_problem: "string"
+
+    
+      })
+      await axios.post('/nactivity',json,
+      {
+       headers: {
+         'Authorization': token,
+         'Content-Type': 'application/json'
+       }
+       
+     }).then((response)=>{
+     })
+     .catch(error=>{
+      console.log(error);
+    })
+  }
+  }
 
   
   return (
@@ -117,6 +171,7 @@ else if(e.target.name==="service"){
           <p className="text-gray-500">
             Register new vehicle attending Peace Car Wash Services
           </p>
+          {error?<p className="text-red-500 mt-2">Some Fields shouldn't be left empty</p>:null}
           <Grid  container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Car Details</p>
@@ -288,5 +343,6 @@ else if(e.target.name==="service"){
     </Dashboard>
   );
 }
+
 
 export default DayServices;
