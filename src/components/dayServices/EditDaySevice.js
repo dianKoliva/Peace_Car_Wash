@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
@@ -81,7 +82,21 @@ function DayServices() {
   const[success,setSuccess]=useState(false);
   const{ toEdit,setToEdit}=useContext(MyContext);
 
-  console.log(toEdit);
+ 
+
+  useEffect(()=>{
+
+    setType(toEdit.car_type);
+    setCusName(toEdit.customer_name);
+    setEntryDate(toEdit.entry_date);
+    setOutDate(toEdit.out_date);
+    setCusPhone(toEdit.phone_number);
+    setPlate(toEdit.plate_number);
+    setService(toEdit.service);
+    setTakerFname(toEdit.taker_fname);
+    setCareLname(toEdit.taker_lname);
+    setCarePhone(toEdit.taker_number);
+  },[])
    
 
 const  handleBlur=(e)=>{
@@ -225,8 +240,12 @@ const submit=async()=>{
                 size="small"
                 className={classes.width}
                 name="plate"
+                value={plate}
                 onChange={(e)=>{
                   handleBlur(e);
+                }}
+                InputLabelProps={{
+                  shrink: true,
                 }}
               />
               
@@ -238,9 +257,13 @@ const submit=async()=>{
                 // InputLabelProps={{ style: { fontSize: 15 } }}
                 size="small"
                 className={classes.width}
+                value={type}
                 name="type"
                   onChange={(e)=>{
                   handleBlur(e);
+                }}
+                InputLabelProps={{
+                  shrink: true,
                 }}
               />
         
@@ -257,6 +280,10 @@ const submit=async()=>{
                 onChange={(e)=>{
                   handleBlur(e);
                 }}
+                value={cus_name}
+                InputLabelProps={{
+                  shrink: true,
+                }}
 
               />
             
@@ -266,11 +293,14 @@ const submit=async()=>{
                 label="Phone Number"
                 variant="outlined"
                 name="cus_phone"
-                
+                value={cus_phone}
                 size="small"
                 className={classes.width}
                 onChange={(e)=>{
                   handleBlur(e);
+                }}
+                InputLabelProps={{
+                  shrink: true,
                 }}
               />
               
@@ -290,7 +320,8 @@ const submit=async()=>{
                 <InputLabel>Select</InputLabel>
                 <Select label="Service"
                 onChange={(e)=>{
-                  setService (e.target.value);          
+                  setService (e.target.value);      
+                      
                }}
 
                 >
@@ -312,6 +343,7 @@ const submit=async()=>{
                 margin="dense"
                 id="date"
                 label="Entry Date"
+                defaultValue={entry_date}
                 variant="outlined"
                 type="date"
                 name="entry_date"
@@ -334,6 +366,7 @@ const submit=async()=>{
                 variant="outlined"
                 type="date"
                 name="out_date"
+              defaultValue={out_date}
                 size="small"
                 className={classes.width}
                 InputLabelProps={{
@@ -347,6 +380,7 @@ const submit=async()=>{
                 margin="dense"
                 label="First Name"
                 variant="outlined"
+                value={taker_fname}
                 className={classes.width}
                 name="care_fname"
                 size="small"
@@ -355,6 +389,9 @@ const submit=async()=>{
                     handleBlur(e);
                   }
                 }
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
               
               
@@ -365,16 +402,21 @@ const submit=async()=>{
                 className={classes.width}
                 size="small"
                 name="care_lname"
+                value={care_lname}
                  onChange={
                   (e)=>{
                     handleBlur(e);
                   }
                 }
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
              
               <TextField
                 margin="dense"
                 label="Phone Number"
+                value={care_phone}
                 variant="outlined"
                 className={classes.width}
                 size="small"
@@ -385,6 +427,9 @@ const submit=async()=>{
                     handleBlur(e);
                   }
                 }
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 
               />
             
@@ -396,12 +441,12 @@ const submit=async()=>{
                 variant="contained"
                 className={`${classes.blueBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
-                  submit();
+                 
             
                 }}
                 color="primary"
               >
-                Save
+               Cancel
               </Button>
             </Grid>
             <Grid item xs={6}>
@@ -410,12 +455,11 @@ const submit=async()=>{
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
-                setToBePayed(plate)
-                  history.push("/app/dayservices/payment")
+                  submit();
                 }}
                 
               >
-                Continue Payment
+              Save
               </Button>
             </Grid>
           </Grid>
