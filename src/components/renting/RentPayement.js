@@ -5,6 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import React from "react";
 import Dashboard from "../../layout/Dashboard";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   width: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function RentingPayment(props) {
   const classes = useStyles();
+  const history=useHistory();
   return (
     <Dashboard>
     <div>
@@ -100,6 +102,11 @@ function RentingPayment(props) {
           <Grid xs={12} container spacing={3} className={classes.inputmag}>
             <Grid item xs={6}>
               <Button
+               onClick={()=>{
+                // setPayRent(true);
+                // setNewRenter(false)
+                history.goBack()
+              }}
                 variant="contained"
                 color="primary"
                 className={`${classes.blueBut} ${classes.width} ${classes.low}`}
@@ -109,11 +116,16 @@ function RentingPayment(props) {
             </Grid>
             <Grid item xs={6}>
               <Button
+               onClick={()=>{
+                // setPayRent(true);
+                // setNewRenter(false)
+                history.push("/app/rent")
+              }}
                 variant="contained"
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} ${classes.low}`}
               >
-                Continue Payment
+                Finish
               </Button>
             </Grid>
           </Grid>

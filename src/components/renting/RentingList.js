@@ -15,6 +15,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import { Grid } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
+import { useHistory } from "react-router-dom";
 
 
 const columns = [
@@ -85,7 +86,9 @@ export default function StickyHeadTable() {
   const{rent,setRenting}=useContext(MyContext);
   const {dash,setDash}=useContext(MyContext);
 
-  const { newRenter,setNewRenter}=useContext(MyContext);
+  const{newRenter,setNewRenter}=useContext(MyContext);
+
+  const history=useHistory();
 
   return (
     <Dashboard>
@@ -101,8 +104,9 @@ export default function StickyHeadTable() {
           <div className="ml-6 mb-2 mt-1">
             <Button variant="outlined" color="primary" className="w-32" 
             onClick={()=>{
-              setNewRenter(true);
-              setRenting(false);
+              // setNewRenter(true);
+              // setRenting(false);
+              history.push("/app/rent/register")
             }}
             >
               New Record
