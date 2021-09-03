@@ -27,7 +27,7 @@ const columns = [
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
   { id: "out_date", label: "Out Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
-  { id: "services", label: "Service", minWidth: 100, align: "left" },
+  { id: "service", label: "Service", minWidth: 100, align: "left" },
   { id: "amount_to_pay", label: "Amount", minWidth: 100, align: "left" },
   { id: "status", label: "status", minWidth: 100 },
   { id: "action", label: "Action", minWidth: 100 },
@@ -109,7 +109,7 @@ export default function StickyHeadTable() {
      }
      
    }).then((response)=>{
-     setData(response.data.activities);
+     setData(response.data);
      console.log(response)
      
     
