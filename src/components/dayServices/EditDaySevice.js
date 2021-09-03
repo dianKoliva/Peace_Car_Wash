@@ -181,8 +181,9 @@ const submit=async()=>{
     taker_fname: taker_fname,
     taker_lname: care_lname,
     taker_number: care_phone,
-    service: service})
-   await axios.post(`/dactivity${toEdit._id}`,json,
+    service: service
+  })
+   await axios.put(`/dactivity/${toEdit._id}`,json,
    {
     headers: {
       'Authorization': token,
@@ -193,16 +194,7 @@ const submit=async()=>{
 
    
 
-    setPlate("");
-    setType("");
-    setCusName("");
-    setCusPhone("");setTakerFname("");
-    setCareLname("");setCareLname("");
-    setCarePhone("");setService("");
-  
-  if(response.data.message==="Successfully created!"){
-   setSuccess(true)
-  }
+ console.log(response);
 
   }).catch(error=>{
 
