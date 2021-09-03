@@ -131,7 +131,7 @@ export default function StickyHeadTable() {
     await axios.delete(`/dactivity/${id}`,
     {
      headers: {
-       'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNTQ2MTM5LCJleHAiOjE2MzA2MzI1Mzl9.3NrJIZWg2cQ-22C1CbenXxF7yLThd4USjBqn4ksrooE"
+       'Authorization': token
      }
      
    }).then((response)=>{
@@ -168,18 +168,18 @@ fetch();
     <Paper className={classes.root}>
       <Grid container spacing={3} >
         <Grid item xs={10}>
-          <div className="flex ml-4 mb-6 mt-4 ">
+          <div className="flex ml-4 mb-4 mt-2 ">
             <p className="font-bold">List of vehicles</p>
             <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
           </div>
         </Grid>
-        <Grid item xs={2}
+        <Grid item xs={2} 
         >
-          <div className="ml-6 mb-2 mt-1">
-            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/dayservices/register")}}>
+          
+            <Button variant="outlined" color="primary"  onClick={()=>{history.push("/app/dayservices/register")}}>
               New Record
             </Button>
-          </div>
+         
         </Grid>
       </Grid>
       <TableContainer className={classes.container}>

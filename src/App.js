@@ -26,7 +26,7 @@ import EditDayService from "./components/dayServices/EditDaySevice"
 
 function App() {
 
-const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNTQ2MTM5LCJleHAiOjE2MzA2MzI1Mzl9.3NrJIZWg2cQ-22C1CbenXxF7yLThd4USjBqn4ksrooE");
+const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjpudWxsLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMwNjQ5ODA3LCJleHAiOjE2MzA3MzYyMDd9.9U1uSqex7cGwnnXlwh0B-0NfohsU0RboBzIneefxiS0");
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");

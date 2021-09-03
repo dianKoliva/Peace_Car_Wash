@@ -92,7 +92,7 @@ function DayServices() {
     setOutDate(toEdit.out_date);
     setCusPhone(toEdit.phone_number);
     setPlate(toEdit.plate_number);
-    setService(toEdit.service);
+    setService(toEdit.service._id);
     setTakerFname(toEdit.taker_fname);
     setCareLname(toEdit.taker_lname);
     setCarePhone(toEdit.taker_number);
@@ -434,7 +434,8 @@ const submit=async()=>{
                 className={`${classes.blueBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
                  
-            
+               setToEdit("");
+               history.push("/app/dayservices");
                 }}
                 color="primary"
               >
