@@ -45,17 +45,14 @@ function VehichlePayment(props) {
   };
   const handleComp=(event)=>{
  setComplete(event.target.checked)
- console.log(date);
   }
 
 function  handleChange(e){
 if(e.target.name==="date"){
   setDate(e.target.value)
-  console.log(date);
 }
 else if(e.target.name==="amount"){
 setAmount(e.target.value)
-console.log(amount);
 }
   }
 
@@ -82,7 +79,7 @@ console.log(amount);
               className={classes.width}
               name=""
               value={amount}
-              onChange={console.log("hello")}
+              
             />
         
             <br></br>

@@ -99,6 +99,7 @@ export default function StickyHeadTable() {
   const [data,setData]=useState("");
   const{ toEdit,setToEdit}=useContext(MyContext);
   const {search,setSearch}=useContext(MyContext);
+  const{toBepayed,setToBePayed}=useContext(MyContext)
 
 
   async function fetch(){
@@ -110,7 +111,7 @@ export default function StickyHeadTable() {
      
    }).then((response)=>{
      setData(response.data.activities);
-     console.log(response)
+     
      
     
    }).catch(error=>{
@@ -140,7 +141,7 @@ export default function StickyHeadTable() {
    }).then((response)=>{
 fetch();
    }).catch(error=>{
-    //  console.log(error);
+
    })
 
   }
@@ -163,6 +164,16 @@ fetch();
     setTimeout(function(){
 
       history.push("/app/dayservices/edit")
+    }, 1000);
+  }
+
+  const pay=(index)=>{
+     setToBePayed(data[index]);
+    
+     
+     setTimeout(function(){
+
+      history.push("/app/dayservices/payment")
     }, 1000);
   }
 
@@ -235,9 +246,14 @@ if(col.id==="action"){
   return(
   <TableCell key={index} align={col.align} >
   {value==="PENDING"?
-   <Button variant="contained" color="secondary" onClick={()=>{history.push("/app/dayservices/payment")}} className={classes.pending}>
+   <Button variant="contained" color="secondary" onClick={()=>{
+    pay(num)
+    }} className={classes.pending}
+     >
    {value}
- </Button>:value==="INCOMPLETE"? <Button variant="contained" onClick={()=>{history.push("/app/dayservices/payment")}} color="primary" className={classes.incomplete}>
+ </Button>:value==="INCOMPLETE"? <Button variant="contained" onClick={()=>{
+ pay(num)
+   }} color="primary" className={classes.incomplete}>
    {value}
  </Button>:<Button variant="contained" disabled className={classes.buttonWid}>
    {value}
