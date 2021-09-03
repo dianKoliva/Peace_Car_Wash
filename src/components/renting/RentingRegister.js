@@ -10,6 +10,8 @@ import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -47,7 +49,145 @@ function DayServices() {
   const classes = useStyles();
   const {payRent,setPayRent}=useContext(MyContext);
   const {newRenter,setNewRenter}=useContext(MyContext);
+  const {token,setToken}=useContext(MyContext);
   const history=useHistory();
+
+  const fromDatetoDate =(parameter)=>{
+    // var date=new Date(parameter);
+    var month=parameter.getMonth();
+    function check(){
+      if(month<10){
+        var h=month
+        month=`0${h}`
+      }
+     
+    }
+     check();
+     
+   
+    var final=`${parameter.getFullYear()}-${month}-${parameter.getDate()}`
+    return final;
+  }
+  var date = new Date();
+  var paymentDate = new Date(date.setMonth(date.getMonth()+1));
+
+
+  const [first_name, setfirst_name]= useState("");
+  const [last_name, setlast_name]= useState("");
+  const [phone_number, setphone_number]= useState("");
+  const [occupation, setoccupation]= useState("");
+  const [amount_to_pay, setamount_to_pay]= useState(0);
+  const [amount_payed, setamount_payed]= useState(0);
+  const [amount_remaining, setamount_remaining]= useState(0);
+  const [payment_date, setpayment_date]= useState(fromDatetoDate(paymentDate));
+  const [payment_status, setpayment_status]= useState("pending");
+  const [registration_date, setregistration_date]= useState(fromDatetoDate(new Date()));
+  
+  const[error,setError]=useState();
+
+  const  handleBlur=(e)=>{
+
+    if(e.target.name==="first_name"){
+      if (e.target.value==="") {
+       
+      }
+      else{
+        setfirst_name(e.target.value);
+      }
+    }
+  
+     if(e.target.name==="last_name"){
+      if (e.target.value==="") {
+      
+      }
+      else{
+        setlast_name(e.target.value);
+      }
+    }
+  
+    if(e.target.name==="phone_number"){
+      if (e.target.value==="") {
+        
+      }
+      else{
+        setphone_number(e.target.value);
+      }
+    }
+  
+    if(e.target.name==="occupation"){
+      if (e.target.value==="") {
+       
+      }
+      else{
+        setoccupation(e.target.value);
+      }
+    }
+  
+     if(e.target.name==="amount_to_pay"){
+      if (e.target.value==="") {
+      
+      }
+      else{
+        setamount_to_pay(e.target.value);
+      }
+    }
+  
+  }
+  
+const submit=async()=>{
+
+  if(first_name===""||last_name===""||phone_number===""||occupation===""||amount_to_pay===""){
+   setError(true);
+  //  console.log(care_lname)
+  
+  }
+  else{
+    setError(false);
+    const json = JSON.stringify({
+      first_name: first_name,
+      last_name: last_name,
+      email: "uwera@gmail.com",
+      phone_number: phone_number,
+      occupation: occupation,
+      amount_to_pay: amount_to_pay,
+      amount_payed: 0,
+      amount_remaining: 0,
+      payment_date: payment_date,
+      payment_status: payment_status,
+      registration_date: registration_date
+    })
+    console.log(json);
+   await axios.post('/rent',json,
+   {
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json'
+    }
+    
+  }).then((response)=>{
+
+   
+
+    setlast_name("");
+    setfirst_name("");
+    setoccupation("");
+    setphone_number("");setamount_to_pay(0);
+    setpayment_date("");setamount_payed(0);
+    setpayment_status("");setamount_remaining(0);
+    setregistration_date("");
+  
+  if(response.data.message==="Success Updated!"){
+    history.push("/app/rent")
+  }
+
+  }).catch(error=>{
+    console.log(error);
+  })
+
+  }
+}
+
+
   return (
     <Dashboard>
     <div>
@@ -61,6 +201,7 @@ function DayServices() {
             Register new individual or group to rent place where they can
             establish their workings
           </p>
+          {error?<p className="text-red-500 mt-2">Some Fields shouldn't be left empty</p>:null}
           <Grid xs={12} container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
               <TextField
@@ -68,7 +209,11 @@ function DayServices() {
                 label="First Name"
                 variant="outlined"
                 size="small"
+                name="first_name"
                 className={`${classes.width} ${classes.color}`}
+                onChange={(e)=>{
+                  handleBlur(e);
+                }}
               />
               <TextField
                 margin="dense"
@@ -77,7 +222,11 @@ function DayServices() {
                 // inputProps={{ style: { fontSize: 17 } }}
                 // InputLabelProps={{ style: { fontSize: 15 } }}
                 size="small"
+                name="phone_number"
                 className={`${classes.width} ${classes.otherMarg}`}
+                onChange={(e)=>{
+                  handleBlur(e);
+                }}
               />
               <TextField
                 margin="dense"
@@ -86,9 +235,13 @@ function DayServices() {
                 variant="outlined"
                 type="date"
                 size="small"
+                name="registration_date"
                 className={`${classes.width} ${classes.otherMarg}`}
                 InputLabelProps={{
                   shrink: true,
+                }}
+                onChange={(e)=>{
+                  handleBlur(e);
                 }}
               />
             </Grid>
@@ -98,21 +251,33 @@ function DayServices() {
                 label="Last Name"
                 variant="outlined"
                 size="small"
+                name="last_name"
                 className={classes.width}
+                onChange={(e)=>{
+                  handleBlur(e);
+                }}
               />
               <TextField
                 margin="dense"
                 label="What he do"
                 variant="outlined"
                 size="small"
+                name="occupation"
                 className={`${classes.width} ${classes.otherMarg}`}
+                onChange={(e)=>{
+                  handleBlur(e);
+                }}
               />
               <TextField
                 margin="dense"
                 label="Amount to pay"
                 variant="outlined"
                 size="small"
+                name="amount_to_pay"
                 className={`${classes.width} ${classes.otherMarg}`}
+                onChange={(e)=>{
+                  handleBlur(e);
+                }}
               />
             </Grid>
           </Grid>
@@ -134,7 +299,7 @@ function DayServices() {
             <Grid item xs={6}>
               <Button
                onClick={()=>{
-                history.push("/app/rent")
+                submit();
               }}
                 variant="contained"
                 color="primary"

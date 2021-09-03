@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -10,16 +10,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Delete from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { Grid } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 
 const columns = [
-  { id: "plot", label: "Plot Id", minWidth: 100, align: "left" },
   { id: "customer", label: "Customer", minWidth: 100, align: "left" },
   { id: "date", label: "Date", minWidth: 100, align: "left" },
   { id: "status", label: "Status", minWidth: 100, align: "left" },
@@ -37,10 +37,12 @@ function createData(plot, customer, date, status, actions) {
 }
 
 const rows = [
-  createData("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "payed"),
-  createData("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "incomplete"),
-  createData("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "pending"),
+  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "payed"),
+  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "incomplete"),
+  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "pending"),
 ];
+
+
 
 const useStyles = makeStyles({
   root: {
@@ -70,7 +72,9 @@ export default function StickyHeadTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const [error, setError] = React.useState('');
+  const [data, setData]= React.useState([])
+ const {token,setToken}=useContext(MyContext);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -80,12 +84,68 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
+  const fromDatetoDate =(parameter)=>{
+    var date=new Date(parameter);
+    var month=date.getMonth();
+    function check(){
+      if(month<10){
+        var h=month
+        month=`0${h}`
+      }
+     
+    }
+     check();
+     
+   
+    var final=`${date.getFullYear()}-${month}-${date.getDate()}`
+    return final;
+  }
+
+  async function fetch(){
+    await axios.get('/rent',
+    {
+     headers: {
+       'Authorization': token
+     }
+     
+   }).then((response)=>{
+     console.log(response.data);
+     setData(response.data);
+     
+    
+   }).catch(error=>{
+     console.log(error);
+   })
+   }
+
   
+  useEffect(()=>{
+    fetch();
+    // fetchRental();
+  },[]);
+
+  const deleteRent = async(id) =>{
+    await axios.delete(`/rent/${id}`,
+    {
+     headers: {
+       'Authorization': token
+     }
+     
+   }).then((response)=>{
+     console.log(response.data.message);
+     let new_Data = data;
+     if(response.data.message === "Removed"){
+      window.location.reload(false);
+     }    
+   }).catch(error=>{
+     console.log(error);
+   })
+  }
+
   const {day,setDay}=useContext(MyContext);
   const {settings,setSettings}=useContext(MyContext);
   const{rent,setRenting}=useContext(MyContext);
   const {dash,setDash}=useContext(MyContext);
-
   const{newRenter,setNewRenter}=useContext(MyContext);
 
   const history=useHistory();
@@ -97,7 +157,7 @@ export default function StickyHeadTable() {
         <Grid item xs="10">
           <div className="flex ml-4 mb-6 mt-4 ">
             <p className="font-bold">List of Renters</p>
-            <p className="text-sm text-gray-500 ml-2">{rows.length} total</p>
+            <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
           </div>
         </Grid>
         <Grid item xs="2">
@@ -131,13 +191,13 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((item) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.plot}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
+                  <TableRow hover role="checkbox" tabIndex={-1} key={item._id}>
+                    {/* {columns.map((column) => {
+                      const value = item[column.id];
 
                       if (column.id === "actions") {
                         return (
@@ -171,7 +231,23 @@ export default function StickyHeadTable() {
                           </TableCell>
                         );
                       }
-                    })}
+                    })} */} 
+                    <TableCell >{`${item.first_name}  ${item.last_name}`}</TableCell>
+                    <TableCell >{fromDatetoDate(item.registration_date)}</TableCell>
+                    <TableCell >{item.payment_status}</TableCell>
+                    <TableCell align="left">
+                      <EditIcon
+                        fontSize="small"
+                        className="ml-2 text-gray-500"
+                      ></EditIcon>
+                       <Delete
+                        className="ml-1 text-gray-500"
+                        fontSize="small"
+                        onClick={()=>{
+                          deleteRent(item._id);
+                        }}
+                      ></Delete>
+                    </TableCell>
                   </TableRow>
                 );
               })}
