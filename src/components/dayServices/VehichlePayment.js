@@ -1,11 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { Grid, TextField, Typography, makeStyles } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Dashboard from "../../layout/Dashboard";
 import { MyContext } from "../../MyContext";
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   width: {
@@ -36,10 +39,19 @@ function VehichlePayment(props) {
 
   const[agree,setAgree]=React.useState(false);
   const[complete,setComplete]=React.useState(false);
-  const[amount,setAmount]=React.useState();
+  const[pay,setPay]=React.useState();
+  const[payed,setPayed]=React.useState();
   const[date,setDate]=React.useState();
-  const{toBepayed,setToBePayed}=useContext(MyContext)
-  console.log(toBepayed);
+  const{toBePayed,setToBePayed}=useContext(MyContext)
+  const history=useHistory();
+  const {token,setToken}=useContext(MyContext);
+
+
+ useEffect(()=>{
+   setPay(toBePayed.amount_to_pay);
+   
+ },[])
+
   const handleAgree = (event) => {
     setAgree(event.target.checked);
   };
@@ -48,15 +60,41 @@ function VehichlePayment(props) {
   }
 
 function  handleChange(e){
-if(e.target.name==="date"){
-  setDate(e.target.value)
+
+ if(e.target.name==="pay"){
+setPay(e.target.value)
 }
-else if(e.target.name==="amount"){
-setAmount(e.target.value)
-}
+if(e.target.name==="payed"){
+  setPayed(e.target.value)
+  }
   }
 
-  function save(){
+  const save= async()=>{
+    const json = { 
+    
+      amount_to_pay: pay,
+      amount_payed: payed
+    }
+     await axios.put(`/dactivity/pay/${toBePayed._id}`,json,
+     {
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      }
+      
+    }).then((response)=>{
+  
+  
+  
+    console.log(response);
+  
+    }).catch(error=>{
+  
+      
+      console.log(error);
+    })
+  
+    
   
   }
   return (
@@ -68,18 +106,21 @@ setAmount(e.target.value)
           <Grid item xs={12
           
           }>
-            <p className="text-lg font-bold">Payment for {toBepayed}</p>
+            <p className="text-lg font-bold">Payment for {toBePayed.plate_number}</p>
           </Grid>
           <Grid item xs={6} className={classes.inputmag}>
             <TextField
               margin="dense"
-              label="Amount"
+              label="Amount to pay"
               variant="outlined"
               size="small"
               className={classes.width}
-              name=""
-              value={amount}
-              
+              name="pay"
+              value={pay}
+              InputLabelProps={{
+                shrink: true,
+              }}
+               onChange={(e)=>handleChange(e)}
             />
         
             <br></br>
@@ -98,20 +139,18 @@ setAmount(e.target.value)
           </Grid>
 
           <Grid item xs={6}>
-            <TextField
+          <TextField
               margin="dense"
-              id="date"
-             
-              label="Payement Date"
+              label="Payment"
               variant="outlined"
-              type="date"
-              value={date}
               size="small"
+              onChange={(e)=>handleChange(e)}
               className={classes.width}
+              name="payed"
               InputLabelProps={{
                 shrink: true,
               }}
-              onChange={(e)=>handleChange(e)}
+              
             />
             <br></br>
             <FormControlLabel
@@ -143,7 +182,7 @@ setAmount(e.target.value)
                 variant="contained"
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} ${classes.low}`}
-                onClick={save()}
+                onClick={()=>save()}
               >
                 Pay
               </Button>

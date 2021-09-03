@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext,useEffect ,useState} from "react";
@@ -26,7 +27,7 @@ const columns = [
   { id: "phone_number", label: "Phone_no", minWidth: 100, align: "left" },
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
-  { id: "services", label: "Service", minWidth: 100, align: "left" },
+  { id: "service", label: "Service", minWidth: 100, align: "left" },
   { id: "amount_to_pay", label: "Amount", minWidth: 100, align: "left" },
   { id: "status", label: "Status", minWidth: 100 },
   { id: "action", label: "Action", minWidth: 100 },
@@ -93,6 +94,31 @@ export default function StickyHeadTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
+  const {toBePayed,setToBePayed}=useContext(MyContext);
+  const {search,setSearch}=useContext(MyContext);
+  const {toEdit,setToEdit}=useContext(MyContext);
+
+
+  const deleter=async(index)=>{
+
+    var id=data[index]._id;
+
+    await axios.delete(`/nactivity/${id}`,
+    {
+     headers: {
+       'Authorization': token
+     }
+     
+   }).then((response)=>{
+     
+fetch();
+   }).catch(error=>{
+
+   })
+
+
+
+  }
 
   async function fetch(){
     await axios.get('/nactivity',
@@ -132,6 +158,17 @@ export default function StickyHeadTable() {
   };
   const history=useHistory();
 
+
+  const edit=(index)=>{
+ setToEdit(data[index]);
+  }
+
+
+  const pay=(index)=>{
+    setToBePayed(data[index]);
+
+  }
+
   return (
     <Dashboard>
     <Paper className={classes.root}>
@@ -168,7 +205,16 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?data.map((data,num)=>{
+            {data?data.filter((val)=>{
+              if(search===""){
+                return val;
+              }
+              else if(val.customer_name.toLowerCase().includes(search.toLowerCase())||val.service.toLowerCase().includes(search.toLowerCase())||
+              val.plate_number.toLowerCase().includes(search.toLowerCase())
+              ){
+              return val;
+              }
+            }).map((data,num)=>{
               
               return(
               <TableRow hover role="checkbox" tabIndex={-1} key={num} >
@@ -181,10 +227,10 @@ if(col.id==="action"){
   
   return(
 <TableCell key={index} align={col.align}>
-<IconButton value={index} size="small" >
+<IconButton value={index} size="small"  onClick={()=>edit(num)}>
   <CreateIcon   fontSize="small" className="text-gray-500"></CreateIcon>
   </IconButton>
-  <IconButton size="small"   >
+  <IconButton size="small"   onClick={()=>deleter(num)} >
   <DeleteIcon   fontSize="small" className="text-gray-500"></DeleteIcon>
   </IconButton>
 
@@ -194,9 +240,9 @@ if(col.id==="action"){
   return(
   <TableCell key={index} align={col.align} >
   {value==="PENDING"?
-   <Button variant="contained" color="secondary" onClick={()=>history.push("app/dayservices/payment")} className={classes.pending}>
+   <Button variant="contained" color="secondary" onClick={()=>pay(num)} className={classes.pending}>
    {value}
- </Button>:value==="INCOMPLETE"? <Button variant="contained" color="primary" className={classes.incomplete}>
+ </Button>:value==="INCOMPLETE"? <Button  onClick={()=>pay(num)} variant="contained" color="primary" className={classes.incomplete}>
    {value}
  </Button>:<Button variant="contained" disabled className={classes.buttonWid}>
    {value}

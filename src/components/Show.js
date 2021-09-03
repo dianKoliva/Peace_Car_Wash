@@ -92,7 +92,7 @@ export default function Show(){
             </ListItemIcon>
             <ListItemText primary="Day" />
           </ListItem>
-          <ListItem button className={classes.nested}  onClick={()=>{history.push("app/nightservices")}}>
+          <ListItem button className={classes.nested}  onClick={()=>{history.push("/app/nightservices")}}>
             <ListItemIcon>
               <NightsStayIcon />
             </ListItemIcon>

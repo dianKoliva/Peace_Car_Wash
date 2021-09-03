@@ -189,9 +189,8 @@ const submit=async()=>{
   }).then((response)=>{
 
 
-if(response.data.message==="Successfully updates!"){
+
   history.push("/app/dayservices")
-}
 
   }).catch(error=>{
 
