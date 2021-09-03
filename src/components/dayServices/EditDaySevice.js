@@ -82,6 +82,7 @@ function DayServices() {
   const[success,setSuccess]=useState(false);
   const{ toEdit,setToEdit}=useContext(MyContext);
 
+console.log(toEdit);
  
 
   useEffect(()=>{
@@ -92,7 +93,7 @@ function DayServices() {
     setOutDate(toEdit.out_date);
     setCusPhone(toEdit.phone_number);
     setPlate(toEdit.plate_number);
-    setService(toEdit.service._id);
+    setService(toEdit.service);
     setTakerFname(toEdit.taker_fname);
     setCareLname(toEdit.taker_lname);
     setCarePhone(toEdit.taker_number);

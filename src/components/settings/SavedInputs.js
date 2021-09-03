@@ -40,7 +40,7 @@ export default function SavedInputs() {
   
     async function fetch(){
 
-      await axios.get(`/users/${user.id}`,
+      await axios.get(`/users/`,
       {
        headers: {
          'Authorization':token
@@ -81,7 +81,7 @@ export default function SavedInputs() {
               label="First Name"
               variant="outlined"
               size="small"
-              value={user.first_name}
+              // value={user.first_name}
               className={classes.margin}
               InputLabelProps={{
                 shrink: true,
@@ -121,7 +121,7 @@ export default function SavedInputs() {
               variant="outlined"
               className={classes.margin}
               size="small"
-              value={user.last_name}
+              // value={user.last_name}
               onChange={(e)=>handleChange(e)}
             />
             <TextField
@@ -131,7 +131,7 @@ export default function SavedInputs() {
               variant="outlined"
               size="small"
               className={classes.margin}
-              value={user.phone_number}
+              // value={user.phone_number}
             />
           </form>
         </Grid>
