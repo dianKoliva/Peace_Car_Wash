@@ -34,6 +34,7 @@ const [user,setUser]=useState();
 const [roles,setRoles]=useState();
 const [loged,setLoged]=useState(true);
 const [toEdit,setToEdit]=useState("");
+const [ search,setSearch]=useState("");
 
 
 async function getRoles(){
@@ -93,7 +94,8 @@ async function getServices(){
       toBePayed,setToBePayed,
       user,setUser,
       loged,setLoged,
-      toEdit,setToEdit
+      toEdit,setToEdit,
+      search,setSearch
     }}
 
     >

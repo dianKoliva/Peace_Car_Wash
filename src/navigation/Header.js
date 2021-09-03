@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
  function Header(){
     const classes = useStyles();
     const {open, setOpen} =useContext(MyContext) 
-    const [search,setSearch]=useState("");
+    const {search,setSearch}=useContext(MyContext);
 
     const handleDrawerOpen = () => {
         setOpen(true);

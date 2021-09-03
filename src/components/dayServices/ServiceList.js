@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext,useEffect ,useState} from "react";
@@ -97,6 +98,7 @@ export default function StickyHeadTable() {
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
   const{ toEdit,setToEdit}=useContext(MyContext);
+  const {search,setSearch}=useContext(MyContext);
 
 
   async function fetch(){
@@ -170,7 +172,7 @@ fetch();
         <Grid item xs={10}>
           <div className="flex ml-4 mb-4 mt-2 ">
             <p className="font-bold">List of vehicles</p>
-            <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
+            <p className="text-sm text-gray-500 ml-2">{data?data.length:0} total</p>
           </div>
         </Grid>
         <Grid item xs={2} 
@@ -199,7 +201,14 @@ fetch();
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?data.map((data,num)=>{
+            {data?data.filter((val)=>{
+              if(search===""){
+                return val;
+              }
+              else if(val.customer_name.toLowerCase().includes(search.toLowerCase())){
+              return val;
+              }
+            }).map((data,num)=>{
             
               return(
               <TableRow hover role="checkbox" tabIndex={-1} key={num} >
