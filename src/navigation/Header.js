@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AppBar from "@material-ui/core/AppBar";
 import clsx from "clsx";
 import { makeStyles,alpha } from "@material-ui/core/styles";
@@ -81,6 +81,8 @@ const useStyles = makeStyles((theme) => ({
  function Header(){
     const classes = useStyles();
     const {open, setOpen} =useContext(MyContext) 
+    const [search,setSearch]=useState("");
+
     const handleDrawerOpen = () => {
         setOpen(true);
       };
@@ -120,6 +122,7 @@ return(
               <SearchIcon />
             </div>
             <InputBase
+            onChange={(e)=>{setSearch(e.target.value)}}
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
