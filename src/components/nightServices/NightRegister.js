@@ -54,7 +54,7 @@ function DayServices() {
   const [fname,setFname]=useState("");
   const [lname,setLname]=useState("");
   const [carePhone,setCarePhone]=useState("");
-  const [service,setService]=useState("");
+  const [agency,setAgency]=useState("");
   const[carProb,setCarProb]=useState("");
   const [entry,setEntry]=useState("");
   const [mech,setMech]=useState("Mechanic");
@@ -96,35 +96,33 @@ else if(e.target.name==="prob"){
 else if(e.target.name==="entry_date"){
   setEntry(e.target.value)
 }
-else if(e.target.name==="service"){
+else if(e.target.name==="agency"){
 
-   setService(e.target.value);
+   setAgency(e.target.value);
 }
   }
 
   const submit=async()=>{
-    if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||service===""||carProb===""||entry===""){
+    if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||agency===""||carProb===""||entry===""){
       setError(true);
 
      }
      else{
       setError(false);
       const json = JSON.stringify({
+
         plate_number: plate,
-        observation: "string",
         car_type: type,
         entry_date: entry,
-        out_date:entry,
         customer_name: driverName,
         phone_number: driverPhone,
         taker_fname:fname,
         taker_lname: lname,
         taker_number: carePhone,
-        service: service,
+        service: "Washing",
         status: "PENDING",
-        amount_to_pay:0,
-        amount_payed: 0,
-        car_problem: "string"
+        car_problem: "string",
+        registered_by: "string"
 
     
       })
@@ -136,9 +134,9 @@ else if(e.target.name==="service"){
        }
        
      }).then((response)=>{
-       if(response.statusText==="Created"){
+      
          history.push("/app/nightservices");
-       }
+   
      })
      .catch(error=>{
       console.log(error);
@@ -217,32 +215,19 @@ else if(e.target.name==="service"){
           container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Service</p>
-              <FormControl
+              <TextField
+                margin="dense"
+                label="Agency"
                 variant="outlined"
                 size="small"
-                className={` ${classes.width}`}
-                margin="dense"
-               
-              >
-                <InputLabel>Select</InputLabel>
-                <Select label="Service"
-                onChange={(e)=>{
-                  setService (e.target.value);          
-               }}
-                
-                >
-              
-              {serviceList?serviceList.map((s)=>{
-        return(
-          <MenuItem value={s._id}>{s.name}</MenuItem>
-        )
-              }):null}
-             
-       
+                className={classes.width}
+                value={agency}
+                name="driver_phone"
+                onChange={(e)=>handleChange(e)}
+              />
           
                  
-                </Select>
-              </FormControl>
+              
                 <TextField
                 margin="dense"
                 label="Car Problem"
