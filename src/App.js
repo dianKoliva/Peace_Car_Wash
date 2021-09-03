@@ -55,29 +55,9 @@ async function getRoles(){
  })
 }
 
-async function getServices(){
-  await axios.get('/services',
-    {
-     headers: {
-       'Authorization':token
 
-     }
-     
-   }).then((response)=>{
-
-    
-    setServiceList(response.data)
-    
-  
-   }).catch(error=>{
-     console.log(error);
-   })
-}
 
   useEffect(()=>{
-    if(loged){
-      getServices()
-    }
     
   },[])
 
@@ -90,7 +70,6 @@ async function getServices(){
   
       token,setToken,
       open, setOpen,
-      serviceList,setServiceList,
       toBePayed,setToBePayed,
       user,setUser,
       loged,setLoged,

@@ -109,7 +109,7 @@ export default function StickyHeadTable() {
      }
      
    }).then((response)=>{
-     setData(response.data);
+     setData(response.data.activities);
      console.log(response)
      
     
@@ -169,7 +169,8 @@ fetch();
   return (
     <Dashboard>
     <Paper className={classes.root}>
-      <Grid container spacing={3} >
+      <Grid container spacing={3
+      } >
         <Grid item xs={10}>
           <div className="flex ml-4 mb-4 mt-2 ">
             <p className="font-bold">List of vehicles</p>
@@ -206,7 +207,9 @@ fetch();
               if(search===""){
                 return val;
               }
-              else if(val.customer_name.toLowerCase().includes(search.toLowerCase())){
+              else if(val.customer_name.toLowerCase().includes(search.toLowerCase())||val.service.toLowerCase().includes(search.toLowerCase())||
+              val.plate_number.toLowerCase().includes(search.toLowerCase())
+              ){
               return val;
               }
             }).map((data,num)=>{
@@ -261,7 +264,7 @@ else{
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={3}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

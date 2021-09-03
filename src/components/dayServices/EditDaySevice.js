@@ -64,7 +64,9 @@ function DayServices() {
   
   const classes = useStyles();
   const {token,setToken}=useContext(MyContext);
-  const {serviceList,setServiceList}=useContext(MyContext);
+  const [serviceList,setServiceList]=useState([{value:"Washing",name:"Washing"},
+  {value:"Mechanic",name:"Mechanic"}
+]);
   const [plate,setPlate]=useState("");
   const [type,setType]=useState("")
   const [cus_name,setCusName]=useState("");
@@ -81,12 +83,9 @@ function DayServices() {
   const{toBePayed,setToBePayed}=useContext(MyContext);
   const[success,setSuccess]=useState(false);
   const{ toEdit,setToEdit}=useContext(MyContext);
-
-console.log(toEdit);
  
 
   useEffect(()=>{
-
     setType(toEdit.car_type);
     setCusName(toEdit.customer_name);
     setEntryDate(toEdit.entry_date);
@@ -153,7 +152,7 @@ const  handleBlur=(e)=>{
   }
    if(e.target.name==="care_fname"){
    setTakerFname(e.target.value)
-   console.log() 
+
   }
 
 }
@@ -161,30 +160,26 @@ const  handleBlur=(e)=>{
 
 const submit=async()=>{
 
-  console.log(toEdit);
+ 
 
 
   if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""){
    setError(true);
-   console.log(care_lname)
   
   }
   else{
     setError(false);
-    console.log(serviceList)
-    const json = JSON.stringify({ 
+    const json = { 
     plate_number: plate,
     car_type: type,
-    entry_date: entry_date,
-    out_date:entry_date,
+    entry_date:entry_date,
     customer_name: cus_name,
     phone_number: cus_phone,
     taker_fname: taker_fname,
-    taker_lname: care_lname,
     taker_number: care_phone,
     service: service
-  })
-   await axios.put(`/dactivity/${toEdit._id}`,json,
+  }
+   await axios.put(`/dactivity/update/${toEdit._id}`,json,
    {
     headers: {
       'Authorization': token,
@@ -193,9 +188,10 @@ const submit=async()=>{
     
   }).then((response)=>{
 
-   
 
- console.log(response);
+if(response.data.message==="Successfully updates!"){
+  history.push("/app/dayservices")
+}
 
   }).catch(error=>{
 
@@ -214,13 +210,11 @@ const submit=async()=>{
       
       
        container spacing={3}>
-        <Grid item xs={6}>
-          <Typography variant="h6">Register New Vehicle</Typography>
-        </Grid>
+        
         <Grid item xs={12} className={classes.container}>
           <p className="text-lg font-bold">At Service in Peace Car Wash</p>
           <p className="text-gray-500">
-            Register new vehicle attending Peace Car Wash Services
+           Edit services that has been provided to a vehicle
           </p>
           {error?<p className="text-red-500 mt-2">Some Fields shouldn't be left empty</p>:null}
           <Grid  container spacing={3} className={classes.margin}>
@@ -312,16 +306,16 @@ const submit=async()=>{
               >
                 <InputLabel>Select</InputLabel>
                 <Select label="Service"
+                name="service"
                 onChange={(e)=>{
-                  setService (e.target.value);      
-                      
+                  setService (e.target.value);          
                }}
-
+                
                 >
               
               {serviceList?serviceList.map((s)=>{
         return(
-          <MenuItem value={s._id}>{s.name}</MenuItem>
+          <MenuItem value={s.value} key={s.value}>{s.name}</MenuItem>
         )
               }):null}
              
@@ -332,25 +326,7 @@ const submit=async()=>{
               </FormControl>
               
               <br></br>
-              <TextField
-                margin="dense"
-                id="date"
-                label="Entry Date"
-                defaultValue={entry_date}
-                variant="outlined"
-                type="date"
-                name="entry_date"
-                size="small"
-                className={classes.width}
-                onChange={(e)=>{setEntryDate(e.target.value);
-                }
-
-                  
-                }
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+             
 
             <TextField
                 margin="dense"
@@ -371,7 +347,7 @@ const submit=async()=>{
               <p className="text-lg text-gray-500">Care taker Details</p>
               <TextField
                 margin="dense"
-                label="First Name"
+                label="Care taker "
                 variant="outlined"
                 value={taker_fname}
                 className={classes.width}
@@ -387,24 +363,6 @@ const submit=async()=>{
                 }}
               />
               
-              
-              <TextField
-                margin="dense"
-                label="Last Name"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                name="care_lname"
-                value={care_lname}
-                 onChange={
-                  (e)=>{
-                    handleBlur(e);
-                  }
-                }
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
              
               <TextField
                 margin="dense"

@@ -39,6 +39,7 @@ function VehichlePayment(props) {
   const[amount,setAmount]=React.useState();
   const[date,setDate]=React.useState();
   const{toBepayed,setToBePayed}=useContext(MyContext)
+  console.log(toBepayed);
   const handleAgree = (event) => {
     setAgree(event.target.checked);
   };
@@ -65,9 +66,7 @@ console.log(amount);
     <Dashboard>
     <div>
       <Grid  container spacing={3}>
-        <Grid item xs={6}>
-          <Typography variant="h6">Service Payment</Typography>
-        </Grid>
+     
         <Grid container  className={classes.margin}>
           <Grid item xs={12
           

@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginLeft: "10em",
     marginRight: "10em",
+    marginTop:"3em"
   },
   drop: {
     height: "10px",
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   margin: {
-    marginTop: "10px",
+    marginTop: "20px",
   },
   low: {
     textTransform: "capitalize",
@@ -63,7 +64,9 @@ function DayServices() {
   
   const classes = useStyles();
   const {token,setToken}=useContext(MyContext);
-  const {serviceList,setServiceList}=useContext(MyContext);
+  const [serviceList,setServiceList]=useState([{value:"Washing",name:"Washing"},
+  {value:"Mechanic",name:"Mechanic"}
+]);
   const [plate,setPlate]=useState("");
   const [type,setType]=useState("")
   const [cus_name,setCusName]=useState("");
@@ -75,8 +78,7 @@ function DayServices() {
   const [amount,setAMount]=useState("");
   const[entry_date,setEntryDate]=useState(final);
   const[error,setError]=useState();
-  const[mech,setMech]=useState("Mechanic");
-  const[wash,setWash]=useState("Wash");
+  
   const{toBePayed,setToBePayed}=useContext(MyContext);
   const[success,setSuccess]=useState(false);
 
@@ -152,28 +154,27 @@ const  handleBlur=(e)=>{
 const submit=async()=>{
 
 
-  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""||amount===""){
+  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""){
    setError(true);
   
   }
   else{
+if(amount===""){
+  setAMount(0);
+}
+console.log(amount)
     setError(false);
     const json = JSON.stringify({
-    plate_number: plate,
-    observation: "string",
-    car_type: type,
-    entry_date: entry_date,
-    out_date:entry_date,
-    customer_name: cus_name,
-    phone_number: cus_phone,
-    taker_fname: taker_fname,
-    taker_lname: care_lname,
-    taker_number: care_phone,
-    service: service,
-    status: "PENDING",
-    amount_to_pay: amount,
-    amount_payed: 0,
-
+      plate_number: plate,
+      car_type: type,
+      entry_date:entry_date,
+      customer_name: cus_name,
+      phone_number: cus_phone,
+      taker_fname: taker_fname,
+      taker_number: care_phone,
+      service: service,
+      status: "PENDING",
+  
   })
    await axios.post('/dactivity',json,
    {
@@ -211,9 +212,7 @@ history.push("/app/dayservices");
       
       
        container spacing={3}>
-        <Grid item xs={6}>
-          <Typography variant="h6">Register New Vehicle</Typography>
-        </Grid>
+        
         <Grid item xs={12} className={classes.container}>
           <p className="text-lg font-bold">At Service in Peace Car Wash</p>
           <p className="text-gray-500">
@@ -294,6 +293,7 @@ history.push("/app/dayservices");
               >
                 <InputLabel>Select</InputLabel>
                 <Select label="Service"
+                name="service"
                 onChange={(e)=>{
                   setService (e.target.value);          
                }}
@@ -302,7 +302,7 @@ history.push("/app/dayservices");
               
               {serviceList?serviceList.map((s)=>{
         return(
-          <MenuItem value={s._id}>{s.name}</MenuItem>
+          <MenuItem value={s.value} key={s.value}>{s.name}</MenuItem>
         )
               }):null}
              
@@ -313,18 +313,7 @@ history.push("/app/dayservices");
               </FormControl>
               
               <br></br>
-              <TextField
-                margin="dense"
-                id="amount"
-                label="Amount"
-                variant="outlined"
-                
-                name="amount"
-                size="small"
-                className={classes.width}
-                onChange={(e)=>{handleBlur(e)}}
-            
-              />
+          
               <TextField
                 margin="dense"
                 id="date"
@@ -350,7 +339,7 @@ history.push("/app/dayservices");
               <p className="text-lg text-gray-500">Care taker Details</p>
               <TextField
                 margin="dense"
-                label="First Name"
+                label="care taker name"
                 variant="outlined"
                 className={classes.width}
                 name="care_fname"
@@ -363,19 +352,7 @@ history.push("/app/dayservices");
               />
               
               
-              <TextField
-                margin="dense"
-                label="Last Name"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                name="care_lname"
-                 onChange={
-                  (e)=>{
-                    handleBlur(e);
-                  }
-                }
-              />
+            
              
               <TextField
                 margin="dense"
@@ -420,7 +397,7 @@ history.push("/app/dayservices");
                 }}
                 
               >
-                Continue Payment
+               Payment
               </Button>
             </Grid>
           </Grid>
