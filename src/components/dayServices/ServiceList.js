@@ -110,6 +110,7 @@ export default function StickyHeadTable() {
      
    }).then((response)=>{
      setData(response.data.activities);
+     console.log(response)
      
     
    }).catch(error=>{
@@ -121,7 +122,7 @@ export default function StickyHeadTable() {
   useEffect(()=>{
   
    
-   fetch()
+     fetch()
 
   },[])
 
@@ -260,7 +261,7 @@ else{
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={data.length}
+        count={3}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
