@@ -136,15 +136,12 @@ else if(e.target.name==="agency"){
         phone_number: driverPhone,
         taker_fname:fname,
         taker_lname: lname,
-        taker_number: carePhone,
-        service: "Washing",
-        status: "PENDING",
-        car_problem: "string",
-        registered_by: "string"
+        taker_number: carePhone,    
+        car_problem:carProb
 
     
       })
-      await axios.post('/nactivity',json,
+      await axios.put(`/nactivity/update/${toEdit._id}`,json,
       {
        headers: {
          'Authorization': token,
@@ -153,7 +150,8 @@ else if(e.target.name==="agency"){
        
      }).then((response)=>{
       
-         history.push("/app/nightservices");
+        console.log(response);
+        //  history.push("/app/nightservices");
    
      })
      .catch(error=>{
@@ -190,7 +188,7 @@ else if(e.target.name==="agency"){
                 size="small"
                 className={classes.width}
                 value={plate}
-                
+
                 onChange={(e)=>handleChange(e)}
               />
               <TextField
