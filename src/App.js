@@ -23,6 +23,7 @@ import NightRegister from "./components/nightServices/NightRegister"
 import NightPayement from "./components/nightServices/NightPayment"
 import AfterSignUp from "./pages/AfterSigUp"
 import EditDayService from "./components/dayServices/EditDaySevice"
+import EdtitNight from "./components/nightServices/EditNight"
 
 function App() {
 
@@ -102,6 +103,7 @@ async function getRoles(){
           <Route path="/app/nightservices" exact component={NightList}></Route>
           <Route path="/app/nightservices/register" exact component={NightRegister}></Route>
           <Route path="/app/nightservices/payment" exact component={NightPayement}></Route>
+          <Route path="/app/nightservices/edit" exact component={EdtitNight}></Route>
 
           <Route path="/wait" exact component={AfterSignUp}></Route>
           
