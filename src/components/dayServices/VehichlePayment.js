@@ -46,6 +46,7 @@ function VehichlePayment(props) {
   const{toBePayed,setToBePayed}=useContext(MyContext)
   const history=useHistory();
   const {token,setToken}=useContext(MyContext);
+  const [error,setError]=React.useState(false);
 
 
  useEffect(()=>{
@@ -71,6 +72,14 @@ if(e.target.name==="payed"){
   }
 
   const save= async()=>{
+    
+    if(pay===0||payed===""||pay===""){
+ setError(true);
+    }
+    else{
+      setError(false);
+    
+
     var amount_payed=payed;
     if(done>0){
       amount_payed=payed+done;
@@ -81,36 +90,39 @@ if(e.target.name==="payed"){
     if(amount_payed===pay){
     status="COMPLETE"
     }
+    else if(amount_payed===0){
+    status="PENDING"
+    }
     else{
       status="INCOMPLETE"
     }
-    console.log(status);
+   
     const json = { 
     
       amount_to_pay: pay,
       amount_payed:amount_payed,
-      status:status
+      status:status,
+     
     }
-    //  await axios.put(`/dactivity/pay/${toBePayed._id}`,json,
-    //  {
-    //   headers: {
-    //     'Authorization': token,
-    //     'Content-Type': 'application/json'
-    //   }
+     await axios.post(`/dactivity/pay/${toBePayed._id}`,json,
+     {
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      }
       
-    // }).then((response)=>{
+    }).then((response)=>{
   
   
+  history.push("/app/dayservices");
   
-    // console.log(response);
-  
-    // }).catch(error=>{
+    }).catch(error=>{
   
       
-    //   console.log(error);
-    // })
+      console.log(error);
+    })
   
-    
+  }
   
   }
   return (
@@ -122,9 +134,13 @@ if(e.target.name==="payed"){
           <Grid item xs={12
           
           }>
+             
             <p className="text-lg font-bold">Payment for {toBePayed.plate_number}</p>
+            {error?<p className="text-red-500 mt-4">Fields can't be empty</p>:null}
           </Grid>
+         
           <Grid item xs={6} className={classes.inputmag}>
+            
             <TextField
               margin="dense"
               label="Amount to pay"
@@ -144,6 +160,7 @@ if(e.target.name==="payed"){
           </Grid>
 
           <Grid item xs={6}>
+          
           <TextField
               margin="dense"
               label="Payment"
@@ -152,24 +169,14 @@ if(e.target.name==="payed"){
               onChange={(e)=>handleChange(e)}
               className={classes.width}
               name="payed"
+              value={payed}
               InputLabelProps={{
                 shrink: true,
               }}
               
             />
             <br></br>
-            <FormControlLabel
-              control={
-                <Checkbox
-                checked={complete}
-                onChange={handleComp}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                name="complete"
-              />
-              }
-              label="Completed Payment"
-            />
+           
           </Grid>
           <Grid  container spacing={3} className={classes.inputmag}>
             <Grid item xs={6}>
