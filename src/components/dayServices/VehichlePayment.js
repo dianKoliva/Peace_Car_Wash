@@ -42,6 +42,7 @@ function VehichlePayment(props) {
   const[pay,setPay]=React.useState();
   const[payed,setPayed]=React.useState();
   const[date,setDate]=React.useState();
+  const[done,setDone]=React.useState();
   const{toBePayed,setToBePayed}=useContext(MyContext)
   const history=useHistory();
   const {token,setToken}=useContext(MyContext);
@@ -49,7 +50,7 @@ function VehichlePayment(props) {
 
  useEffect(()=>{
    setPay(toBePayed.amount_to_pay);
-   
+   setDone(toBePayed.amount_payed);
  },[])
 
   const handleAgree = (event) => {
@@ -70,29 +71,44 @@ if(e.target.name==="payed"){
   }
 
   const save= async()=>{
+    var amount_payed=payed;
+    if(done>0){
+      amount_payed=payed+done;
+    }
+   
+    
+    var status;
+    if(amount_payed===pay){
+    status="COMPLETE"
+    }
+    else{
+      status="INCOMPLETE"
+    }
+    console.log(status);
     const json = { 
     
       amount_to_pay: pay,
-      amount_payed: payed
+      amount_payed:amount_payed,
+      status:status
     }
-     await axios.put(`/dactivity/pay/${toBePayed._id}`,json,
-     {
-      headers: {
-        'Authorization': token,
-        'Content-Type': 'application/json'
-      }
+    //  await axios.put(`/dactivity/pay/${toBePayed._id}`,json,
+    //  {
+    //   headers: {
+    //     'Authorization': token,
+    //     'Content-Type': 'application/json'
+    //   }
       
-    }).then((response)=>{
+    // }).then((response)=>{
   
   
   
-    console.log(response);
+    // console.log(response);
   
-    }).catch(error=>{
+    // }).catch(error=>{
   
       
-      console.log(error);
-    })
+    //   console.log(error);
+    // })
   
     
   
@@ -124,18 +140,7 @@ if(e.target.name==="payed"){
             />
         
             <br></br>
-            <FormControlLabel
-              control={
-                <Checkbox
-                checked={agree}
-                onChange={handleAgree}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                name="agree"
-              />
-              }
-              label="Accept Terms and Conditions"
-            />
+          
           </Grid>
 
           <Grid item xs={6}>
