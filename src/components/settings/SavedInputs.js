@@ -31,9 +31,8 @@ export default function SavedInputs() {
   const {user,setUser}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
   const [log,setLog]=useState("");
+  const [creds, setCreds] = useState({})
   
-
- 
 
   useEffect(()=>{
     setUser(jwt(token));
@@ -62,9 +61,10 @@ export default function SavedInputs() {
   function handleChange(){
 
   }
+
   return (
     <Paper>
-      <Grid container xs="12">
+      {user && <Grid container xs="12">
         <Grid item xs="12">
           <div className="flex mt-2 mb-2">
             <p className=" font-bold ml-4"> Basic Profile </p>
@@ -81,7 +81,7 @@ export default function SavedInputs() {
               label="First Name"
               variant="outlined"
               size="small"
-              // value={user.first_name}
+              value={user.first_name}
               className={classes.margin}
               InputLabelProps={{
                 shrink: true,
@@ -93,6 +93,7 @@ export default function SavedInputs() {
               label="Email"
               variant="outlined"
               size="small"
+              value={user.email}
               className={classes.margin}
               InputLabelProps={{
                 shrink: true,
@@ -104,6 +105,7 @@ export default function SavedInputs() {
               margin="normal"
               required
               name="password"
+              value={user.password}
               label="Password"
               type="password"
               id="password"
@@ -121,7 +123,7 @@ export default function SavedInputs() {
               variant="outlined"
               className={classes.margin}
               size="small"
-              // value={user.last_name}
+              value={user.last_name}
               onChange={(e)=>handleChange(e)}
             />
             <TextField
@@ -131,7 +133,7 @@ export default function SavedInputs() {
               variant="outlined"
               size="small"
               className={classes.margin}
-              // value={user.phone_number}
+              value={user.phone_number}
             />
           </form>
         </Grid>
@@ -148,7 +150,7 @@ export default function SavedInputs() {
             Save
           </Button>
         </Grid>
-      </Grid>
+      </Grid>}
     </Paper>
   );
 }
