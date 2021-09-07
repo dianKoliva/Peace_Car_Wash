@@ -150,8 +150,8 @@ else if(e.target.name==="agency"){
        
      }).then((response)=>{
       
-        console.log(response);
-        //  history.push("/app/nightservices");
+       
+      history.push("/app/nightservices");
    
      })
      .catch(error=>{
