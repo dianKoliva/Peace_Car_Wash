@@ -1,10 +1,17 @@
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import { Divider, IconButton } from '@material-ui/core';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 export function Reports(){
 
-    const reports=["profits","expenses flow","night funds","day funds"]
+
+    const reports=[{name:"Profits report", id:"pr"},{name:"Expenses", id:"er"},{name:"night report", id:"nr"},{name:"day report", id:"dr"}]
+
+    function donwload( index){
+ console.log(index);
+    }
     return(
 <>
 <p className=" text-gray-600">Prefered reports</p>
@@ -17,14 +24,16 @@ export function Reports(){
     <AssessmentIcon fontSize="large" color="primary"></AssessmentIcon>
 </div>
 <div className="ml-2">
-    <p className="font-semibold">{report}</p>
-    <p className="text-sm">It is downloadable</p>
+    <p className="font-semibold text-xs">{report.name}</p>
+    <p className="text-xs">It is downloadable</p>
 </div>
 <div>
-    <IconButton>
-    <MoreVertIcon ></MoreVertIcon>
+    <div className="ml-6">
+    <IconButton size="small">
+    <VisibilityIcon  fontSize="small" color="primary"></VisibilityIcon>
     </IconButton>
-
+  
+    </div>
 </div>
 </div>
 <Divider/>
@@ -32,7 +41,7 @@ export function Reports(){
 
     ))}
 
-
+<p className="mt-4 font-bold">You can download your Prefered reports</p>
 </div>
 </>
     )
