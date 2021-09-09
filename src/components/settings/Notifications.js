@@ -1,97 +1,84 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState, useContext } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
+import { MyContext } from "../../MyContext.js";
+import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
-    // maxWidth: "",
+    // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
+    paddingLeft: 20,
+    paddingTop: 10,
   },
-  inline: {
-    display: "inline",
-  },
-}));
+});
 
-export default function AlignItemsList() {
-  const classes = useStyles();
+function Notifications(props) {
+  const { classes } = props;
+  const { token, setToken } = useContext(MyContext);
+  const { notifications, setNotifications } = useContext(MyContext);
+  // const [data, setData] = useState(null);
+
+  const formatDate = (date) => new Date(date).toDateString();
+
+  const removeNotification = (id, index, type) => {
+    let api = type === "day" ? "dactivity" : "nactivity";
+
+    axios
+      .put(
+        `/${api}/update/${id}`,
+        { seen: true },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+      .then((res) => {
+        let temp = [...notifications];
+        // temp.slice(index, 1);
+        temp = temp.filter((x, i) => i !== index);
+        setNotifications(temp);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // console.log(data);
 
   return (
-    <div>
+    <div className="ml-10">
       <div className="mb-5 font-bold">Notifications</div>
       <List className={classes.root}>
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Brunch this weekend?"
-            secondary={
-              <React.Fragment>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  className={classes.inline}
-                  color="textPrimary"
-                >
-                  Ali Connors
-                </Typography>
-                {" — I'll be in your neighborhood doing errands this…"}
-              </React.Fragment>
-            }
-          />
-        </ListItem>
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Summer BBQ"
-            secondary={
-              <React.Fragment>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  className={classes.inline}
-                  color="textPrimary"
-                >
-                  to Scott, Alex, Jennifer
-                </Typography>
-                {" — Wish I could come, but I'm out of town this…"}
-              </React.Fragment>
-            }
-          />
-        </ListItem>
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Oui Oui"
-            secondary={
-              <React.Fragment>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  className={classes.inline}
-                  color="textPrimary"
-                >
-                  Sandra Adams
-                </Typography>
-                {" — Do you have Paris recommendations? Have you ever…"}
-              </React.Fragment>
-            }
-          />
-        </ListItem>
+        {notifications &&
+          notifications.map((item, index) => (
+            <ListItem
+              key={item._id}
+              button
+              onClick={() => removeNotification(item._id, index, item.car_type)}
+            >
+              <ListItemText
+                selected
+                primary={
+                  item.registered_by.first_name +
+                  " " +
+                  item.registered_by.last_name +
+                  " registered new activity"
+                }
+                secondary={formatDate(item.entry_date)}
+              />
+            </ListItem>
+          ))}
       </List>
     </div>
   );
 }
+
+Notifications.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Notifications);

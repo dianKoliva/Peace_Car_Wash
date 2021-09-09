@@ -118,7 +118,7 @@ export default function StickyHeadTable() {
     })
       .then((res) => {
         let temp = [...data];
-        temp = data.filter((x) => x._id === id);
+        temp = data.filter((x) => x._id !== id);
         setData(temp);
       })
       .catch((err) => console.log(err));
