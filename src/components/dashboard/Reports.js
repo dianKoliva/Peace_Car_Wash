@@ -45,6 +45,4 @@ export function Reports(){
 </div>
 </>
     )
-
-
 }
