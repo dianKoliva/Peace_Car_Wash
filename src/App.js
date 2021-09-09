@@ -17,17 +17,20 @@ import RentingRegister from "./components/renting/RentingRegister"
 import RentPayement from "./components/renting/RentPayement"
 import Settings from "./components/Settings"
 import RentingPayment from "./components/renting/RentPayement";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
 import NightList from "./components/nightServices/NightList"
 import NightRegister from "./components/nightServices/NightRegister"
 import NightPayement from "./components/nightServices/NightPayment"
 import AfterSignUp from "./pages/AfterSigUp"
 import EditDayService from "./components/dayServices/EditDaySevice"
 import EdtitNight from "./components/nightServices/EditNight"
+import RentingEdit from './components/renting/RentingEdit';
+import Unauthorized from '../src/pages/Unauthorized';
+import ProtectedRoute from '../src/components/ProtectedRoute';
 
 function App() {
 
-const [token,setToken]=useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMxMDM2NDU2LCJleHAiOjE2MzExMjI4NTZ9._IgrtmelU_ArhjUmGEXh3RFL3LvAmWwWUxWu9WsX3RI");
+const [token,setToken]=useState("");
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
@@ -86,29 +89,29 @@ async function getRoles(){
       
       <Router  >
         <Switch>
-          <Route path="/" exact component={Login}></Route>
-          <Route path="/app" exact component={Dash}/>
+          <Route path="/" exact component={Login}/>
+          <ProtectedRoute path="/app" user={token} exact component={Dash}/>
 
-          <Route path="/app/settings" exact component={Settings}></Route>
+          <ProtectedRoute path="/app/settings" user={token} exact component={Settings}/>
 
-          <Route path="/app/rent" exact component={RentingList}></Route>
-          <Route path="/app/rent/payment" exact component={RentingPayment}></Route>
-          <Route path="/app/rent/register" exact component={RentingRegister}></Route>
+          <ProtectedRoute path="/app/rent" user={token} exact component={RentingList}/>
+          <ProtectedRoute path="/app/rent/payment" user={token} exact component={RentingPayment}/>
+          <ProtectedRoute path="/app/rent/register" user={token} exact component={RentingRegister}/>
+          <ProtectedRoute path="/app/rent/edit" user={token} exact component={RentingEdit}/>
 
-          <Route path="/app/dayservices" exact component={DayServices}></Route>
-          <Route path="/app/dayservices/payment" exact component={VehichlePayment}></Route>
-          <Route path="/app/dayservices/register" exact component={RegisterDay}></Route>
-          <Route path="/app/dayservices/edit" exact component={EditDayService}></Route>
+          <ProtectedRoute path="/app/dayservices" user={token} exact component={DayServices}/>
+          <ProtectedRoute path="/app/dayservices/payment" user={token} exact component={VehichlePayment}/>
+          <ProtectedRoute path="/app/dayservices/register" user={token} exact component={RegisterDay}/>
+          <ProtectedRoute path="/app/dayservices/edit" user={token} exact component={EditDayService}/>
 
-          <Route path="/app/nightservices" exact component={NightList}></Route>
-          <Route path="/app/nightservices/register" exact component={NightRegister}></Route>
-          <Route path="/app/nightservices/payment" exact component={NightPayement}></Route>
-          <Route path="/app/nightservices/edit" exact component={EdtitNight}></Route>
+          <ProtectedRoute path="/app/nightservices" user={token} exact component={NightList}/>
+          <ProtectedRoute path="/app/nightservices/register" user={token} exact component={NightRegister}/>
+          <ProtectedRoute path="/app/nightservices/payment" user={token} exact component={NightPayement}/>
 
-          <Route path="/wait" exact component={AfterSignUp}></Route>
-          
+          <Route path="/wait" exact component={AfterSignUp}/>
+          <Route exact path='/unauthorized' component={Unauthorized} />
         
-          <Route path="/signup" exact component={SignUp}></Route>
+          <Route path="/signup" exact component={SignUp}/>
         </Switch>
       </Router>
     </div>
