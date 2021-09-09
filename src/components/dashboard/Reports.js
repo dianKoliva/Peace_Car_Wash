@@ -1,7 +1,5 @@
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import { Divider, IconButton } from '@material-ui/core';
-import GetAppIcon from '@material-ui/icons/GetApp';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
 export function Reports(){
