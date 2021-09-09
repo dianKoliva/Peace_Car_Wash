@@ -25,6 +25,8 @@ import AfterSignUp from "./pages/AfterSigUp";
 import EditDayService from "./components/dayServices/EditDaySevice";
 import EdtitNight from "./components/nightServices/EditNight";
 import Notifications from "./components/settings/Notifications";
+import ExpenseList from "./components/expenses/ExpenseList";
+import ExpenseRegister from "./components/expenses/ExpenseRegister";
 
 function App() {
   const [token, setToken] = useState(
@@ -98,6 +100,13 @@ function App() {
               path="/app/rent/register"
               exact
               component={RentingRegister}
+            ></Route>
+
+            <Route path="/app/expense" exact component={ExpenseList}></Route>
+            <Route
+              path="/app/expense/register"
+              exact
+              component={ExpenseRegister}
             ></Route>
 
             <Route

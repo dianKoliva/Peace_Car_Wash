@@ -66,7 +66,7 @@ function Notifications(props) {
                   item.registered_by.first_name +
                   " " +
                   item.registered_by.last_name +
-                  " registered new activity"
+                  " registered a new activity"
                 }
                 secondary={formatDate(item.entry_date)}
               />
