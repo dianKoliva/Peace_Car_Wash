@@ -7,10 +7,10 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 export function Reports(){
 
 
-    const reports=[{name:"Profits report", id:"pr"},{name:"Expenses", id:"er"},{name:"night report", id:"nr"},{name:"day report", id:"dr"}]
+    const reports=[{name:"Profits report", id:"pr"},{name:"Expenses report", id:"er"},{name:"Night report", id:"nr"},{name:"Day report", id:"dr"},{name:"Renting report", id:"dr"}]
 
     function view( index){
- console.log(index);
+ console.log(reports[index]);
     }
     return(
 <>
@@ -41,7 +41,7 @@ export function Reports(){
 
     ))}
 
-<p className="mt-4 font-bold">You can download your Prefered reports</p>
+
 </div>
 </>
     )
