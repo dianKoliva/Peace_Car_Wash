@@ -27,6 +27,7 @@ import EdtitNight from "./components/nightServices/EditNight"
 import RentingEdit from './components/renting/RentingEdit';
 import Unauthorized from '../src/pages/Unauthorized';
 import ProtectedRoute from '../src/components/ProtectedRoute';
+import NotFound from '../src/pages/NotFound';
 
 function App() {
 
@@ -110,6 +111,7 @@ async function getRoles(){
 
           <Route path="/wait" exact component={AfterSignUp}/>
           <Route exact path='/unauthorized' component={Unauthorized} />
+          <Route path="" exact component={NotFound} />
         
           <Route path="/signup" exact component={SignUp}/>
         </Switch>
