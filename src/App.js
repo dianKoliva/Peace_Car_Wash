@@ -17,21 +17,22 @@ import RentingRegister from "./components/renting/RentingRegister";
 import RentPayement from "./components/renting/RentPayement";
 import Settings from "./components/Settings";
 import RentingPayment from "./components/renting/RentPayement";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
 import NightList from "./components/nightServices/NightList";
 import NightRegister from "./components/nightServices/NightRegister";
 import NightPayement from "./components/nightServices/NightPayment";
 import AfterSignUp from "./pages/AfterSigUp";
 import EditDayService from "./components/dayServices/EditDaySevice";
 import EdtitNight from "./components/nightServices/EditNight";
-import Notifications from "./components/settings/Notifications";
-import ExpenseList from "./components/expenses/ExpenseList";
+import RentingEdit from "./components/renting/RentingEdit";
+import Unauthorized from "../src/pages/Unauthorized";
+import ProtectedRoute from "../src/components/ProtectedRoute";
+import NotFound from "../src/pages/NotFound";
 import ExpenseRegister from "./components/expenses/ExpenseRegister";
+import ExpenseList from "./components/expenses/ExpenseList";
 
 function App() {
-  const [token, setToken] = useState(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNWUyY2Q3ZjJmMzdmYzYzNWFlNiIsInBob25lX251bWJlciI6IjA3OTA2MDAwMDAiLCJmaXJzdF9uYW1lIjoiVGVzdGVyIiwibGFzdF9uYW1lIjoiQWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaWF0IjoxNjMxMDM2NDU2LCJleHAiOjE2MzExMjI4NTZ9._IgrtmelU_ArhjUmGEXh3RFL3LvAmWwWUxWu9WsX3RI"
-  );
+  const [token, setToken] = useState("");
   const [open, setOpen] = useState(true);
   const [serviceList, setServiceList] = useState("");
   const [toBePayed, setToBePayed] = useState("");
@@ -85,81 +86,103 @@ function App() {
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/" exact component={Login}></Route>
-            <Route path="/app" exact component={Dash} />
+            <Route path="/" exact component={Login} />
+            <ProtectedRoute path="/app" user={token} exact component={Dash} />
 
-            <Route path="/app/settings" exact component={Settings}></Route>
+            <ProtectedRoute
+              path="/app/settings"
+              user={token}
+              exact
+              component={Settings}
+            />
 
-            <Route path="/app/rent" exact component={RentingList}></Route>
-            <Route
+            <ProtectedRoute
+              path="/app/rent"
+              user={token}
+              exact
+              component={RentingList}
+            />
+            <ProtectedRoute
               path="/app/rent/payment"
+              user={token}
               exact
               component={RentingPayment}
-            ></Route>
-            <Route
+            />
+            <ProtectedRoute
               path="/app/rent/register"
+              user={token}
               exact
               component={RentingRegister}
-            ></Route>
-
-            <Route path="/app/expense" exact component={ExpenseList}></Route>
-            <Route
-              path="/app/expense/register"
+            />
+            <ProtectedRoute
+              path="/app/rent/edit"
+              user={token}
               exact
-              component={ExpenseRegister}
-            ></Route>
+              component={RentingEdit}
+            />
 
-            <Route
+            <ProtectedRoute
               path="/app/dayservices"
+              user={token}
               exact
               component={DayServices}
-            ></Route>
-            <Route
+            />
+            <ProtectedRoute
               path="/app/dayservices/payment"
+              user={token}
               exact
               component={VehichlePayment}
-            ></Route>
-            <Route
+            />
+            <ProtectedRoute
               path="/app/dayservices/register"
+              user={token}
               exact
               component={RegisterDay}
-            ></Route>
-            <Route
+            />
+            <ProtectedRoute
               path="/app/dayservices/edit"
+              user={token}
               exact
               component={EditDayService}
-            ></Route>
+            />
 
-            <Route
+            <ProtectedRoute
               path="/app/nightservices"
+              user={token}
               exact
               component={NightList}
-            ></Route>
-            <Route
+            />
+            <ProtectedRoute
               path="/app/nightservices/register"
+              user={token}
               exact
               component={NightRegister}
-            ></Route>
-            <Route
+            />
+            <ProtectedRoute
               path="/app/nightservices/payment"
+              user={token}
               exact
               component={NightPayement}
-            ></Route>
-            <Route
-              path="/app/nightservices/edit"
+            />
+
+            <ProtectedRoute
+              path="/app/expense"
+              user={token}
               exact
-              component={EdtitNight}
-            ></Route>
-
-            <Route
-              path="/app/notifications"
+              component={ExpenseList}
+            />
+            <ProtectedRoute
+              path="/app/expense/register"
+              user={token}
               exact
-              component={Notifications}
-            ></Route>
+              component={ExpenseRegister}
+            />
 
-            <Route path="/wait" exact component={AfterSignUp}></Route>
+            <Route path="/wait" exact component={AfterSignUp} />
+            <Route exact path="/unauthorized" component={Unauthorized} />
+            <Route path="" exact component={NotFound} />
 
-            <Route path="/signup" exact component={SignUp}></Route>
+            <Route path="/signup" exact component={SignUp} />
           </Switch>
         </Router>
       </div>

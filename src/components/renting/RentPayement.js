@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "30px",
   },
 }));
-function RentingPayment(props) {
+function RentingPayment() {
   const classes = useStyles();
   const history=useHistory();
   return (
