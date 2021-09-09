@@ -10,9 +10,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import Delete from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import { Grid } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import { Grid, IconButton } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import { useHistory } from "react-router-dom";
@@ -20,9 +20,9 @@ import axios from "axios";
 
 
 const columns = [
-  { id: "customer", label: "Customer", minWidth: 100, align: "left" },
-  { id: "date", label: "Date", minWidth: 100, align: "left" },
-  { id: "status", label: "Status", minWidth: 100, align: "left" },
+  { id: "last_name", label: "Customer", minWidth: 100, align: "left" },
+  { id: "registration_date", label: "Date", minWidth: 100, align: "left" },
+  { id: "payment_status", label: "Status", minWidth: 100, align: "left" },
   { id: "actions", label: "Actions", minWidth: 100, align: "left" },
 ];
 
@@ -75,6 +75,7 @@ export default function StickyHeadTable() {
   const [error, setError] = React.useState('');
   const [data, setData]= React.useState([])
  const {token,setToken}=useContext(MyContext);
+ const {search,setSearch}=useContext(MyContext);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -97,7 +98,7 @@ export default function StickyHeadTable() {
      check();
      
    
-    var final=`${date.getFullYear()}-${month}-${date.getDate()}`
+    var final=`${date.getFullYear()}/${month}/${date.getDate()}`
     return final;
   }
 
@@ -141,7 +142,6 @@ export default function StickyHeadTable() {
      console.log(error);
    })
   }
-
   const {day,setDay}=useContext(MyContext);
   const {settings,setSettings}=useContext(MyContext);
   const{rent,setRenting}=useContext(MyContext);
@@ -191,66 +191,73 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((item) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={item._id}>
-                    {/* {columns.map((column) => {
-                      const value = item[column.id];
+{data?data.filter((val)=>{
+              if(search===""){
+                return val;
+              }
+              else if(val.last_name.toLowerCase().includes(search.toLowerCase())){
+              return val;
+              }
+            }).map((data,num)=>{
+            
+              return(
+              <TableRow hover role="checkbox" tabIndex={-1} key={num} >
+{columns.map((col,index)=>{
+  const value = data[col.id];
+if(col.id==="actions"){
+  
+  return(
+<TableCell key={index} align={col.align}>
+<IconButton value={index} size="small" onClick={()=>{
+                          history.push("/app/rent/edit",{
+                            rental: data[num]
+                          })
+                        }}>
+  <CreateIcon   fontSize="small" className="text-gray-500"></CreateIcon>
+  </IconButton>
+  <IconButton size="small"  onClick={()=>{
+                          deleteRent(data[num]._id);
+                        }}  >
+  <DeleteIcon   fontSize="small" className="text-gray-500"></DeleteIcon>
+  </IconButton>
 
-                      if (column.id === "actions") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            <MoreVertIcon
-                              className="ml-1 text-gray-500"
-                              fontSize="small"
-                            ></MoreVertIcon>
-                            <EditIcon
-                              fontSize="small"
-                              className="ml-2 text-gray-500"
-                            ></EditIcon>
                           </TableCell>
-                        );
-                      } else if (column.id === "status") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {value === "payed" ? (
-                              <p className="text-green-400">{value}</p>
-                            ) : value === "incomplete" ? (
-                              <p className="text-yellow-400">{value}</p>
-                            ) : (
-                              <p className="text-red-400">{value}</p>
-                            )}
-                          </TableCell>
-                        );
-                      } else {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
+  )
+} else if(col.id==="payment_status"){
+  return(
+  <TableCell key={index} align={col.align} >
+  {value==="PARTIAL"?
+   <Button variant="contained" color="secondary" 
+  //  onClick={()=>{history.push("/app/dayservices/payment")}} 
+   className={classes.pending}>
+   {value}
+ </Button>:value==="INCOMPLETE"? <Button variant="contained" onClick={()=>{history.push("/app/dayservices/payment")}} color="primary" className={classes.incomplete}>
+   {value}
+ </Button>:<Button variant="contained" disabled className={classes.buttonWid}>
+   {value}
+</Button>}
+  
+</TableCell>
+  )
+} else if(col.id==="registration_date"){
+  return(
+  <TableCell key={index} align={col.align} >
+    {fromDatetoDate(value)}
+</TableCell>
+  )
+}
+else{
+
+  return(
+ <TableCell key={index} align={col.align}>
                             {value}
                           </TableCell>
-                        );
-                      }
-                    })} */} 
-                    <TableCell >{`${item.first_name}  ${item.last_name}`}</TableCell>
-                    <TableCell >{fromDatetoDate(item.registration_date)}</TableCell>
-                    <TableCell >{item.payment_status}</TableCell>
-                    <TableCell align="left">
-                      <EditIcon
-                        fontSize="small"
-                        className="ml-2 text-gray-500"
-                      ></EditIcon>
-                       <Delete
-                        className="ml-1 text-gray-500"
-                        fontSize="small"
-                        onClick={()=>{
-                          deleteRent(item._id);
-                        }}
-                      ></Delete>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+  )
+}
+})}
+                </TableRow>
+              )
+            }):null}
           </TableBody>
         </Table>
       </TableContainer>

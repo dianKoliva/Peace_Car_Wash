@@ -54,6 +54,7 @@ export default function SignUpSide() {
 
   
   const classes = useStyles();
+  const [error, setError] = useState("");
   const [fname,setFname]=useState("");
   const [lname,setLname]=useState("");
   const [phone,setPhone]=useState("");
@@ -151,6 +152,14 @@ if(e.target.name==="pass"){
        }
       }
     else{
+      console.log({
+        first_name: fname,
+         last_name: lname,
+         phone_number:phone,
+         email:email,
+         role: "611d8a1191640d4534c50e62",
+         password: password
+       });
  await axios.post('/users/signup', {
  first_name: fname,
   last_name: lname,
@@ -162,13 +171,20 @@ if(e.target.name==="pass"){
 .then((response) => {
   var message=response.data.message;
   if(message==="Failed! Phone number is already in use!"){
-  setInUse(true);
+    setError("Phone number is already in use");
   }
   else{
     setInUse(false);
     history.push("/wait")
   }
 }, (error) => {
+  if(password.length >= 6){
+  setError("Phone number is already in use");
+
+  }else{
+  setError("password must be at least 6 characters long");
+
+  }
   console.log(error);
 });
     }
@@ -272,7 +288,9 @@ if(e.target.name==="pass"){
               />
               {pass==="n"?<p className="text-red-500 text-xs">Password required</p>:null}
 
-             
+              {error !== "" ? (
+              <p className="text-red-500 text-xs">{error}</p>
+            ) : null}
               <FormControlLabel
                 control={
                   <Checkbox value="remember" name="remember" 
@@ -302,11 +320,11 @@ if(e.target.name==="pass"){
                 Sign Up
               </Button>
               <Grid container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link href="/" variant="body2">
                     {"Already Have an account? Sign In"}
