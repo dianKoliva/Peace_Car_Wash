@@ -22,6 +22,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { useHistory } from 'react-router-dom';
 
 const columns = [
+  
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
   { id: "customer_name", label: "Customer", minWidth: 170, align: "left" },
   { id: "phone_number", label: "Phone_no", minWidth: 100, align: "left" },
@@ -167,7 +168,7 @@ fetch();
 
   const pay=(index)=>{
     setToBePayed(data[index]);
-
+    history.push("/app/nightservices/payment");
   }
 
   return (
@@ -237,7 +238,9 @@ if(col.id==="action"){
 
                           </TableCell>
   )
-}else if(col.id==="status"){
+}
+
+else if(col.id==="status"){
   return(
   <TableCell key={index} align={col.align} >
   {value==="PENDING"?
@@ -245,7 +248,7 @@ if(col.id==="action"){
    {value}
  </Button>:value==="INCOMPLETE"? <Button  onClick={()=>pay(num)} variant="contained" color="primary" className={classes.incomplete}>
    {value}
- </Button>:<Button variant="contained" disabled className={classes.buttonWid}>
+ </Button>:<Button variant="contained" disabled className={classes.complete}>
    {value}
 </Button>}
   
