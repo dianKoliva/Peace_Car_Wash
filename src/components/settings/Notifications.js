@@ -12,8 +12,7 @@ const styles = (theme) => ({
     width: "100%",
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-    paddingLeft: 20,
-    paddingTop: 10,
+    padding: 20,
   },
 });
 
@@ -50,7 +49,7 @@ function Notifications(props) {
   // console.log(data);
 
   return (
-    <div className="ml-10">
+    <div className="ml-20">
       <div className="mb-5 font-bold">Notifications</div>
       <List className={classes.root}>
         {notifications &&
