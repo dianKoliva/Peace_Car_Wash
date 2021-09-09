@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -49,22 +50,50 @@ export default function Show(){
   const {settings,setSettings}=useContext(MyContext);
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+
+   
   
   
     const handleClick = () => {
       setOpen(!open);
     };
     const history =useHistory();
-    const changer=()=>{
-      if(settings===true){
-        console.log("settings true");
+  
+   
+    useEffect(()=>{
+    
+      if(history.location==="/app/dayservices"){
+        setOpen(true);
       }
-    }
+      else if(history.location==="/app/dayservices/payment"){
+        setOpen(true);
+      }
+      else if(history.location==="/app/dayservices/register"){
+        setOpen(true);
+      }
+      else if(history.location==="/app/dayservices/edit"){
+        setOpen(true);
+      }
+
+      else if(history.location==="/app/nightservices"){
+        setOpen(true);
+      }
+      else if(history.location==="/app/nightservices/register"){
+        setOpen(true);
+      }
+      else if(history.location==="/app/nightservices/payment"){
+        setOpen(true);
+      }
+      else if(history.location==="/app/nightservices/edit"){
+        setOpen(true);
+      }
+      
+    },[])
   
     return(
         <div>
             <div>
-<List>
+    <List>
     <ListItem button className={history.location.pathname==="/app"?classes.background:null} 
     onClick={()=>history.push("/app")}
     >
@@ -77,22 +106,22 @@ export default function Show(){
       <ListItemText primary="Dashboard" />
     </ListItem>
     
-    <ListItem button  onClick={handleClick}>
-        <ListItemIcon>
+    <ListItem button   onClick={handleClick} className={history.location.pathname==="/app/dayservices"?classes.background:history.location.pathname==="/app/nightservices"?classes.background:null}>
+        <ListItemIcon >
           <InboxIcon />
         </ListItemIcon>
-        <ListItemText primary="Services" />
+        <ListItemText primary="Services"   />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested} onClick={()=>history.push('/app/dayservices')}>
+          <ListItem button className={`${classes.nested} ${history.location.pathname==="/app/dayservices"?classes.background:null}`} onClick={()=>history.push('/app/dayservices')}>
             <ListItemIcon>
               <WbSunnyIcon />
             </ListItemIcon>
             <ListItemText primary="Day" />
           </ListItem>
-          <ListItem button className={classes.nested}  onClick={()=>{history.push("/app/nightservices")}}>
+          <ListItem button className={`${classes.nested} ${history.location.pathname==="/app/nightservices"?classes.background:null}`}  onClick={()=>{history.push("/app/nightservices")}}>
             <ListItemIcon>
               <NightsStayIcon />
             </ListItemIcon>
@@ -100,7 +129,7 @@ export default function Show(){
           </ListItem>
         </List>
       </Collapse>
-    <ListItem button className={history.location.pathname==="/app/rent"?classes.background:null} onClick={()=>history.push('/app/rent')}>
+    <ListItem className={history.location.pathname==="/app/rent"?classes.background:null} button  onClick={()=>history.push('/app/rent')}>
       <ListItemIcon>
         <AssessmentIcon />
       </ListItemIcon>
