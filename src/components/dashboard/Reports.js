@@ -9,7 +9,7 @@ export function Reports(){
 
     const reports=[{name:"Profits report", id:"pr"},{name:"Expenses", id:"er"},{name:"night report", id:"nr"},{name:"day report", id:"dr"}]
 
-    function donwload( index){
+    function view( index){
  console.log(index);
     }
     return(
@@ -30,7 +30,7 @@ export function Reports(){
 <div>
     <div className="ml-6">
     <IconButton size="small">
-    <VisibilityIcon  fontSize="small" color="primary"></VisibilityIcon>
+    <VisibilityIcon  onClick={()=>{view(index)}} fontSize="small" color="primary"></VisibilityIcon>
     </IconButton>
   
     </div>
