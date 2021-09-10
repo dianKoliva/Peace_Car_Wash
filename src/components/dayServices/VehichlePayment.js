@@ -96,13 +96,34 @@ if(e.target.name==="payed"){
     else{
       status="INCOMPLETE"
     }
+  var out_date;
+    if(status==="COMPLETE"){
+      var date=new Date();
+      var month=date.getMonth();
+      function check(){
+        if(month<10){
+          var h=month
+          month=`0${h}`
+        }
+       
+      }
+       check();
+       
+     
+      var final=`${date.getFullYear()}-${month}-${date.getDate()}`
+      out_date=final;
+     
+    }
+    else{
+      out_date="string";
+    }
    
     const json = { 
     
       amount_to_pay: pay,
       amount_payed:amount_payed,
       status:status,
-     
+      out_date:out_date
     }
      await axios.post(`/dactivity/pay/${toBePayed._id}`,json,
      {
