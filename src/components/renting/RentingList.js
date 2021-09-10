@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -36,11 +38,6 @@ function createData(plot, customer, date, status, actions) {
   };
 }
 
-const rows = [
-  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "payed"),
-  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "incomplete"),
-  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "pending"),
-];
 
 
 
@@ -264,7 +261,7 @@ else{
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
