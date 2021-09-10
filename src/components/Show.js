@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -50,7 +51,15 @@ export default function Show(){
   const {settings,setSettings}=useContext(MyContext);
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const{token,setToken}=useContext(MyContext);
 
+
+    function logout(){
+      history.push("/");
+      localStorage.clear();
+      
+      setToken("")
+    }
    
   
   
@@ -146,12 +155,7 @@ export default function Show(){
   </div>
    <div>
      <ListSubheader inset>Support and Statistics</ListSubheader>
-     <ListItem button className="hover:text-blue-700  " onClick={()=>history.push('/dashboard/support')}>
-      <ListItemIcon>
-        <ContactSupportOutlinedIcon />
-       </ListItemIcon>
-       <ListItemText primary="Support" />
-     </ListItem>
+    
      <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/dashboard/comment')}>
        <ListItemIcon>
          <QuestionAnswerOutlinedIcon />
@@ -163,6 +167,12 @@ export default function Show(){
          <EqualizerOutlinedIcon />
        </ListItemIcon>
        <ListItemText className="text-sm" primary=" Reports" />
+     </ListItem>
+     <ListItem button className="hover:text-blue-700  " onClick={()=>logout()}>
+      <ListItemIcon>
+        <ExitToAppIcon />
+       </ListItemIcon>
+       <ListItemText primary="Logout"  />
      </ListItem>
   </div>
         </div>
