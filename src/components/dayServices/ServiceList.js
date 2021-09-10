@@ -205,7 +205,7 @@ fetch();
                   key={index}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
-                  className="classes.background"
+                  className={classes.background}
                 >
                   {column.label}
                 </TableCell>
