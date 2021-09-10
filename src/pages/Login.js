@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState,useContext } from "react";
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -12,10 +12,9 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import bg from "../images/bg.jpg";
-import { Link as Linker, } from "react-router-dom";
-import axios from 'axios';
+import { Link as Linker } from "react-router-dom";
+import axios from "axios";
 import { MyContext } from "../MyContext";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,76 +50,62 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
-  const history=useHistory();
+  const history = useHistory();
   const classes = useStyles();
-  const[phone,setPhone]=useState("")
-  const[password,setPassword]=useState("");
-  const[not,setNot]=useState("");
-  const[remember,setRemember]=useState(false);
-  const{token,setToken}=useContext(MyContext);
-  const[go,setGo]=useState(false);
-  const{loged,setLoged}=useContext(MyContext);
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [not, setNot] = useState("");
+  const [remember, setRemember] = useState(false);
+  const { token, setToken } = useContext(MyContext);
+  const [go, setGo] = useState(false);
+  const { loged, setLoged } = useContext(MyContext);
 
-  const handleOnblur=(e)=>{
-if(e.target.name==="phone"){
-  
-   setPhone(e.target.value);
- 
-
-}
-
-if(e.target.name==="password"){
-
-    setPassword(e.target.value);
- 
-}
-  }
-
-const handleOnChange=(e)=>{
-if(e.target.checked){
-setRemember(true);
-}
-else{
-  setRemember(false);
-}
-
-}
-
-    const submit=async(
-        pass,phone
-    )=>{
-
-      if(pass===""){
-        setPassword("n")
-      }
-      else if(phone===""){
-        setPhone("n")
-      }
-     
-      else{
-
-await axios.post('/users/signin', {
-  phone_number:phone,
-  password: pass
-})
-.then((response) => {
- if(response.data.message==="Success"){
-   setToken(response.data.token);
-   setLoged(true);
-   setNot(false);
-   history.push("/app")
-   
- }
-}, (error) => {
-  
-  if(error.message==="Request failed with status code 404"){
-setNot(true);
-  }
-});
-      }
-  
-
+  const handleOnblur = (e) => {
+    if (e.target.name === "phone") {
+      setPhone(e.target.value);
     }
+
+    if (e.target.name === "password") {
+      setPassword(e.target.value);
+    }
+  };
+
+  const handleOnChange = (e) => {
+    if (e.target.checked) {
+      setRemember(true);
+    } else {
+      setRemember(false);
+    }
+  };
+
+  const submit = async (pass, phone) => {
+    if (pass === "") {
+      setPassword("n");
+    } else if (phone === "") {
+      setPhone("n");
+    } else {
+      await axios
+        .post("/users/signin", {
+          phone_number: phone,
+          password: pass,
+        })
+        .then(
+          (response) => {
+            if (response.data.message === "Success") {
+              setToken(response.data.token);
+              setLoged(true);
+              setNot(false);
+              history.push("/app");
+            }
+          },
+          (error) => {
+            if (error.message === "Request failed with status code 404") {
+              setNot(true);
+            }
+          }
+        );
+    }
+  };
 
   return (
     <div className="w-2/3 h-96 ml-52 bg-blue-50">
@@ -129,18 +114,17 @@ setNot(true);
         <Grid item xs={false} sm={4} md={6} className={classes.image} />
         <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
           <div className={classes.paper}>
-    
             <div className=" mb-10">
               <Typography variant="h6">Sign In to Peace Carwash</Typography>
               <Typography className="text-gray-500" variant="body2">
                 Sign In into the car wash, mechanic and rent management platform
               </Typography>
             </div>
-   {not?
-   <Typography className="text-red-500 text-xs " variant="body2">
-   invalid phone number or password
- </Typography>:null}
-            
+            {not ? (
+              <Typography className="text-red-500 text-xs " variant="body2">
+                invalid phone number or password
+              </Typography>
+            ) : null}
 
             <form className={classes.form} noValidate>
               <TextField
@@ -153,14 +137,14 @@ setNot(true);
                 label="Phone Number"
                 name="phone"
                 autoComplete="phone"
-               
-               
                 autoFocus
-                onBlur={(e)=>{
+                onBlur={(e) => {
                   handleOnblur(e);
                 }}
               />
-              {phone==="n"?<p className="text-sm text-red-500">Phone required</p>:null}
+              {phone === "n" ? (
+                <p className="text-sm text-red-500">Phone required</p>
+              ) : null}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -171,18 +155,24 @@ setNot(true);
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onBlur={(e)=>{
+                onBlur={(e) => {
                   handleOnblur(e);
                 }}
-               
               />
-               {password==="n"?<p className="text-sm text-red-500">Password Required</p>:null}
-            
+              {password === "n" ? (
+                <p className="text-sm text-red-500">Password Required</p>
+              ) : null}
+
               <FormControlLabel
                 control={
-                  <Checkbox value="remember" color="primary" fontSize="small"  onChange={(e)=>{
-                    handleOnChange(e);
-                  }}/>
+                  <Checkbox
+                    value="remember"
+                    color="primary"
+                    fontSize="small"
+                    onChange={(e) => {
+                      handleOnChange(e);
+                    }}
+                  />
                 }
                 label={
                   <span style={{ fontSize: "0.9em", color: "#9c9c9c" }}>
@@ -197,8 +187,8 @@ setNot(true);
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={()=>{
-                  submit(password,phone);
+                onClick={() => {
+                  submit(password, phone);
                 }}
               >
                 Sign In
