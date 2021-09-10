@@ -29,9 +29,10 @@ import Unauthorized from '../src/pages/Unauthorized';
 import ProtectedRoute from '../src/components/ProtectedRoute';
 import NotFound from '../src/pages/NotFound';
 
+
 function App() {
 
-const [token,setToken]=useState("");
+const [token,setToken]=useState(localStorage.getItem("token"));
 const [open, setOpen] =useState(true);
 const [serviceList,setServiceList]=useState("");
 const [toBePayed,setToBePayed]=useState("");
