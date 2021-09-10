@@ -154,15 +154,16 @@ const  handleBlur=(e)=>{
 const submit=async()=>{
 
 
-  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_lname===""||care_phone===""||service===""){
+  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_phone===""||service===""){
    setError(true);
+  
   
   }
   else{
 if(amount===""){
   setAMount(0);
 }
-console.log(amount)
+console.log(entry_date);
     setError(false);
     const json = JSON.stringify({
       plate_number: plate,
@@ -172,6 +173,7 @@ console.log(amount)
       phone_number: cus_phone,
       taker_fname: taker_fname,
       taker_number: care_phone,
+      taker_lname: "string",
       service: service,
       status: "PENDING",
   
