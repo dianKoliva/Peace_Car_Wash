@@ -23,11 +23,12 @@ import NightRegister from "./components/nightServices/NightRegister"
 import NightPayement from "./components/nightServices/NightPayment"
 import AfterSignUp from "./pages/AfterSigUp"
 import EditDayService from "./components/dayServices/EditDaySevice"
-import EdtitNight from "./components/nightServices/EditNight"
+import EditNight from "./components/nightServices/EditNight"
 import RentingEdit from './components/renting/RentingEdit';
 import Unauthorized from '../src/pages/Unauthorized';
 import ProtectedRoute from '../src/components/ProtectedRoute';
 import NotFound from '../src/pages/NotFound';
+import New from "./components/nightServices/New";
 
 function App() {
 
@@ -106,9 +107,10 @@ async function getRoles(){
           <ProtectedRoute path="/app/dayservices/register" user={token} exact component={RegisterDay}/>
           <ProtectedRoute path="/app/dayservices/edit" user={token} exact component={EditDayService}/>
 
-          <ProtectedRoute path="/app/nightservices" user={token} exact component={NightList}/>
+          <ProtectedRoute path="/app/nightservices" user={token} exact component={New}/>
           <ProtectedRoute path="/app/nightservices/register" user={token} exact component={NightRegister}/>
           <ProtectedRoute path="/app/nightservices/payment" user={token} exact component={NightPayement}/>
+          <ProtectedRoute path="/app/nightservices/edit" user={token} exact component={EditNight}/>
 
           <Route path="/wait" exact component={AfterSignUp}/>
           <Route exact path='/unauthorized' component={Unauthorized} />

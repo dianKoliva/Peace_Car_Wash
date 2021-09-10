@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginLeft: "10em",
     marginRight: "10em",
+    marginTop:"2em"
   },
   drop: {
     height: "10px",
@@ -121,12 +122,15 @@ else if(e.target.name==="agency"){
   }
 
   const submit=async()=>{
-    if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||agency===""||carProb===""||entry===""){
+    if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||agency===""||entry===""){
       setError(true);
 
      }
      else{
       setError(false);
+      if(carProb===""){
+        setCarProb("none");
+      }
       const json = JSON.stringify({
 
         plate_number: plate,
@@ -168,9 +172,7 @@ else if(e.target.name==="agency"){
       
       
        container spacing={3}>
-        <Grid item xs={6}>
-          <Typography variant="h6">Register New Vehicle</Typography>
-        </Grid>
+        
         <Grid item xs={12} className={classes.container}>
           <p className="text-lg font-bold">At Service in Peace Car Wash</p>
           <p className="text-gray-500">
@@ -317,7 +319,7 @@ else if(e.target.name==="agency"){
             <Grid item xs={6}>
               <Button
                 variant="contained"
-                className={`${classes.blueBut} ${classes.width} ${classes.low}`}
+                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
                 onClick={()=>submit()}
               >
                 Save
@@ -327,12 +329,12 @@ else if(e.target.name==="agency"){
               <Button
                 variant="contained"
                 color="primary"
-                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
+                className={`${classes.blueBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
                 
                 }}
               >
-                Continue Payment
+                Cancle
               </Button>
             </Grid>
           </Grid>

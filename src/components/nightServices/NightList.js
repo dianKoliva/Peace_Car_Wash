@@ -100,26 +100,7 @@ export default function StickyHeadTable() {
   const {toEdit,setToEdit}=useContext(MyContext);
 
 
-  const deleter=async(index)=>{
-
-    var id=data[index]._id;
-
-    await axios.delete(`/nactivity/${id}`,
-    {
-     headers: {
-       'Authorization': token
-     }
-     
-   }).then((response)=>{
-     
-fetch();
-   }).catch(error=>{
-
-   })
-
-
-
-  }
+  
 
   async function fetch(){
     await axios.get('/nactivity',
@@ -146,6 +127,26 @@ fetch();
 
   },[])
 
+  const deleter=async(index)=>{
+
+    var id=data[index]._id;
+
+    await axios.delete(`/nactivity/${id}`,
+    {
+     headers: {
+       'Authorization': token
+     }
+     
+   }).then((response)=>{
+     
+fetch();
+   }).catch(error=>{
+
+   })
+
+
+
+  }
 
 
 
