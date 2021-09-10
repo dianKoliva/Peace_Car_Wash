@@ -136,6 +136,7 @@ if(e.target.name==="payed"){
           }>
              
             <p className="text-lg font-bold">Payment for {toBePayed.plate_number}</p>
+            <p className="mt-2 mb-2 text-xs">Already payed: {toBePayed.amount_to_pay}</p>
             {error?<p className="text-red-500 mt-4">Fields can't be empty</p>:null}
           </Grid>
          
