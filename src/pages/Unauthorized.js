@@ -5,8 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    // margin: theme.spacing(3, 0, 2),
+    margin:10,
     width:100
+
   },
 }));
 
@@ -36,6 +38,18 @@ const Unauthorized = () =>{
                     }}
                   >
                     HOME
+                  </Button>
+                  
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={()=>{
+                      history.goBack()
+                    }}
+                  >
+                    BACK
                   </Button>
         </div>
       </div>
