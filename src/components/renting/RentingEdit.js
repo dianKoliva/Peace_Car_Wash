@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 function RentingEdit() {
   const state = useHistory();
   const  rental  = state.location.state.rental;
-  console.log(rental);
   const classes = useStyles();
   const {payRent,setPayRent}=useContext(MyContext);
   const {newRenter,setNewRenter}=useContext(MyContext);
@@ -137,11 +136,8 @@ function RentingEdit() {
   }
   
 const submit=async()=>{
-
   if(first_name===""||last_name===""||phone_number===""||occupation===""||amount_to_pay===""){
    setError(true);
-  //  console.log(care_lname)
-  
   }
   else{
     setError(false);
@@ -158,8 +154,8 @@ const submit=async()=>{
       payment_status: payment_status,
       registration_date: registration_date
     })
-    console.log(json);
-   await axios.post(`/rent/${rental._id}`,json,
+    
+   await axios.put(`/rent/update/${rental._id}`,json,
    {
     headers: {
       'Authorization': token,
@@ -177,8 +173,7 @@ const submit=async()=>{
     setpayment_date("");setamount_payed(0);
     setpayment_status("");setamount_remaining(0);
     setregistration_date("");
-  
-  if(response.data.message==="Success Updated!"){
+  if(response.data.success){
     history.push("/app/rent")
   }
 

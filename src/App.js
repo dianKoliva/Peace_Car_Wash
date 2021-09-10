@@ -91,6 +91,7 @@ async function getRoles(){
       <Router  >
         <Switch>
           <Route path="/" exact component={Login}/>
+          <Route path="/signup" exact component={SignUp}/>
           <ProtectedRoute path="/app" user={token} exact component={Dash}/>
 
           <ProtectedRoute path="/app/settings" user={token} exact component={Settings}/>
@@ -113,7 +114,7 @@ async function getRoles(){
           <Route exact path='/unauthorized' component={Unauthorized} />
           <Route path="" exact component={NotFound} />
         
-          <Route path="/signup" exact component={SignUp}/>
+          
         </Switch>
       </Router>
     </div>

@@ -138,23 +138,16 @@ const submit=async()=>{
 
   if(first_name===""||last_name===""||phone_number===""||occupation===""||amount_to_pay===""){
    setError(true);
-  //  console.log(care_lname)
-  
   }
+
   else{
     setError(false);
     const json = JSON.stringify({
       first_name: first_name,
       last_name: last_name,
-      email: "uwera@gmail.com",
       phone_number: phone_number,
       occupation: occupation,
       amount_to_pay: amount_to_pay,
-      amount_payed: 0,
-      amount_remaining: 0,
-      payment_date: payment_date,
-      payment_status: payment_status,
-      registration_date: registration_date
     })
     console.log(json);
    await axios.post('/rent',json,
@@ -165,9 +158,6 @@ const submit=async()=>{
     }
     
   }).then((response)=>{
-
-   
-
     setlast_name("");
     setfirst_name("");
     setoccupation("");
@@ -175,8 +165,7 @@ const submit=async()=>{
     setpayment_date("");setamount_payed(0);
     setpayment_status("");setamount_remaining(0);
     setregistration_date("");
-  
-  if(response.data.message==="Success Updated!"){
+  if(response.data.message === "Success Created!"){
     history.push("/app/rent")
   }
 
@@ -209,8 +198,8 @@ const submit=async()=>{
                 label="First Name"
                 variant="outlined"
                 size="small"
-                name="first_name"
                 className={`${classes.width} ${classes.color}`}
+                name="first_name"
                 onChange={(e)=>{
                   handleBlur(e);
                 }}
