@@ -87,6 +87,7 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" exact component={Login} />
+            <Route path="/signup" exact component={SignUp} />
             <ProtectedRoute path="/app" user={token} exact component={Dash} />
 
             <ProtectedRoute
@@ -181,8 +182,6 @@ function App() {
             <Route path="/wait" exact component={AfterSignUp} />
             <Route exact path="/unauthorized" component={Unauthorized} />
             <Route path="" exact component={NotFound} />
-
-            <Route path="/signup" exact component={SignUp} />
           </Switch>
         </Router>
       </div>
