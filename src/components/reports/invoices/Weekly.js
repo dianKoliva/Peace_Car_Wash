@@ -77,7 +77,9 @@ function Daily(){
   </tbody>
 </table>
         </div>
+        <div className="ml-96 mt-4">
         <Button variant="contained" onClick={()=>{gen()}} color="primary">Generate pdf</Button>
+        </div>
         
         </div>
     )
