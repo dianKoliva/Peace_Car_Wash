@@ -31,7 +31,7 @@ const columns = [
   { id: "item", label: "Item", minWidth: 100, align: "left" },
   { id: "amount", label: "Amount", minWidth: 100, align: "left" },
   { id: "observation", label: "Observation", minWidth: 100, align: "left" },
-  { id: "record_date", label: "Record Date", minWidth: 100, align: "left" },
+  // { id: "record_date", label: "Record Date", minWidth: 100, align: "left" },
 ];
 
 const rows = [
@@ -67,6 +67,23 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
   },
   formHidden: { display: "none" },
+  printable: {
+    padding: 20,
+    width: 800,
+    marginLeft: 20,
+  },
+  classNone: {},
+  borderClass: {
+    // border: "1px solid #00000060",
+    borderTop: "1px solid black",
+    borderRight: "1px solid black",
+    // // borderLeft: "1px solid black",
+  },
+  borderLB: {
+    borderBottom: "1px solid black",
+    borderLeft: "1px solid black",
+    // // borderLeft: "1px solid black",
+  },
 }));
 
 export default function ExpenseList() {
@@ -81,6 +98,7 @@ export default function ExpenseList() {
   const [openDial, setOpenDial] = React.useState(false);
   const [from_date, setFromDate] = React.useState();
   const [to_date, setToDate] = React.useState();
+  const [printing, setPrinting] = React.useState(false);
   const { token, setToken } = useContext(MyContext);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -130,6 +148,7 @@ export default function ExpenseList() {
           );
           setData(temp);
         }
+        setPrinting(false);
         // window.open(pdf.output("bloburl")); // to debug
       },
     });
@@ -156,14 +175,18 @@ export default function ExpenseList() {
   useEffect(() => {
     if (from_date && to_date) {
       // if (printDocument()) {
-      printDocument(true);
+      setPrinting(true);
     }
   }, [data]);
 
   useEffect(() => {
     if (printOption === "2") setOpenDial(true);
-    if (printOption === "1") printDocument();
+    if (printOption === "1") setPrinting(true);
   }, [printOption]);
+
+  useEffect(() => {
+    if (printing) printDocument(true);
+  }, [printing]);
 
   const history = useHistory();
 
@@ -224,55 +247,101 @@ export default function ExpenseList() {
             </div>
           </Grid>
         </Grid>
-        <TableContainer className={classes.container} id="pdfdiv">
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column, index) => (
-                  <TableCell
-                    key={index}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                    className={classes.background}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((item) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={item._id}
+        <div
+          className={printing ? classes.printable : classes.classNone}
+          id="pdfdiv"
+        >
+          <TableContainer
+            className={[classes.container, printing && classes.borderLB]}
+          >
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column, index) => (
+                    <TableCell
+                      key={index}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                      className={[
+                        classes.background,
+                        printing && classes.borderClass,
+                      ]}
                     >
-                      <TableCell border={1}>{item.item}</TableCell>
-                      <TableCell>{item.amount}</TableCell>
-                      <TableCell>{item.observation}</TableCell>
-                      <TableCell>{item.record_date.split("T")[0]}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              <TableRow hover role="checkbox" tabIndex={-1}>
-                <TableCell className={classes.background}>Total</TableCell>
-                <TableCell>{getTotal()}</TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-              <TableRow hover role="checkbox" tabIndex={-1}>
-                <TableCell className={classes.background}>Balance</TableCell>
-                <TableCell>pending</TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((item) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={item._id}
+                      >
+                        <TableCell
+                          border={1}
+                          className={
+                            printing ? classes.borderClass : classes.classNone
+                          }
+                        >
+                          {item.item}
+                        </TableCell>
+                        <TableCell
+                          className={
+                            printing ? classes.borderClass : classes.classNone
+                          }
+                        >
+                          {item.amount}
+                        </TableCell>
+                        <TableCell
+                          className={
+                            printing ? classes.borderClass : classes.classNone
+                          }
+                        >
+                          {item.observation}
+                        </TableCell>
+                        {/* <TableCell className={classes.borderClass}>
+                          {item.record_date.split("T")[0]}
+                        </TableCell> */}
+                      </TableRow>
+                    );
+                  })}
+                <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  className={printing ? classes.borderClass : classes.classNone}
+                >
+                  <TableCell
+                    className={[
+                      printing && classes.borderClass,
+                      classes.background,
+                    ]}
+                  >
+                    Total
+                  </TableCell>
+                  <TableCell
+                    className={
+                      printing ? classes.borderClass : classes.classNone
+                    }
+                  >
+                    {getTotal()}
+                  </TableCell>
+                  <TableCell
+                    className={
+                      printing ? classes.borderClass : classes.classNone
+                    }
+                  ></TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
