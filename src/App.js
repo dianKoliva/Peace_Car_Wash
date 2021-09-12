@@ -33,6 +33,7 @@ import Night from "./components/nightServices/NightChoose"
 import RegN from "./components/nightServices/nyabugogo/NightRegister"
 import Main from "./components/reports/Main";
 import Daily from "./components/reports/invoices/Daily"
+import TableReport from "./components/reports/TableReport"
 
 
 function App() {
@@ -46,7 +47,9 @@ const [roles,setRoles]=useState();
 const [loged,setLoged]=useState(true);
 const [toEdit,setToEdit]=useState("");
 const [ search,setSearch]=useState("");
-const [ notifications,setNotifications,]=useState("")
+const [ notifications,setNotifications,]=useState("");
+const [groups,setGroups]=useState("");
+
 
 
 async function getRoles(){
@@ -67,10 +70,28 @@ async function getRoles(){
  })
 }
 
+const getGroups=async()=>{
+  await axios.get('/group',
+  {
+   headers: {
+     'Authorization':token
+
+   }
+   
+ }).then((response)=>{
+
+  
+  setGroups(response.data);
+
+ }).catch(error=>{
+   console.log(error);
+ })
+}
+
 
 
   useEffect(()=>{
-    
+    getGroups();
   },[])
 
   const history = createBrowserHistory();
@@ -94,6 +115,7 @@ async function getRoles(){
         setSearch,
         notifications,
         setNotifications,
+        groups,setGroups
       }}
     >
       <div className="App">
@@ -208,10 +230,16 @@ async function getRoles(){
             />
 
 <ProtectedRoute
-              path="/app/invoce/daily"
+              path="/app/invoice/daily"
               user={token}
               exact
               component={Daily}
+            />
+            <ProtectedRoute
+              path="/app/report/table"
+              user={token}
+              exact
+              component={TableReport}
             />
 
             <Route path="/wait" exact component={AfterSignUp} />
