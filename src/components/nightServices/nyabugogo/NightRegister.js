@@ -92,7 +92,8 @@ function DayServices() {
        
      }).then((response)=>{
       
-         history.push("/app/night");
+         history.push("/app/nyabugogoNight");
+        
    
      })
      .catch(error=>{
@@ -131,18 +132,33 @@ function DayServices() {
                 value={plate}
                 onChange={(e)=>setPlate(e.target.value)}
               />
-              <TextField
-                margin="dense"
-                label="Car Type"
+               <FormControl
                 variant="outlined"
-                // inputProps={{ style: { fontSize: 17 } }}
-                // InputLabelProps={{ style: { fontSize: 15 } }}
                 size="small"
-                className={classes.width}
+                className={` ${classes.width}`}
+                margin="dense"
+               
+              >
+                <InputLabel>Car Type</InputLabel>
+                <Select label="Car Type"
                 value={type}
                 name="type"
-                onChange={(e)=>setType(e.target.value)}
-              />
+                onChange={(e)=>{
+                  setType (e.target.value);          
+               }}
+                
+                >
+              
+        
+          <MenuItem value="Bus" >Bus</MenuItem>
+          <MenuItem value="Coaster" >Coaster</MenuItem>
+      
+             
+       
+          
+                 
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Driver Details</p>
@@ -213,7 +229,7 @@ function DayServices() {
                
               >
                 <InputLabel>Wash Group</InputLabel>
-                <Select label="group"
+                <Select label="Wash Group"
                 value={grouper}
                 name="group"
                 onChange={(e)=>{

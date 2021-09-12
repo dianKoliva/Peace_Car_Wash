@@ -12,7 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import { Grid, IconButton } from "@material-ui/core";
+import { Checkbox, FormControlLabel, Grid, IconButton } from "@material-ui/core";
 import { MyContext } from "../../../MyContext";
 import Dashboard from "../../../layout/Dashboard";
 import axios from 'axios';
@@ -25,7 +25,7 @@ import { CheckBox, LocalGasStationRounded } from "@material-ui/icons";
 const columns = [
   
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
-  { id: "customer_name", label: "Driver", minWidth: 170, align: "left" },
+  { id: "driver_name", label: "Driver", minWidth: 170, align: "left" },
   { id: "phone_number", label: "Phone_no", minWidth: 100, align: "left" },
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
@@ -236,11 +236,17 @@ if(col.id==="action"){
 }
 else if(col.id==="washed"){
   return(
-  <TableCell key={index} align={col.align}>
-  <CheckBox
-        defaultChecked
-        color="primary"
-        inputProps={{ 'aria-label': 'secondary checkbox' }}
+  <TableCell key={index} align="center">
+  <FormControlLabel
+        control={
+          <Checkbox
+            checked={value.washed}
+            // onChange={handleChange}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        
       />
       </TableCell>
   )
