@@ -34,16 +34,6 @@ const columns = [
   { id: "record_date", label: "Record Date", minWidth: 100, align: "left" },
 ];
 
-function createData(plot, customer, date, status, actions) {
-  return {
-    plot,
-    customer,
-    date,
-    status,
-    actions,
-  };
-}
-
 const rows = [
   ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "payed"),
   ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "incomplete"),
@@ -123,24 +113,25 @@ export default function ExpenseList() {
       });
   }
 
-  const formatDate = (date) => {
-    let value = new Date(date).toDateString().split(" ");
-    return value[1] + " " + value[2] + " " + value[3];
-  };
-
-  const printDocument = () => {
-    const input = document.getElementById("pdfdiv");
-    html2canvas(input).then((canvas) => {
-      var imgWidth = 230;
-      var pageHeight = 290;
-      var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      var heightLeft = imgHeight;
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      var position = 0;
-      var heightLeft = imgHeight;
-      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
-      pdf.save("report.pdf");
+  const printDocument = (reset) => {
+    let pdf = new jsPDF("l", "pt", [595, 842]);
+    pdf.html(document.getElementById("pdfdiv"), {
+      callback: function () {
+        pdf.save("report.pdf");
+        if (reset) {
+          setOpenDial(false);
+          setFromDate();
+          setToDate();
+          // }
+          let temp = allRecords.filter(
+            (d) =>
+              d.record_date.split("T")[0] ===
+              new Date().toISOString().split("T")[0]
+          );
+          setData(temp);
+        }
+        // window.open(pdf.output("bloburl")); // to debug
+      },
     });
   };
 
@@ -164,16 +155,8 @@ export default function ExpenseList() {
 
   useEffect(() => {
     if (from_date && to_date) {
-      printDocument();
-      setOpenDial(false);
-      setFromDate();
-      setToDate();
-      let temp = allRecords.filter(
-        (d) =>
-          d.record_date.split("T")[0] === new Date().toISOString().split("T")[0]
-      );
-
-      setData(temp);
+      // if (printDocument()) {
+      printDocument(true);
     }
   }, [data]);
 
@@ -268,7 +251,7 @@ export default function ExpenseList() {
                       tabIndex={-1}
                       key={item._id}
                     >
-                      <TableCell>{item.item}</TableCell>
+                      <TableCell border={1}>{item.item}</TableCell>
                       <TableCell>{item.amount}</TableCell>
                       <TableCell>{item.observation}</TableCell>
                       <TableCell>{item.record_date.split("T")[0]}</TableCell>
