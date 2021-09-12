@@ -214,7 +214,7 @@ else if(e.target.name==="agency"){
           <Grid 
           container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Service</p>
+              
               <TextField
                 margin="dense"
                 label="Agency"
@@ -242,6 +242,24 @@ else if(e.target.name==="agency"){
                 onChange={(e)=>handleChange(e)}
               />
               <br></br>
+           
+
+            
+            </Grid>
+            <Grid item xs={6}>
+             
+              <TextField
+                margin="dense"
+                label="First Name"
+                name="fname"
+                variant="outlined"
+                className={classes.width}
+                size="small"
+                value={fname}
+                onChange={(e)=>handleChange(e)}
+                
+              />
+              <br/>
               <TextField
                 margin="dense"
                 id="date"
@@ -258,41 +276,7 @@ else if(e.target.name==="agency"){
                 }}
                 onChange={(e)=>handleChange(e)}
               />
-
-            
-            </Grid>
-            <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Care taker Details</p>
-              <TextField
-                margin="dense"
-                label="First Name"
-                name="fname"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                value={fname}
-                onChange={(e)=>handleChange(e)}
-              />
-              <TextField
-                margin="dense"
-                label="Last Name"
-                name="lname"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                value={lname}
-                onChange={(e)=>handleChange(e)}
-              />
-              <TextField
-                value={carePhone}
-                margin="dense"
-                label="Phone Number"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                name="care_phone"
-                onChange={(e)=>handleChange(e)}
-              />
+              
             </Grid>
 
           </Grid>
