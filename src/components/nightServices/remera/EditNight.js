@@ -8,8 +8,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
-import { MyContext } from "../../MyContext";
-import Dashboard from "../../layout/Dashboard";
+import { MyContext } from "../../../MyContext";
+import Dashboard from "../../../layout/Dashboard";
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 
@@ -47,8 +47,8 @@ function DayServices() {
   
   const classes = useStyles();
   var history=useHistory();
-  const {dayServicePayment,setDayServicepayment}=useContext(MyContext);
-  const {dayRecord,setDayRecord}=useContext(MyContext);
+  const[grouper,setGrouper]=useState();
+  const {groups,setGroups}=useContext(MyContext);
   const [plate,setPlate]=useState("");
   const [type,setType]=useState("");
   const [driverName,setDriverName]=useState("");
@@ -59,11 +59,10 @@ function DayServices() {
   const [agency,setAgency]=useState("");
   const[carProb,setCarProb]=useState("");
   const [entry,setEntry]=useState("");
-  const [mech,setMech]=useState("Mechanic");
-  const [wash,setWash]=useState("Washing");
+  
   const[error,setError]=useState();
   const {token,setToken}=useContext(MyContext);
-  const {serviceList,setServiceList}=useContext(MyContext);
+ 
   const {toEdit,setToEdit}=useContext(MyContext);
 
   useEffect(()=>{
@@ -71,10 +70,9 @@ function DayServices() {
     setType(toEdit.car_type);
     setCarProb(toEdit.car_problem);
     setEntry(toEdit.entry_date);
-    setFname(toEdit.taker_fname);
-    setLname(toEdit.taker_lname);
-    setCarePhone(toEdit.taker_number);
-    setDriverName(toEdit.customer_name);
+    setGrouper(toEdit.wash_group)
+    setDriverName(toEdit.driver_name);
+    setAgency(toEdit.agency);
     setDriverPhone(toEdit.phone_number);
   },[])
      
@@ -82,47 +80,9 @@ function DayServices() {
   
 
   
-  function handleChange(e){
-if(e.target.name==="plate"){
-  setPlate(e.target.value);
-  
-}
-else if(e.target.name==="type"){
-setType(e.target.value);
-
-}
-else if(e.target.name==="driver_name"){
-setDriverName(e.target.value)
-}
-else if(e.target.name==="driver_phone"){
-  setDriverPhone(e.target.value);
  
-}
-else if(e.target.name==="fname"){
-  setFname(e.target.value);
-}
-else if(e.target.name==="lname"){
-  setLname(e.target.value);
-}
-else if(e.target.name==="care_phone"){
-  setCarePhone(e.target.value)
-}
-else if(e.target.name==="prob"){
-  setCarProb(e.target.value);
-  
-
-}
-else if(e.target.name==="entry_date"){
-  setEntry(e.target.value)
-}
-else if(e.target.name==="agency"){
-
-   setAgency(e.target.value);
-}
-  }
-
   const submit=async()=>{
-    if(plate===""||type===""||driverName===""||driverPhone===""||fname===""||lname===""||carePhone===""||agency===""||entry===""){
+    if(plate===""||type===""||driverName===""||driverPhone===""||agency===""||carProb===""||entry===""){
       setError(true);
 
      }
@@ -132,20 +92,19 @@ else if(e.target.name==="agency"){
         setCarProb("none");
       }
       const json = JSON.stringify({
-
         plate_number: plate,
         car_type: type,
         entry_date: entry,
-        customer_name: driverName,
+        driver_name: driverName,
         phone_number: driverPhone,
-        taker_fname:fname,
-        taker_lname: lname,
-        taker_number: carePhone,    
-        car_problem:carProb
+        wash_group:grouper ,
+        car_problem: carProb,
+        agency: agency
+
 
     
       })
-      await axios.put(`/nactivity/update/${toEdit._id}`,json,
+      await axios.put(`/night.ng/${toEdit._id}`,json,
       {
        headers: {
          'Authorization': token,
@@ -154,8 +113,8 @@ else if(e.target.name==="agency"){
        
      }).then((response)=>{
       
-       
-      history.push("/app/nightservices");
+     console.log(response);  
+    
    
      })
      .catch(error=>{
@@ -172,7 +131,9 @@ else if(e.target.name==="agency"){
       
       
        container spacing={3}>
-        
+        <Grid item xs={6}>
+          <Typography variant="h6">Register New Vehicle</Typography>
+        </Grid>
         <Grid item xs={12} className={classes.container}>
           <p className="text-lg font-bold">At Service in Peace Car Wash</p>
           <p className="text-gray-500">
@@ -190,21 +151,35 @@ else if(e.target.name==="agency"){
                 size="small"
                 className={classes.width}
                 value={plate}
-
-                onChange={(e)=>handleChange(e)}
+                onChange={(e)=>setPlate(e.target.value)}
               />
-              <TextField
-                margin="dense"
-                label="Car Type"
+              <FormControl
                 variant="outlined"
-                // inputProps={{ style: { fontSize: 17 } }}
-                // InputLabelProps={{ style: { fontSize: 15 } }}
                 size="small"
-                className={classes.width}
+                className={` ${classes.width}`}
+                margin="dense"
+               
+              >
+                <InputLabel>Car Type</InputLabel>
+                <Select label="Car Type"
                 value={type}
                 name="type"
-                onChange={(e)=>handleChange(e)}
-              />
+                onChange={(e)=>{
+                  setType (e.target.value);          
+               }}
+                
+                >
+              
+        
+          <MenuItem value="Bus" >Bus</MenuItem>
+          <MenuItem value="Coaster" >Coaster</MenuItem>
+      
+             
+       
+          
+                 
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={6}>
               <p className="text-lg text-gray-500">Driver Details</p>
@@ -216,7 +191,7 @@ else if(e.target.name==="agency"){
                 className={classes.width}
                 value={driverName}
                 name="driver_name"
-                onChange={(e)=>handleChange(e)}
+                onChange={(e)=>setDriverName(e.target.value)}
               />
               <TextField
                 margin="dense"
@@ -226,14 +201,14 @@ else if(e.target.name==="agency"){
                 className={classes.width}
                 value={driverPhone}
                 name="driver_phone"
-                onChange={(e)=>handleChange(e)}
+                onChange={(e)=>setDriverPhone(e.target.value)}
               />
             </Grid>
           </Grid>
           <Grid 
           container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Service</p>
+              
               <TextField
                 margin="dense"
                 label="Agency"
@@ -242,7 +217,7 @@ else if(e.target.name==="agency"){
                 className={classes.width}
                 value={agency}
                 name="agency"
-                onChange={(e)=>handleChange(e)}
+                onChange={(e)=>setAgency(e.target.value)}
               />
           
                  
@@ -258,9 +233,44 @@ else if(e.target.name==="agency"){
                 // InputLabelProps={{
                 //   shrink: true,
                 // }}
-                onChange={(e)=>handleChange(e)}
+                onChange={(e)=>setCarProb(e.target.value)}
               />
               <br></br>
+           
+
+            
+            </Grid>
+            <Grid item xs={6}>
+             
+            <FormControl
+                variant="outlined"
+                size="small"
+                className={` ${classes.width}`}
+                margin="dense"
+               
+              >
+                <InputLabel>Wash Group</InputLabel>
+                <Select label="Wash Group"
+                value={grouper}
+                name="group"
+                onChange={(e)=>{
+                  setGrouper (e.target.value);          
+               }}
+                
+                >
+              
+              {groups?groups.map((s)=>{
+        return(
+          <MenuItem value={s._id} key={s._id}>{s.name}</MenuItem>
+        )
+              }):null}
+             
+       
+          
+                 
+                </Select>
+              </FormControl>
+              <br/>
               <TextField
                 margin="dense"
                 id="date"
@@ -275,43 +285,9 @@ else if(e.target.name==="agency"){
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e)=>handleChange(e)}
+                onChange={(e)=>setEntry(e)}
               />
-
-            
-            </Grid>
-            <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Care taker Details</p>
-              <TextField
-                margin="dense"
-                label="First Name"
-                name="fname"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                value={fname}
-                onChange={(e)=>handleChange(e)}
-              />
-              <TextField
-                margin="dense"
-                label="Last Name"
-                name="lname"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                value={lname}
-                onChange={(e)=>handleChange(e)}
-              />
-              <TextField
-                value={carePhone}
-                margin="dense"
-                label="Phone Number"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                name="care_phone"
-                onChange={(e)=>handleChange(e)}
-              />
+              
             </Grid>
 
           </Grid>
@@ -319,7 +295,7 @@ else if(e.target.name==="agency"){
             <Grid item xs={6}>
               <Button
                 variant="contained"
-                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
+                className={`${classes.blueBut} ${classes.width} ${classes.low}`}
                 onClick={()=>submit()}
               >
                 Save
@@ -329,12 +305,12 @@ else if(e.target.name==="agency"){
               <Button
                 variant="contained"
                 color="primary"
-                className={`${classes.blueBut} ${classes.width} ${classes.low}`}
+                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
                 
                 }}
               >
-                Cancle
+                Continue Payment
               </Button>
             </Grid>
           </Grid>
