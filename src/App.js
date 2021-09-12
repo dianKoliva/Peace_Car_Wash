@@ -36,6 +36,8 @@ import Daily from "./components/reports/invoices/Daily"
 import TableReport from "./components/reports/TableReport"
 import Weekly from "./components/reports/invoices/Weekly"
 
+import NList from "./components/nightServices/remera/NightList"
+
 
 function App() {
 
@@ -197,6 +199,13 @@ const getGroups=async()=>{
               user={token}
               exact
               component={Night}
+            />
+
+<ProtectedRoute
+              path="/app/night/remera"
+              user={token}
+              exact
+              component={NList}
             />
 
 <ProtectedRoute
