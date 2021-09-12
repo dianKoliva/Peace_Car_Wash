@@ -71,19 +71,19 @@ function DayServices() {
       setError(false);
       const json = JSON.stringify({
 
-        plate_number: "string",
-        car_type: "string",
-        entry_date: "string",
-        driver_name: "string",
-        phone_number: "string",
-        wash_group: "string",
-        washed: "string",
-        car_problem: "string",
-        agency: "string"
+        plate_number: plate,
+        car_type: type,
+        entry_date: entry,
+        driver_name: driverName,
+        phone_number: driverPhone,
+        wash_group:grouper ,
+        washed: false,
+        car_problem: carProb,
+        agency: agency
 
     
       })
-      await axios.post('/nactivity',json,
+      await axios.post('/night.ng',json,
       {
        headers: {
          'Authorization': token,
@@ -92,7 +92,7 @@ function DayServices() {
        
      }).then((response)=>{
       
-         history.push("/app/nightservices");
+         history.push("/app/night");
    
      })
      .catch(error=>{
