@@ -9,18 +9,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CenteredTabs() {
-  const [value, setValue] = React.useState(0);
+
+
+export default function CenteredTabs({navValue, setNav}) {
+  // const [value, setValue] = React.useState(navValue);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setNav(newValue);
   };
   const classes = useStyles();
 
   return (
     <div className={classes.margin}>
       <Tabs
-        value={value}
+        value={navValue}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
