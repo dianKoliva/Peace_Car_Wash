@@ -162,7 +162,7 @@ export default function Show(){
        </ListItemIcon>
        <ListItemText primary="Comment" />
      </ListItem>
-     <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/dashboard/reports')}>
+     <ListItem button className="hover:text-blue-700 " onClick={()=>history.push('/app/reports')}>
        <ListItemIcon>
          <EqualizerOutlinedIcon />
        </ListItemIcon>

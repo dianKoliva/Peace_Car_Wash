@@ -31,6 +31,7 @@ import ExpenseRegister from "./components/expenses/ExpenseRegister";
 import ExpenseList from "./components/expenses/ExpenseList";
 import Night from "./components/nightServices/NightChoose"
 import RegN from "./components/nightServices/nyabugogo/NightRegister"
+import Main from "./components/reports/Main";
 
 
 function App() {
@@ -197,6 +198,12 @@ async function getRoles(){
               user={token}
               exact
               component={ExpenseRegister}
+            />
+             <ProtectedRoute
+              path="/app/reports"
+              user={token}
+              exact
+              component={Main}
             />
 
             <Route path="/wait" exact component={AfterSignUp} />
