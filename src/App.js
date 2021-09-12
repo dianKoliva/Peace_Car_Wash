@@ -19,8 +19,7 @@ import Settings from "./components/Settings";
 import RentingPayment from "./components/renting/RentPayement";
 // import ProtectedRoute from "./ProtectedRoute";
 import NightList from "./components/nightServices/nyabugogo/NightList";
-import NightRegister from "./components/nightServices/NightRegister";
-import NightPayement from "./components/nightServices/NightPayment";
+
 import AfterSignUp from "./pages/AfterSigUp";
 import EditDayService from "./components/dayServices/EditDaySevice";
 import EdtitNyabugogo from "./components/nightServices/nyabugogo/EditNight";
@@ -178,6 +177,13 @@ async function getRoles(){
               user={token}
               exact
               component={RegN}
+            />
+    
+    <ProtectedRoute
+              path="/app/night/nyabugogo/edit"
+              user={token}
+              exact
+              component={EdtitNyabugogo}
             />
 
             <ProtectedRoute
