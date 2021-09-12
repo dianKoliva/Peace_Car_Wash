@@ -162,7 +162,7 @@ fetch();
 
   const edit=(index)=>{
  setToEdit(data[index]);
- history.push("/app/nightservices/edit");
+ history.push("app/night/nyabugogo/edit");
   }
 
 
