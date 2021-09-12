@@ -33,32 +33,6 @@ const columns = [
   { id: "action", label: "Action", minWidth: 100 },
 ];
 
-function createData(
-  id,
-  plate,
-  customer,
-  phone,
-  entry_date,
-  out_date,
-  car_type,
-  services,
-  amount,
-  observation
-) {
-  return {
-    id,
-    plate,
-    customer,
-    phone,
-    entry_date,
-    out_date,
-    car_type,
-    services,
-    amount,
-    observation,
-  };
-}
-
 
 
 const useStyles = makeStyles({
@@ -143,6 +117,39 @@ fetch();
 
    })
 
+
+
+  }
+
+  const change=async(index)=>{
+
+  
+
+    const json = JSON.stringify({
+
+      washed: !data[index].washed,
+     
+
+  
+    })
+    data[index].washed=!data[index].washed;
+
+    await axios.put(`/night.ng/ ${data[index]._id}`,json,
+    {
+     headers: {
+       'Authorization': token,
+       'Content-Type': 'application/json'
+     }
+     
+   }).then((response)=>{
+    
+       history.push("/app/nyabugogoNight");
+      
+ 
+   })
+   .catch(error=>{
+    console.log(error);
+  })
 
 
   }
@@ -241,7 +248,7 @@ else if(col.id==="washed"){
         control={
           <Checkbox
             checked={value.washed}
-            // onChange={handleChange}
+            onChange={()=>change(num)}
             name="checkedB"
             color="primary"
           />
