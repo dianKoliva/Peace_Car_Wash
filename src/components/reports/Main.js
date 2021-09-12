@@ -38,14 +38,28 @@ export default function StickyHeadTable() {
   const classes = useStyles();
   const [report,setReport]=useState("");
   const [branch,setBranch]=useState("");
-  const [nyabu,setNyobu]=useState("Nyabugogo");
-  const [remera,setRemera]=useState("Remera");
-  const [daily,setDaily]=useState("Daily");
-  const [weekly,setWeekly]=useState("Weekly");
+  const [nyabu,setNyobu]=useState("nyabugogo");
+  const [remera,setRemera]=useState("remera");
+  const [daily,setDaily]=useState("daily");
+  const [weekly,setWeekly]=useState("weekly");
   const [from,setFrom]=useState("");
   const [to,setTo]=useState("");
+  const [invoice,setInvoice]=useState("");
 
-  const print=()=>{
+  const [invoBranch,setInvoBra]=useState("");
+  const [invoFrom,setInvoFrom]=useState("");
+  const [invoTo,setInvoTo]=useState("");
+  const [invoNyabu,setinvoNyabu]=useState("Nyabugogo");
+  const [invoRem,setInvoRem]=useState("Remera");
+  const [invoDay,setInvoDay]=useState("daily");
+  const [invoWeek,setInvoWeek]=useState("weekly");
+
+
+  const printReport=()=>{
+
+  }
+
+  const printInvoice=()=>{
 
   }
 
@@ -182,16 +196,16 @@ export default function StickyHeadTable() {
               >
                 <InputLabel>Invoice Type</InputLabel>
                 <Select label="Report Type"
-                value={report}
+                value={invoice}
                 onChange={(e)=>{
-                  setReport (e.target.value);          
+                  setInvoice (e.target.value);          
                }}
                 
                 >
               
            
-          <MenuItem value={daily} >Daily Invoice</MenuItem>
-          <MenuItem value={weekly} >Weekly  Invoice</MenuItem>
+          <MenuItem value={invoDay} >Daily Invoice</MenuItem>
+          <MenuItem value={invoWeek} >Weekly  Invoice</MenuItem>
                  
                 </Select>
               </FormControl>
@@ -205,16 +219,16 @@ export default function StickyHeadTable() {
               >
                 <InputLabel>Branch</InputLabel>
                 <Select label="Report Type"
-                value={branch}
+                value={invoBranch}
                 onChange={(e)=>{
-                  setBranch (e.target.value);          
+                  setInvoBra (e.target.value);          
                }}
                 
                 >
               
            
-          <MenuItem value={nyabu} >Nyabugogo</MenuItem>
-          <MenuItem value={remera} >Remera</MenuItem>
+          <MenuItem value={invoNyabu} >Nyabugogo</MenuItem>
+          <MenuItem value={invoRem} >Remera</MenuItem>
                  
                 </Select>
               </FormControl>
@@ -226,7 +240,7 @@ export default function StickyHeadTable() {
                 id="date"
                 label="From"
                 variant="outlined"
-                value={from}
+                value={invoFrom}
                 type="date"
             
                 size="small"
@@ -235,7 +249,7 @@ export default function StickyHeadTable() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                 onChange={(e)=>setFrom(e.target.value)}
+                 onChange={(e)=>setInvoFrom(e.target.value)}
               />
 
 <TextField
@@ -243,16 +257,15 @@ export default function StickyHeadTable() {
                 id="date"
                 label="To"
                 variant="outlined"
-                value={to}
+                value={invoTo}
                 type="date"
             
                 size="small"
-                name="entry_date"
                 className={`${classes.width} ${classes.margin}`}
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e)=>setTo(e.target.value)}
+                onChange={(e)=>setInvoTo(e.target.value)}
               />
 
         </div>
