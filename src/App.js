@@ -32,6 +32,7 @@ import ExpenseList from "./components/expenses/ExpenseList";
 import Night from "./components/nightServices/NightChoose"
 import RegN from "./components/nightServices/nyabugogo/NightRegister"
 import Main from "./components/reports/Main";
+import Daily from "./components/reports/invoices/Daily"
 
 
 function App() {
@@ -204,6 +205,13 @@ async function getRoles(){
               user={token}
               exact
               component={Main}
+            />
+
+<ProtectedRoute
+              path="/app/invoce/daily"
+              user={token}
+              exact
+              component={Daily}
             />
 
             <Route path="/wait" exact component={AfterSignUp} />
