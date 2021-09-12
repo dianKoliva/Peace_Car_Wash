@@ -7,11 +7,15 @@ import Paper from "@material-ui/core/Paper";
 import Dashboard from "../../layout/Dashboard";
 
 import { useHistory } from 'react-router-dom';
+import { Button } from "@material-ui/core";
 
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: "20%",
+    marginLeft:"40%",
+    marginTop:"15%",
+    height:"8em"
   }
 });
 
@@ -20,12 +24,14 @@ const useStyles = makeStyles({
 
 export default function StickyHeadTable() {
   const classes=useStyles();
+  const [choice,setChoice]=useState("");
 
 
   return (
     <Dashboard>
     <Paper className={classes.root}>
-    
+    <Button onClick={()=>{setChoice("remera")}}>Remera</Button>
+    <Button onClick={()=>{setChoice("nyabugogo")}}>Nyabugogo</Button>
     </Paper>
     </Dashboard>
   );
