@@ -172,7 +172,9 @@ else if(e.target.name==="agency"){
       
       
        container spacing={3}>
-        
+        <Grid item xs={6}>
+          <Typography variant="h6">Register New Vehicle</Typography>
+        </Grid>
         <Grid item xs={12} className={classes.container}>
           <p className="text-lg font-bold">At Service in Peace Car Wash</p>
           <p className="text-gray-500">
@@ -190,7 +192,6 @@ else if(e.target.name==="agency"){
                 size="small"
                 className={classes.width}
                 value={plate}
-
                 onChange={(e)=>handleChange(e)}
               />
               <TextField
@@ -233,7 +234,7 @@ else if(e.target.name==="agency"){
           <Grid 
           container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Service</p>
+              
               <TextField
                 margin="dense"
                 label="Agency"
@@ -261,6 +262,24 @@ else if(e.target.name==="agency"){
                 onChange={(e)=>handleChange(e)}
               />
               <br></br>
+           
+
+            
+            </Grid>
+            <Grid item xs={6}>
+             
+              <TextField
+                margin="dense"
+                label="First Name"
+                name="fname"
+                variant="outlined"
+                className={classes.width}
+                size="small"
+                value={fname}
+                onChange={(e)=>handleChange(e)}
+                
+              />
+              <br/>
               <TextField
                 margin="dense"
                 id="date"
@@ -277,41 +296,7 @@ else if(e.target.name==="agency"){
                 }}
                 onChange={(e)=>handleChange(e)}
               />
-
-            
-            </Grid>
-            <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Care taker Details</p>
-              <TextField
-                margin="dense"
-                label="First Name"
-                name="fname"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                value={fname}
-                onChange={(e)=>handleChange(e)}
-              />
-              <TextField
-                margin="dense"
-                label="Last Name"
-                name="lname"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                value={lname}
-                onChange={(e)=>handleChange(e)}
-              />
-              <TextField
-                value={carePhone}
-                margin="dense"
-                label="Phone Number"
-                variant="outlined"
-                className={classes.width}
-                size="small"
-                name="care_phone"
-                onChange={(e)=>handleChange(e)}
-              />
+              
             </Grid>
 
           </Grid>
@@ -319,7 +304,7 @@ else if(e.target.name==="agency"){
             <Grid item xs={6}>
               <Button
                 variant="contained"
-                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
+                className={`${classes.blueBut} ${classes.width} ${classes.low}`}
                 onClick={()=>submit()}
               >
                 Save
@@ -329,12 +314,12 @@ else if(e.target.name==="agency"){
               <Button
                 variant="contained"
                 color="primary"
-                className={`${classes.blueBut} ${classes.width} ${classes.low}`}
+                className={`${classes.greenBut} ${classes.width} ${classes.low}`}
                 onClick={()=>{
                 
                 }}
               >
-                Cancle
+                Continue Payment
               </Button>
             </Grid>
           </Grid>

@@ -162,14 +162,9 @@ fetch();
 
   const edit=(index)=>{
  setToEdit(data[index]);
- history.push("app/night/nyabugogo/edit");
+ history.push("/app/night/nyabugogo/edit");
   }
 
-
-  const pay=(index)=>{
-    setToBePayed(data[index]);
-    history.push("/app/nightservices/payment");
-  }
 
   return (
     <Dashboard>
