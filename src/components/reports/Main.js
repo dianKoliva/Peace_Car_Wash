@@ -41,7 +41,7 @@ export default function StickyHeadTable() {
   const [nyabu,setNyobu]=useState("Nyabugogo");
   const [remera,setRemera]=useState("Remera");
   const [daily,setDaily]=useState("Daily");
-  const [Weekly,setWeekly]=useState("Weekly");
+  const [weekly,setWeekly]=useState("Weekly");
   const [from,setFrom]=useState("");
   const [to,setTo]=useState("");
 
@@ -59,8 +59,8 @@ export default function StickyHeadTable() {
 
   return (
     <Dashboard>
-    <Grid container>
-        <Grid item xs={6} spacing={3}>
+    <Grid container spacing={3}>
+        <Grid item xs={6} >
         <Paper className={classes.root}>
         <div className="p-6">
         <p className="mb-4">Night Services</p>
@@ -75,16 +75,16 @@ export default function StickyHeadTable() {
               >
                 <InputLabel>Report Type</InputLabel>
                 <Select label="Report Type"
-                // name="service"
-            //     onChange={(e)=>{
-            //       setService (e.target.value);          
-            //    }}
+                value={report}
+                onChange={(e)=>{
+                  setReport (e.target.value);          
+               }}
                 
                 >
               
            
-          <MenuItem value={10} >Daily Report</MenuItem>
-          <MenuItem value={10} >Weekly Report</MenuItem>
+          <MenuItem value={daily} >Daily Report</MenuItem>
+          <MenuItem value={weekly} >Weekly Report</MenuItem>
                  
                 </Select>
               </FormControl>
@@ -98,16 +98,16 @@ export default function StickyHeadTable() {
               >
                 <InputLabel>Branch</InputLabel>
                 <Select label="Report Type"
-                // name="service"
-            //     onChange={(e)=>{
-            //       setService (e.target.value);          
-            //    }}
+                value={branch}
+                onChange={(e)=>{
+                  setBranch (e.target.value);          
+               }}
                 
                 >
               
            
-          <MenuItem value={10} >Nyabugogo</MenuItem>
-          <MenuItem value={10} >Remera</MenuItem>
+          <MenuItem value={nyabu} >Nyabugogo</MenuItem>
+          <MenuItem value={remera} >Remera</MenuItem>
                  
                 </Select>
               </FormControl>
@@ -119,7 +119,7 @@ export default function StickyHeadTable() {
                 id="date"
                 label="From"
                 variant="outlined"
-                // value={entry}
+                value={from}
                 type="date"
             
                 size="small"
@@ -128,7 +128,7 @@ export default function StickyHeadTable() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                // onChange={(e)=>handleChange(e)}
+                 onChange={(e)=>setFrom(e.target.value)}
               />
 
 <TextField
@@ -136,7 +136,7 @@ export default function StickyHeadTable() {
                 id="date"
                 label="To"
                 variant="outlined"
-                // value={entry}
+                value={to}
                 type="date"
             
                 size="small"
@@ -145,7 +145,114 @@ export default function StickyHeadTable() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                // onChange={(e)=>handleChange(e)}
+                onChange={(e)=>setTo(e.target.value)}
+              />
+
+        </div>
+        <Button
+                variant="contained"
+                color="primary"
+                className={`${classes.greenBut} ${classes.width} mt-2`}
+                onClick={()=>{
+                
+                }}
+              >
+               Print    
+              </Button>
+
+        </div>
+    
+    </Paper>
+        </Grid>
+
+<Grid item xs={6}></Grid>
+
+<Grid item xs={6}>
+        <Paper className={classes.root}>
+        <div className="p-6">
+        <p className="mb-4">Night Invoices</p>
+        <div className="flex">
+       
+        <FormControl
+                variant="outlined"
+                size="small"
+                className={` ${classes.width}`}
+                margin="dense"
+               
+              >
+                <InputLabel>Invoice Type</InputLabel>
+                <Select label="Report Type"
+                value={report}
+                onChange={(e)=>{
+                  setReport (e.target.value);          
+               }}
+                
+                >
+              
+           
+          <MenuItem value={daily} >Daily Invoice</MenuItem>
+          <MenuItem value={weekly} >Weekly  Invoice</MenuItem>
+                 
+                </Select>
+              </FormControl>
+
+              <FormControl
+                variant="outlined"
+                size="small"
+                className={` ${classes.width} ${classes.margin}`}
+                margin="dense"
+               
+              >
+                <InputLabel>Branch</InputLabel>
+                <Select label="Report Type"
+                value={branch}
+                onChange={(e)=>{
+                  setBranch (e.target.value);          
+               }}
+                
+                >
+              
+           
+          <MenuItem value={nyabu} >Nyabugogo</MenuItem>
+          <MenuItem value={remera} >Remera</MenuItem>
+                 
+                </Select>
+              </FormControl>
+        </div>
+        <div className="flex">
+
+        <TextField
+                margin="dense"
+                id="date"
+                label="From"
+                variant="outlined"
+                value={from}
+                type="date"
+            
+                size="small"
+                name="entry_date"
+                className={`${classes.width} `}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                 onChange={(e)=>setFrom(e.target.value)}
+              />
+
+<TextField
+                margin="dense"
+                id="date"
+                label="To"
+                variant="outlined"
+                value={to}
+                type="date"
+            
+                size="small"
+                name="entry_date"
+                className={`${classes.width} ${classes.margin}`}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e)=>setTo(e.target.value)}
               />
 
         </div>
