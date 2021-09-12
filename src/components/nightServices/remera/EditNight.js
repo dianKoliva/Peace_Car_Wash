@@ -104,7 +104,7 @@ function DayServices() {
 
     
       })
-      await axios.put(`/night.ng/${toEdit._id}`,json,
+      await axios.put(`/night.rm/${toEdit._id}`,json,
       {
        headers: {
          'Authorization': token,

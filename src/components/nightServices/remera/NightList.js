@@ -169,7 +169,7 @@ fetch();
 
   const edit=(index)=>{
  setToEdit(data[index]);
- history.push("/app/night/nyabugogo/edit");
+ history.push("/app/night/remera/edit");
   }
 
 
@@ -186,7 +186,7 @@ fetch();
         <Grid item xs={2}
         >
           <div className="ml-6 mb-2 mt-1">
-            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/night/nyabugogo/Register")}}>
+            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/night/remera/Register")}}>
               New Record
             </Button>
           </div>
