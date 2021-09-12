@@ -179,7 +179,7 @@ export default function StickyHeadTable() {
                   printReport(report,branch,from,to)               
                 }}
               >
-               Print    
+              Get Report    
               </Button>
 
         </div>
@@ -282,10 +282,10 @@ export default function StickyHeadTable() {
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
-                
+                printInvoice(invoice,invoBranch,invoTo,invoFrom);
                 }}
               >
-               Print    
+               Get Invoice
               </Button>
 
         </div>
