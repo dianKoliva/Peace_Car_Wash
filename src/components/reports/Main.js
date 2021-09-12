@@ -54,9 +54,17 @@ export default function StickyHeadTable() {
   const [invoDay,setInvoDay]=useState("daily");
   const [invoWeek,setInvoWeek]=useState("weekly");
 
+  const {reporter,setReporter}=useContext(MyContext);
+  const history=useHistory();
 
-  const printReport=()=>{
 
+  const printReport=(type,branch,from,to)=>{
+
+    setReporter({"type":type,"branch":branch,"from":from,"to":to});
+
+    
+      history.push("/app/report/table");
+   
   }
 
   const printInvoice=()=>{
@@ -168,7 +176,7 @@ export default function StickyHeadTable() {
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
-                
+                  printReport(report,branch,from,to)               
                 }}
               >
                Print    

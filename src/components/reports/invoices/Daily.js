@@ -1,6 +1,7 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Button } from '@material-ui/core';
 
 
 function Daily(){
@@ -26,9 +27,9 @@ function Daily(){
 
 }
     return(
-        <div>
-          <div className="ml-96 mt-20 " id="print">
-          <p className="font-bold underline mb-6">Invoice Details:</p>
+        <div id="print">
+          <div className="ml-96 mt-20 " >
+          <p className="font-bold underline mb-6">List of Car washed in one day/Nyabugogo</p>
             <table className="border-solid border-2 border-black  border-collapse">
             <thead className="border-solid border-2 border-black  border-collapse ">
               <tr className="border-solid border-2 border-black border-collapse ">
@@ -76,7 +77,8 @@ function Daily(){
   </tbody>
 </table>
         </div>
-        <button onClick={()=>{gen()}}>Generate pdf</button>
+        <Button variant="contained" onClick={()=>{gen()}} color="primary">Generate pdf</Button>
+        
         </div>
     )
 

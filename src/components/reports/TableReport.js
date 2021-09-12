@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { MyContext } from '../../MyContext';
+import axios from 'axios'
 
 
 const useStyles = makeStyles({
@@ -32,6 +35,31 @@ const rows = [
 
 export default function BasicTable() {
   const classes = useStyles();
+  const [data,setData]=useState();
+  const {reporter,setReporter}=useContext(MyContext);
+  const {token,setToken}=useContext(MyContext);
+
+  async function nyabu(){
+    await axios.get('/night.ng',
+    {
+     headers: {
+       'Authorization':token
+    }
+     
+   }).then((response)=>{
+     setData(response.data);
+     console.log(data);
+     
+  
+    
+   }).catch(error=>{
+     console.log(error);
+   })
+  }
+
+  useEffect(()=>{
+   nyabu();
+  },[])
 
   function gen()
   {
@@ -58,26 +86,26 @@ export default function BasicTable() {
       <Table className={classes.table} aria-label="simple table" id="print">
         <TableHead>
           <TableRow>
-            <TableCell>Number</TableCell>
+            <TableCell align="center">Number</TableCell>
             
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Car Type</TableCell>
-            <TableCell align="right">Plate number</TableCell>
-            <TableCell align="right">Observation</TableCell>
+            <TableCell align="center">Date</TableCell>
+            <TableCell align="center">Car Type</TableCell>
+            <TableCell align="center">Plate number</TableCell>
+            <TableCell align="center">Observation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,index) => (
+          {data?data.map((row,index) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+              <TableCell  align="center">
                 {index+1}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="center">{row.entry_date}</TableCell>
+              <TableCell align="center">{row.car_type}</TableCell>
+              <TableCell align="center">{row.plate_number}</TableCell>
+              <TableCell align="center">{row.washed===true?"OK":"NO"}</TableCell>
             </TableRow>
-          ))}
+          )):null}
         </TableBody>
       </Table>
       

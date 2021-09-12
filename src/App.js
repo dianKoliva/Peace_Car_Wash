@@ -34,6 +34,7 @@ import RegN from "./components/nightServices/nyabugogo/NightRegister"
 import Main from "./components/reports/Main";
 import Daily from "./components/reports/invoices/Daily"
 import TableReport from "./components/reports/TableReport"
+import Weekly from "./components/reports/invoices/Weekly"
 
 
 function App() {
@@ -49,6 +50,7 @@ const [toEdit,setToEdit]=useState("");
 const [ search,setSearch]=useState("");
 const [ notifications,setNotifications,]=useState("");
 const [groups,setGroups]=useState("");
+const [reporter,setReporter]=useState("");
 
 
 
@@ -115,7 +117,8 @@ const getGroups=async()=>{
         setSearch,
         notifications,
         setNotifications,
-        groups,setGroups
+        groups,setGroups,
+        reporter,setReporter
       }}
     >
       <div className="App">
@@ -223,6 +226,7 @@ const getGroups=async()=>{
               component={ExpenseRegister}
             />
              <ProtectedRoute
+
               path="/app/reports"
               user={token}
               exact
@@ -234,6 +238,12 @@ const getGroups=async()=>{
               user={token}
               exact
               component={Daily}
+            />
+            <ProtectedRoute
+              path="/app/invoice/weekly"
+              user={token}
+              exact
+              component={Weekly}
             />
             <ProtectedRoute
               path="/app/report/table"
