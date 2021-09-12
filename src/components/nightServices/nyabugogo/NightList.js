@@ -184,7 +184,7 @@ fetch();
         <Grid item xs={2}
         >
           <div className="ml-6 mb-2 mt-1">
-            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/nightservices/register")}}>
+            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/night/nyabugogo/Register")}}>
               New Record
             </Button>
           </div>

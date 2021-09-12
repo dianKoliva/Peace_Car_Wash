@@ -31,6 +31,7 @@ import NotFound from "../src/pages/NotFound";
 import ExpenseRegister from "./components/expenses/ExpenseRegister";
 import ExpenseList from "./components/expenses/ExpenseList";
 import Night from "./components/nightServices/NightChoose"
+import RegN from "./components/nightServices/nyabugogo/NightRegister"
 
 
 function App() {
@@ -170,6 +171,13 @@ async function getRoles(){
               user={token}
               exact
               component={Night}
+            />
+
+<ProtectedRoute
+              path="/app/night/nyabugogo/Register"
+              user={token}
+              exact
+              component={RegN}
             />
 
             <ProtectedRoute

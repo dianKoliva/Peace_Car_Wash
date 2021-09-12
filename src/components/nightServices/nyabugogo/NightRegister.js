@@ -7,8 +7,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
-import { MyContext } from "../../MyContext";
-import Dashboard from "../../layout/Dashboard";
+import { MyContext } from "../../../MyContext";
+import Dashboard from "../../../layout/Dashboard";
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 
