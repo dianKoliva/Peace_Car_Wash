@@ -105,7 +105,9 @@ function Header() {
           Authorization: token,
         },
       })
-      .then((res) => setNotifications(res.data))
+      .then((res) => {
+        setNotifications(res.data);
+      })
       .catch((err) => console.log(err));
   };
 

@@ -8,15 +8,24 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
+import PrintOutlinedIcon from "@material-ui/icons/PrintOutlined";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import Delete from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import { Grid } from "@material-ui/core";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { Grid, IconButton, TextField } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const columns = [
   { id: "item", label: "Item", minWidth: 100, align: "left" },
@@ -41,7 +50,7 @@ const rows = [
   ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "pending"),
 ];
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
@@ -63,7 +72,12 @@ const useStyles = makeStyles({
   background: {
     fontWeight: "bold",
   },
-});
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  formHidden: { display: "none" },
+}));
 
 export default function ExpenseList() {
   const classes = useStyles();
@@ -71,6 +85,12 @@ export default function ExpenseList() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [error, setError] = React.useState("");
   const [data, setData] = React.useState([]);
+  const [allRecords, setAllRecords] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [printOption, setPrintOption] = React.useState("0");
+  const [openDial, setOpenDial] = React.useState(false);
+  const [from_date, setFromDate] = React.useState();
+  const [to_date, setToDate] = React.useState();
   const { token, setToken } = useContext(MyContext);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -89,8 +109,14 @@ export default function ExpenseList() {
         },
       })
       .then((response) => {
-        // console.log(response.data);
-        setData(response.data);
+        setAllRecords(response.data);
+        let temp = response.data.filter(
+          (d) =>
+            d.record_date.split("T")[0] ===
+            new Date().toISOString().split("T")[0]
+        );
+
+        setData(temp);
       })
       .catch((error) => {
         console.log(error);
@@ -98,14 +124,63 @@ export default function ExpenseList() {
   }
 
   const formatDate = (date) => {
-    let value = date.split(" ");
+    let value = new Date(date).toDateString().split(" ");
     return value[1] + " " + value[2] + " " + value[3];
   };
+
+  const printDocument = () => {
+    const input = document.getElementById("pdfdiv");
+    html2canvas(input).then((canvas) => {
+      var imgWidth = 230;
+      var pageHeight = 290;
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+      var heightLeft = imgHeight;
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      var position = 0;
+      var heightLeft = imgHeight;
+      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+      pdf.save("report.pdf");
+    });
+  };
+
+  const handlePrintRange = () => {
+    let temp = [...allRecords];
+    temp = temp.filter(
+      (d) =>
+        d.record_date.split("T")[0] >= from_date &&
+        d.record_date.split("T")[0] <= from_date
+    );
+    setData(temp);
+  };
+
+  const getTotal = () =>
+    data.reduce((partial_sum, a) => partial_sum + a.amount, 0);
 
   useEffect(() => {
     fetch();
     // fetchRental();
   }, []);
+
+  useEffect(() => {
+    if (from_date && to_date) {
+      printDocument();
+      setOpenDial(false);
+      setFromDate();
+      setToDate();
+      let temp = allRecords.filter(
+        (d) =>
+          d.record_date.split("T")[0] === new Date().toISOString().split("T")[0]
+      );
+
+      setData(temp);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (printOption === "2") setOpenDial(true);
+    if (printOption === "1") printDocument();
+  }, [printOption]);
 
   const history = useHistory();
 
@@ -113,9 +188,9 @@ export default function ExpenseList() {
     <Dashboard>
       <Paper className={classes.root}>
         <Grid container spacing={3} xs="12">
-          <Grid item xs="10">
+          <Grid item xs="8">
             <div className="flex ml-4 mb-6 mt-4 ">
-              <p className="font-bold">List of Expenses</p>
+              <p className="font-bold">List of Daily Expenses</p>
               <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
             </div>
           </Grid>
@@ -135,8 +210,38 @@ export default function ExpenseList() {
               </Button>
             </div>
           </Grid>
+          <Grid item xs="2">
+            <div className="ml-6 mb-2">
+              <IconButton
+                value="ddd"
+                size="medium"
+                // onClick={printDocument}
+                onClick={() => setOpen(!open)}
+              >
+                <PrintOutlinedIcon
+                  fontSize="medium"
+                  className="text-gray-500"
+                ></PrintOutlinedIcon>
+              </IconButton>
+              <FormControl
+                className={open ? classes.formControl : classes.formHidden}
+              >
+                <Select
+                  labelId="demo-controlled-open-select-label"
+                  id="demo-controlled-open-select"
+                  value={printOption}
+                  // open={false}
+                  onChange={(e) => setPrintOption(e.target.value)}
+                >
+                  <MenuItem value="1">Today</MenuItem>
+                  <MenuItem value="2">Range</MenuItem>
+                  {/* <MenuItem value="3">3</MenuItem> */}
+                </Select>
+              </FormControl>
+            </div>
+          </Grid>
         </Grid>
-        <TableContainer className={classes.container}>
+        <TableContainer className={classes.container} id="pdfdiv">
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -166,23 +271,22 @@ export default function ExpenseList() {
                       <TableCell>{item.item}</TableCell>
                       <TableCell>{item.amount}</TableCell>
                       <TableCell>{item.observation}</TableCell>
-                      <TableCell>{formatDate(item.record_date)}</TableCell>
-                      {/* <TableCell align="left">
-                        <EditIcon
-                          fontSize="small"
-                          className="ml-2 text-gray-500"
-                        ></EditIcon>
-                        <Delete
-                          className="ml-1 text-gray-500"
-                          fontSize="small"
-                          onClick={() => {
-                            deleteRent(item._id);
-                          }}
-                        ></Delete>
-                      </TableCell> */}
+                      <TableCell>{item.record_date.split("T")[0]}</TableCell>
                     </TableRow>
                   );
                 })}
+              <TableRow hover role="checkbox" tabIndex={-1}>
+                <TableCell className={classes.background}>Total</TableCell>
+                <TableCell>{getTotal()}</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              <TableRow hover role="checkbox" tabIndex={-1}>
+                <TableCell className={classes.background}>Balance</TableCell>
+                <TableCell>pending</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
@@ -196,6 +300,52 @@ export default function ExpenseList() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+      <Dialog
+        open={openDial}
+        onClose={() => setOpenDial(false)}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Select Date Range</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            id="date"
+            label="From"
+            variant="outlined"
+            type="date"
+            size="small"
+            className={classes.width}
+            name="from_date"
+            onChange={(e) => setFromDate(e.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <span style={{ margin: "0 10px" }}> </span>
+          <TextField
+            margin="dense"
+            id="date"
+            label="To"
+            variant="outlined"
+            type="date"
+            size="small"
+            className={classes.width}
+            name="to_date"
+            onChange={(e) => setToDate(e.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDial(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handlePrintRange} color="primary">
+            Print
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Dashboard>
   );
 }

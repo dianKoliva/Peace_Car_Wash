@@ -51,27 +51,33 @@ function Notifications(props) {
   return (
     <div className="ml-20">
       <div className="mb-5 font-bold">Notifications</div>
-      <List className={classes.root}>
-        {notifications &&
-          notifications.map((item, index) => (
-            <ListItem
-              key={item._id}
-              button
-              onClick={() => removeNotification(item._id, index, item.car_type)}
-            >
-              <ListItemText
-                selected
-                primary={
-                  item.registered_by.first_name +
-                  " " +
-                  item.registered_by.last_name +
-                  " registered a new activity"
+      {notifications.length > 0 ? (
+        <List className={classes.root}>
+          {notifications &&
+            notifications.map((item, index) => (
+              <ListItem
+                key={item._id}
+                button
+                onClick={() =>
+                  removeNotification(item._id, index, item.car_type)
                 }
-                secondary={formatDate(item.entry_date)}
-              />
-            </ListItem>
-          ))}
-      </List>
+              >
+                <ListItemText
+                  selected
+                  primary={
+                    item.registered_by.first_name +
+                    " " +
+                    item.registered_by.last_name +
+                    " registered a new activity"
+                  }
+                  secondary={formatDate(item.entry_date)}
+                />
+              </ListItem>
+            ))}
+        </List>
+      ) : (
+        <div className="mb-5">No new activities.</div>
+      )}
     </div>
   );
 }
