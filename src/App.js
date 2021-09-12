@@ -30,6 +30,7 @@ import ProtectedRoute from "../src/components/ProtectedRoute";
 import NotFound from "../src/pages/NotFound";
 import ExpenseRegister from "./components/expenses/ExpenseRegister";
 import ExpenseList from "./components/expenses/ExpenseList";
+import Night from "./components/nightServices/NightChoose"
 
 
 function App() {
@@ -125,6 +126,7 @@ async function getRoles(){
               exact
               component={RentingRegister}
             />
+
             <ProtectedRoute
               path="/app/rent/edit"
               user={token}
@@ -162,6 +164,12 @@ async function getRoles(){
               user={token}
               exact
               component={NightList}
+            />
+            <ProtectedRoute
+              path="/app/night"
+              user={token}
+              exact
+              component={Night}
             />
             <ProtectedRoute
               path="/app/nightservices/register"
