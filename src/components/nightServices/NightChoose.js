@@ -24,14 +24,15 @@ const useStyles = makeStyles({
 
 export default function StickyHeadTable() {
   const classes=useStyles();
+  const history=useHistory();
   const [choice,setChoice]=useState("");
 
 
   return (
     <Dashboard>
     <Paper className={classes.root}>
-    <Button onClick={()=>{setChoice("remera")}}>Remera</Button>
-    <Button onClick={()=>{setChoice("nyabugogo")}}>Nyabugogo</Button>
+    <Button>Remera</Button>
+    <Button onClick={()=>{history.push("/app/nyabugogoNight")}}>Nyabugogo</Button>
     </Paper>
     </Dashboard>
   );

@@ -18,7 +18,7 @@ import RentPayement from "./components/renting/RentPayement";
 import Settings from "./components/Settings";
 import RentingPayment from "./components/renting/RentPayement";
 // import ProtectedRoute from "./ProtectedRoute";
-import NightList from "./components/nightServices/remera/NightList";
+import NightList from "./components/nightServices/nyabugogo/NightList";
 import NightRegister from "./components/nightServices/NightRegister";
 import NightPayement from "./components/nightServices/NightPayment";
 import AfterSignUp from "./pages/AfterSigUp";
@@ -160,7 +160,7 @@ async function getRoles(){
             />
 
             <ProtectedRoute
-              path="/app/nightservices"
+              path="/app/nyabugogoNight"
               user={token}
               exact
               component={NightList}
@@ -170,18 +170,6 @@ async function getRoles(){
               user={token}
               exact
               component={Night}
-            />
-            <ProtectedRoute
-              path="/app/nightservices/register"
-              user={token}
-              exact
-              component={NightRegister}
-            />
-            <ProtectedRoute
-              path="/app/nightservices/payment"
-              user={token}
-              exact
-              component={NightPayement}
             />
 
             <ProtectedRoute

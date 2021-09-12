@@ -20,17 +20,16 @@ import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { useHistory } from 'react-router-dom';
+import { CheckBox, LocalGasStationRounded } from "@material-ui/icons";
 
 const columns = [
   
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
-  { id: "customer_name", label: "Customer", minWidth: 170, align: "left" },
+  { id: "customer_name", label: "Driver", minWidth: 170, align: "left" },
   { id: "phone_number", label: "Phone_no", minWidth: 100, align: "left" },
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
-  { id: "service", label: "Service", minWidth: 100, align: "left" },
-  { id: "amount_to_pay", label: "Amount", minWidth: 100, align: "left" },
-  { id: "status", label: "Status", minWidth: 100 },
+  { id: "washed", label: "Washed", minWidth: 100, align: "left" },
   { id: "action", label: "Action", minWidth: 100 },
 ];
 
@@ -103,16 +102,16 @@ export default function StickyHeadTable() {
   
 
   async function fetch(){
-    await axios.get('/nactivity',
+    await axios.get('/night.ng',
     {
      headers: {
        'Authorization':token
     }
      
    }).then((response)=>{
-     setData(response.data.activities);
+     setData(response.data);
      
-     
+  
     
    }).catch(error=>{
      console.log(error);
@@ -131,7 +130,7 @@ export default function StickyHeadTable() {
 
     var id=data[index]._id;
 
-    await axios.delete(`/nactivity/${id}`,
+    await axios.delete(`/night.ng/${id}`,
     {
      headers: {
        'Authorization': token
@@ -240,22 +239,18 @@ if(col.id==="action"){
                           </TableCell>
   )
 }
-
-else if(col.id==="status"){
+else if(col.id==="washed"){
   return(
-  <TableCell key={index} align={col.align} >
-  {value==="PENDING"?
-   <Button variant="contained" color="secondary" onClick={()=>pay(num)} className={classes.pending}>
-   {value}
- </Button>:value==="INCOMPLETE"? <Button  onClick={()=>pay(num)} variant="contained" color="primary" className={classes.incomplete}>
-   {value}
- </Button>:<Button variant="contained" disabled className={classes.complete}>
-   {value}
-</Button>}
-  
-</TableCell>
+  <TableCell key={index} align={col.align}>
+  <CheckBox
+        defaultChecked
+        color="primary"
+        inputProps={{ 'aria-label': 'secondary checkbox' }}
+      />
+      </TableCell>
   )
 }
+
 else{
 
   return(
