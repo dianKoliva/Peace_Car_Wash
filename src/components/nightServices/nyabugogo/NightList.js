@@ -125,16 +125,16 @@ fetch();
 
   
 
-    const json = JSON.stringify({
+  
 
-      washed: !data[index].washed,
-     
+
+    const json = JSON.stringify({
+ washed:!data[index].washed
+
 
   
     })
-    data[index].washed=!data[index].washed;
-
-    await axios.put(`/night.ng/ ${data[index]._id}`,json,
+    await axios.put(`/night.ng/${toEdit._id}`,json,
     {
      headers: {
        'Authorization': token,
@@ -143,14 +143,14 @@ fetch();
      
    }).then((response)=>{
     
-       history.push("/app/nyabugogoNight");
-      
+   console.log(response);  
+  
  
    })
    .catch(error=>{
     console.log(error);
   })
-
+  
 
   }
 
