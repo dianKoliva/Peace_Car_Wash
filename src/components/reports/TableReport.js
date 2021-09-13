@@ -89,12 +89,16 @@ nyabu();
   useEffect(()=>{
 
     if(reporter.type==="daily"){
+      if(reporter.from !=="" ){
       let info = data.filter((d) => d.entry_date.split("T")[0] === reporter.from);
       setData(info);
+      }
     }
     else{
+      if(reporter.from !=="" &&reporter.to !==""){
       let info = data.filter((d) => d.entry_date("T")[0] >= reporter.from && d.record_date.split("T")[0] <= reporter.from);
       setData(info);
+      }
     }
 
   },[data])
