@@ -81,16 +81,16 @@ export default function StickyHeadTable() {
    fetch();
 
 
-  useEffect(async()=>{
+  useEffect(()=>{
   
-    const res = await axios.get('/night.rm', {
+    axios
+    .get("/night.rm", {
       headers: {
-        'Authorization': token
-      }
-
-    });
-
-    console.log(res);
+        Authorization: token,
+      },
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
     
   },[])
 

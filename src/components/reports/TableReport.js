@@ -58,6 +58,12 @@ export default function BasicTable() {
   }
 
   useEffect(()=>{
+  if(reporter.branch==="nyabugogo"){
+nyabu();
+  }
+  else{
+
+  }
    nyabu();
   },[])
 
