@@ -1,10 +1,38 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import React, { useContext, useEffect, useState } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Button } from '@material-ui/core';
+import { MyContext } from '../../../MyContext';
+import axios from 'axios';
 
 
 function Daily(){
+
+  const {invoicer,setInvoicer}=useContext(MyContext);
+  const {token,setToken}=useContext(MyContext);
+  const [data,setData]=useState("");
+  async function fetch(){
+    await axios.get('/night.ng',
+    {
+     headers: {
+       'Authorization': token
+     }
+     
+   }).then((response)=>{
+     setData(response.data.activities);
+     
+     
+    
+   }).catch(error=>{
+     console.log(error);
+   })
+   }
+
+  useEffect(()=>{
+fetch();
+  },[])
 
   function gen()
 {
@@ -46,7 +74,7 @@ function Daily(){
     
 <tbody>
   <tr >
-  <td className="border-solid border-2 border-black p-4"></td>
+  <td className="border-solid border-2 border-black p-4"> {invoicer.from}</td>
     <td  className="border-solid border-2 border-black p-4">Bus</td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4"></td>

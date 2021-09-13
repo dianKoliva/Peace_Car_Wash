@@ -11,6 +11,7 @@ import Dashboard from "../../layout/Dashboard";
 import { useHistory } from 'react-router-dom';
 import { CheckBox, LocalGasStationRounded } from "@material-ui/icons";
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
+import App from "../../App";
 
 
 
@@ -53,6 +54,7 @@ export default function StickyHeadTable() {
   const [invoRem,setInvoRem]=useState("Remera");
   const [invoDay,setInvoDay]=useState("daily");
   const [invoWeek,setInvoWeek]=useState("weekly");
+  const {invoicer,setinvoicer}=useContext(MyContext);
 
   const {reporter,setReporter}=useContext(MyContext);
   const history=useHistory();
@@ -67,7 +69,18 @@ export default function StickyHeadTable() {
    
   }
 
-  const printInvoice=()=>{
+  const printInvoice=(invoice,invoBranch,invoTo,invoFrom)=>{
+
+    setinvoicer({"type":invoice,"branch":invoBranch,"from":invoFrom,"to":invoTo});
+
+    if(invoice==="daily"){
+
+
+history.push("/app/invoice/daily")
+    }
+    else{
+ history.push("/app/invoice/weekly");
+    }
 
   }
 
