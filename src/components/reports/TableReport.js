@@ -57,15 +57,41 @@ export default function BasicTable() {
    })
   }
 
+  async function rem(){
+    await axios.get('/night.rm',
+    {
+     headers: {
+       'Authorization':token
+    }
+     
+   }).then((response)=>{
+     setData(response.data);
+    
+     
+  
+    
+   }).catch(error=>{
+     console.log(error);
+   })
+  }
+
   useEffect(()=>{
   if(reporter.branch==="nyabugogo"){
 nyabu();
   }
   else{
-
+    rem();
   }
    nyabu();
   },[])
+
+  useEffect(()=>{
+
+    if(reporter.type==="daily"){
+      let info = data.filter((d) => d.entry_date.split("T")[0] === reporter.from);
+    }
+
+  },[data])
 
   function gen()
   {
