@@ -36,7 +36,7 @@ export default function StickyHeadTable() {
       <div className="ml-8 ">
         <p className="pt-2  center">Choose branch</p>
      <div className=" flex pt-4" >
-      <Button variant="contained"  color="primary">Remera</Button>
+      <Button variant="contained"  onClick={()=>{history.push("/app/night/remera")}} color="primary">Remera</Button>
       <div className="ml-6">
     <Button variant="contained"  color="secondary" className="ml-2"  onClick={()=>{history.push("/app/nyabugogoNight")}}>Nyabugogo</Button>
     </div>
