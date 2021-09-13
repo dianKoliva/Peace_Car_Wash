@@ -83,21 +83,15 @@ export default function StickyHeadTable() {
 
   useEffect(async()=>{
   
-    await axios.get('night.rm',
-    {
-     headers: {
-       'Authorization':token
-    }
-     
-   }).then((response)=>{
-     setData(response.data);
-     console.log(response);
-   
-    
-   }).catch(error=>{
-     console.log(error);
-   })
+    const res = await axios.get('/night.rm', {
+      headers: {
+        'Authorization': token
+      }
 
+    });
+
+    console.log(res);
+    
   },[])
 
   const deleter=async(index)=>{

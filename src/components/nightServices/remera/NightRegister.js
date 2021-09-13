@@ -92,7 +92,7 @@ function DayServices() {
        
      }).then((response)=>{
       
-         history.push("/app/nyabugogoNight");
+         history.push("/app/night/remera");
         
    
      })
