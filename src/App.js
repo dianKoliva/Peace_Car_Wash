@@ -1,21 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import axios from "axios";
-import { createBrowserHistory } from "history";
+import axios from 'axios';
+import { createBrowserHistory } from 'history';
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import "./App.css";
 import { MyContext } from "./MyContext";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import Dash from "./components/Dash";
-import DayServices from "./components/dayServices/ServiceList";
+import DayServices from "./components/dayServices/ServiceList"
 import VehichlePayment from "./components/dayServices/VehichlePayment";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import RegisterDay from "./components/dayServices/DayServices";
-import RentingList from "./components/renting/RentingList";
-import RentingRegister from "./components/renting/RentingRegister";
-import RentPayement from "./components/renting/RentPayement";
-import Settings from "./components/Settings";
+import {  BrowserRouter as Router, Route, Link, Switch  } from "react-router-dom";
+import RegisterDay from "./components/dayServices/DayServices"
+import RentingList from "./components/renting/RentingList"
+import RentingRegister from "./components/renting/RentingRegister"
+import RentPayement from "./components/renting/RentPayement"
+import Settings from "./components/Settings"
 import RentingPayment from "./components/renting/RentPayement";
 // import ProtectedRoute from "./ProtectedRoute";
 import NightList from "./components/nightServices/nyabugogo/NightList";
