@@ -13,6 +13,8 @@ function Daily(){
   const {invoicer,setInvoicer}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
+  const [coaster,setCoaster]=useState(0);
+  const [bus,setBus]=useState(0);
   async function fetch(){
     await axios.get('/night.ng',
     {
@@ -23,8 +25,6 @@ function Daily(){
    }).then((response)=>{
      setData(response.data.activities);
      
-     
-    
    }).catch(error=>{
      console.log(error);
    })
@@ -32,6 +32,20 @@ function Daily(){
 
   useEffect(()=>{
 fetch();
+let c=coaster;
+let b=bus;
+
+for(let i=0;i>data.length();i++){
+  if(data[i].car_type.toLoweCase()==="coaster"){
+  c++;
+   setCoaster( c);
+  }
+  else{
+    b++;
+    setBus( b);
+  }
+}
+
   },[])
 
   function gen()
