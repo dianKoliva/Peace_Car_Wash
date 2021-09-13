@@ -31,8 +31,17 @@ export default function StickyHeadTable() {
   return (
     <Dashboard>
     <Paper className={classes.root}>
-    <Button variant="contained"  color="primary">Remera</Button>
-    <Button variant="contained"  color="secondary"  onClick={()=>{history.push("/app/nyabugogoNight")}}>Nyabugogo</Button>
+
+        
+      <div className="ml-8 ">
+     <div className=" flex pt-4" >
+      <Button variant="contained"  color="primary">Remera</Button>
+      <div className="ml-6">
+    <Button variant="contained"  color="secondary" className="ml-2"  onClick={()=>{history.push("/app/nyabugogoNight")}}>Nyabugogo</Button>
+    </div>
+    </div>
+      </div>
+   
     </Paper>
     </Dashboard>
   );
