@@ -13,6 +13,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { MyContext } from '../../MyContext';
 import axios from 'axios'
+import { set } from 'lodash';
 
 
 const useStyles = makeStyles({
@@ -89,6 +90,11 @@ nyabu();
 
     if(reporter.type==="daily"){
       let info = data.filter((d) => d.entry_date.split("T")[0] === reporter.from);
+      setData(info);
+    }
+    else{
+      let info = data.filter((d) => d.entry_date("T")[0] >= reporter.from && d.record_date.split("T")[0] <= reporter.from);
+      setData(info);
     }
 
   },[data])
@@ -114,6 +120,8 @@ nyabu();
 
   return (
     <div>
+      {data?
+      <div>
     <TableContainer component={Paper} >
       <Table className={classes.table} aria-label="simple table" id="print">
         <TableHead>
@@ -145,7 +153,8 @@ nyabu();
     <div className="mt-4 ml-10">
     <Button  variant="contained" color="primary" onClick={()=>{gen()}} >Print Report</Button>
     </div>
-    
+    </div>
+    :<p className="text-red-500">No records available</p>}
     </div>
   );
 }
