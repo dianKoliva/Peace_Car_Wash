@@ -18,13 +18,13 @@ const Unauthorized = () =>{
   const classes = useStyles();
   return(
     <div class="bg-white">
-    <div class="w-9/12 m-auto py-16 min-h-screen flex items-center justify-center">
-      <div class="bg-white shadow overflow-hidden sm:rounded-lg pb-8">
-        <div class="border-t border-gray-200 text-center pt-8">
-          <h1 class="text-9xl font-bold text-blue-500">403</h1>
-          <h1 class="text-6xl font-medium py-8">oops! You are unauthorized</h1>
-          <p class="text-2xl pb-8 px-12 font-medium">Oops! You can't see the content on this page. You need to get access to see it.</p>
-          {/* <button class="bg-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold px-6 py-3 mr-6">
+    <div className="w-9/12 m-auto py-16 min-h-screen flex items-center justify-center">
+      <div className="bg-white shadow overflow-hidden sm:rounded-lg pb-8">
+        <div className="border-t border-gray-200 text-center pt-8">
+          <h1 className="text-9xl font-bold text-blue-500">403</h1>
+          <h1 className="text-6xl font-medium py-8">oops! You are unauthorized</h1>
+          <p className="text-2xl pb-8 px-12 font-medium">Oops! You can't see the content on this page. You need to get access to see it.</p>
+          {/* <button className="bg-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold px-6 py-3 mr-6">
           HOME
           </button> */}
           <Button

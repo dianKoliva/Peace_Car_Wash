@@ -1,10 +1,15 @@
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import { Divider, IconButton } from '@material-ui/core';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 export function Reports(){
 
-    const reports=["profits","expenses flow","night funds","day funds"]
+
+    const reports=[{name:"Profits report", id:"pr"},{name:"Expenses report", id:"er"},{name:"Night report", id:"nr"},{name:"Day report", id:"dr"},{name:"Renting report", id:"dr"}]
+
+    function view( index){
+ console.log(reports[index]);
+    }
     return(
 <>
 <p className=" text-gray-600">Prefered reports</p>
@@ -17,14 +22,16 @@ export function Reports(){
     <AssessmentIcon fontSize="large" color="primary"></AssessmentIcon>
 </div>
 <div className="ml-2">
-    <p className="font-semibold">{report}</p>
-    <p className="text-sm">It is downloadable</p>
+    <p className="font-semibold text-xs">{report.name}</p>
+    <p className="text-xs">It is downloadable</p>
 </div>
 <div>
-    <IconButton>
-    <MoreVertIcon ></MoreVertIcon>
+    <div className="ml-6">
+    <IconButton size="small">
+    <VisibilityIcon  onClick={()=>{view(index)}} fontSize="small" color="primary"></VisibilityIcon>
     </IconButton>
-
+  
+    </div>
 </div>
 </div>
 <Divider/>
@@ -36,6 +43,4 @@ export function Reports(){
 </div>
 </>
     )
-
-
 }

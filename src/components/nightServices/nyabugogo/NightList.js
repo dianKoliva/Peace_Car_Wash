@@ -12,51 +12,26 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import { Grid, IconButton } from "@material-ui/core";
-import { MyContext } from "../../MyContext";
-import Dashboard from "../../layout/Dashboard";
+import { Checkbox, FormControlLabel, Grid, IconButton } from "@material-ui/core";
+import { MyContext } from "../../../MyContext";
+import Dashboard from "../../../layout/Dashboard";
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import { useHistory } from 'react-router-dom';
+import { CheckBox, LocalGasStationRounded } from "@material-ui/icons";
+
 const columns = [
+  
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
-  { id: "customer_name", label: "Customer", minWidth: 170, align: "left" },
+  { id: "driver_name", label: "Driver", minWidth: 170, align: "left" },
   { id: "phone_number", label: "Phone_no", minWidth: 100, align: "left" },
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
-  { id: "service", label: "Service", minWidth: 100, align: "left" },
-  { id: "amount_to_pay", label: "Amount", minWidth: 100, align: "left" },
-  { id: "status", label: "status", minWidth: 100 },
+  { id: "washed", label: "Washed", minWidth: 100, align: "left" },
   { id: "action", label: "Action", minWidth: 100 },
 ];
-
-function createData(
-  id,
-  plate,
-  customer,
-  phone,
-  entry_date,
-  out_date,
-  car_type,
-  services,
-  amount,
-  observation
-) {
-  return {
-    id,
-    plate,
-    customer,
-    phone,
-    entry_date,
-    out_date,
-    car_type,
-    services,
-    amount,
-    observation,
-  };
-}
 
 
 
@@ -65,7 +40,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   container: {
-    maxHeight: 440,
+    maxHeight: 500,
   },
   complete: {
     backgroundColor: "#4AAF05",
@@ -82,9 +57,6 @@ const useStyles = makeStyles({
   background: {
     fontWeight: "bold",
   },
-  buttonWid:{
-    width: "10em",
-  }
 });
 
 
@@ -96,22 +68,24 @@ export default function StickyHeadTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
-  const{ toEdit,setToEdit}=useContext(MyContext);
+  const {toBePayed,setToBePayed}=useContext(MyContext);
   const {search,setSearch}=useContext(MyContext);
-  const{toBepayed,setToBePayed}=useContext(MyContext)
+  const {toEdit,setToEdit}=useContext(MyContext);
 
+
+  
 
   async function fetch(){
-    await axios.get('/dactivity',
+    await axios.get('/night.ng',
     {
      headers: {
-       'Authorization': token
-     }
+       'Authorization':token
+    }
      
    }).then((response)=>{
-     setData(response.data.activities);
+     setData(response.data);
      
-     
+  
     
    }).catch(error=>{
      console.log(error);
@@ -122,29 +96,63 @@ export default function StickyHeadTable() {
   useEffect(()=>{
   
    
-     fetch()
+   fetch()
 
   },[])
 
-
-  async function deleter(index){
+  const deleter=async(index)=>{
 
     var id=data[index]._id;
 
-    await axios.delete(`/dactivity/${id}`,
+    await axios.delete(`/night.ng/${id}`,
     {
      headers: {
        'Authorization': token
      }
      
    }).then((response)=>{
+     
 fetch();
    }).catch(error=>{
 
    })
 
+
+
   }
 
+  const change=async(index)=>{
+
+  
+
+  
+
+
+    const json = JSON.stringify({
+ washed:!data[index].washed
+
+
+  
+    })
+    await axios.put(`/night.ng/${toEdit._id}`,json,
+    {
+     headers: {
+       'Authorization': token,
+       'Content-Type': 'application/json'
+     }
+     
+   }).then((response)=>{
+    
+   console.log(response);  
+  
+ 
+   })
+   .catch(error=>{
+    console.log(error);
+  })
+  
+
+  }
 
 
 
@@ -158,42 +166,30 @@ fetch();
   };
   const history=useHistory();
 
-  const edit =(index)=>{
-    setToEdit(data[index])
-    setTimeout(function(){
 
-      history.push("/app/dayservices/edit")
-    }, 1000);
+  const edit=(index)=>{
+ setToEdit(data[index]);
+ history.push("/app/night/nyabugogo/edit");
   }
 
-  const pay=(index)=>{
-     setToBePayed(data[index]);
-    
-     
-     setTimeout(function(){
-
-      history.push("/app/dayservices/payment")
-    }, 1000);
-  }
 
   return (
     <Dashboard>
     <Paper className={classes.root}>
-      <Grid container spacing={3
-      } >
+      <Grid container spacing={3} >
         <Grid item xs={10}>
-          <div className="flex ml-4 mb-4 mt-2 ">
+          <div className="flex ml-4 mb-6 mt-4 ">
             <p className="font-bold">List of vehicles</p>
-            <p className="text-sm text-gray-500 ml-2">{data?data.length:0} total</p>
+            <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
           </div>
         </Grid>
-        <Grid item xs={2} 
+        <Grid item xs={2}
         >
-          
-            <Button variant="outlined" color="primary"  onClick={()=>{history.push("/app/dayservices/register")}}>
+          <div className="ml-6 mb-2 mt-1">
+            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/night/nyabugogo/register")}}>
               New Record
             </Button>
-         
+          </div>
         </Grid>
       </Grid>
       <TableContainer className={classes.container}>
@@ -205,7 +201,7 @@ fetch();
                   key={index}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
-                  className={classes.background}
+                  className="classes.background"
                 >
                   {column.label}
                 </TableCell>
@@ -223,44 +219,46 @@ fetch();
               return val;
               }
             }).map((data,num)=>{
-            
+              
               return(
               <TableRow hover role="checkbox" tabIndex={-1} key={num} >
 {columns.map((col,index)=>{
-  const value = data[col.id];
+
+ 
+
+const value = data[col.id];
 if(col.id==="action"){
   
   return(
 <TableCell key={index} align={col.align}>
-<IconButton value={index} size="small" onClick={()=>edit(num)}>
+<IconButton value={index} size="small"  onClick={()=>edit(num)}>
   <CreateIcon   fontSize="small" className="text-gray-500"></CreateIcon>
   </IconButton>
-  <IconButton size="small"  onClick={()=>deleter(num)}  >
+  <IconButton size="small"   onClick={()=>deleter(num)} >
   <DeleteIcon   fontSize="small" className="text-gray-500"></DeleteIcon>
   </IconButton>
 
                           </TableCell>
   )
-} else if(col.id==="status"){
+}
+else if(col.id==="washed"){
   return(
-  <TableCell key={index} align={col.align} >
-  {value==="PENDING"?
-   <Button variant="contained" color="secondary" onClick={()=>{
-    pay(num)
-    }} className={classes.pending}
-     >
-   {value}
- </Button>:value==="INCOMPLETE"? <Button variant="contained" onClick={()=>{
- pay(num)
-   }} color="primary" className={classes.incomplete}>
-   {value}
- </Button>:<Button variant="contained" disabled className={classes.buttonWid}>
-   {value}
-</Button>}
-  
-</TableCell>
+  <TableCell key={index} align="center">
+  <FormControlLabel
+        control={
+          <Checkbox
+            checked={value.washed}
+            onChange={()=>change(num)}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        
+      />
+      </TableCell>
   )
 }
+
 else{
 
   return(
@@ -270,6 +268,7 @@ else{
   )
 }
 })}
+
                 </TableRow>
               )
             }):null}

@@ -12,52 +12,26 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import { Grid, IconButton } from "@material-ui/core";
-import { MyContext } from "../../MyContext";
-import Dashboard from "../../layout/Dashboard";
+import { Checkbox, FormControlLabel, Grid, IconButton } from "@material-ui/core";
+import { MyContext } from "../../../MyContext";
+import Dashboard from "../../../layout/Dashboard";
 import axios from 'axios';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { useHistory } from 'react-router-dom';
+import { CheckBox, LocalGasStationRounded } from "@material-ui/icons";
 
 const columns = [
+  
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
-  { id: "customer_name", label: "Customer", minWidth: 170, align: "left" },
+  { id: "driver_name", label: "Driver", minWidth: 170, align: "left" },
   { id: "phone_number", label: "Phone_no", minWidth: 100, align: "left" },
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
   { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
-  { id: "service", label: "Service", minWidth: 100, align: "left" },
-  { id: "amount_to_pay", label: "Amount", minWidth: 100, align: "left" },
-  { id: "status", label: "Status", minWidth: 100 },
+  { id: "washed", label: "Washed", minWidth: 100, align: "left" },
   { id: "action", label: "Action", minWidth: 100 },
 ];
-
-function createData(
-  id,
-  plate,
-  customer,
-  phone,
-  entry_date,
-  out_date,
-  car_type,
-  services,
-  amount,
-  observation
-) {
-  return {
-    id,
-    plate,
-    customer,
-    phone,
-    entry_date,
-    out_date,
-    car_type,
-    services,
-    amount,
-    observation,
-  };
-}
 
 
 
@@ -66,7 +40,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   container: {
-    maxHeight: 440,
+    maxHeight: 500,
   },
   complete: {
     backgroundColor: "#4AAF05",
@@ -99,11 +73,32 @@ export default function StickyHeadTable() {
   const {toEdit,setToEdit}=useContext(MyContext);
 
 
+  
+  async function fetch(){
+   
+   
+   }
+   fetch();
+
+
+  useEffect(async()=>{
+  
+    const res = await axios.get('/night.rm', {
+      headers: {
+        'Authorization': token
+      }
+
+    });
+
+    console.log(res);
+    
+  },[])
+
   const deleter=async(index)=>{
 
     var id=data[index]._id;
 
-    await axios.delete(`/nactivity/${id}`,
+    await axios.delete(`/night.rm/${id}`,
     {
      headers: {
        'Authorization': token
@@ -120,31 +115,38 @@ fetch();
 
   }
 
-  async function fetch(){
-    await axios.get('/nactivity',
+  const change=async(index)=>{
+
+  
+
+  
+
+
+    const json = JSON.stringify({
+ washed:!data[index].washed
+
+
+  
+    })
+    await axios.put(`/night.rm/${toEdit._id}`,json,
     {
      headers: {
-       'Authorization':token
-    }
+       'Authorization': token,
+       'Content-Type': 'application/json'
+     }
      
    }).then((response)=>{
-     setData(response.data.activities);
-     
-     
     
-   }).catch(error=>{
-     console.log(error);
-   })
-   }
-
-
-  useEffect(()=>{
+   console.log(response);  
   
-   
-   fetch()
+ 
+   })
+   .catch(error=>{
+    console.log(error);
+  })
+  
 
-  },[])
-
+  }
 
 
 
@@ -161,14 +163,9 @@ fetch();
 
   const edit=(index)=>{
  setToEdit(data[index]);
- history.push("/app/nightservices/edit");
+ history.push("/app/night/remera/edit");
   }
 
-
-  const pay=(index)=>{
-    setToBePayed(data[index]);
-
-  }
 
   return (
     <Dashboard>
@@ -183,7 +180,7 @@ fetch();
         <Grid item xs={2}
         >
           <div className="ml-6 mb-2 mt-1">
-            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/nightservices/register")}}>
+            <Button variant="outlined" color="primary" className="w-32" onClick={()=>{history.push("/app/night/remera/Register")}}>
               New Record
             </Button>
           </div>
@@ -237,21 +234,25 @@ if(col.id==="action"){
 
                           </TableCell>
   )
-}else if(col.id==="status"){
+}
+else if(col.id==="washed"){
   return(
-  <TableCell key={index} align={col.align} >
-  {value==="PENDING"?
-   <Button variant="contained" color="secondary" onClick={()=>pay(num)} className={classes.pending}>
-   {value}
- </Button>:value==="INCOMPLETE"? <Button  onClick={()=>pay(num)} variant="contained" color="primary" className={classes.incomplete}>
-   {value}
- </Button>:<Button variant="contained" disabled className={classes.buttonWid}>
-   {value}
-</Button>}
-  
-</TableCell>
+  <TableCell key={index} align="center">
+  <FormControlLabel
+        control={
+          <Checkbox
+            checked={value.washed}
+            onChange={()=>change(num)}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        
+      />
+      </TableCell>
   )
 }
+
 else{
 
   return(

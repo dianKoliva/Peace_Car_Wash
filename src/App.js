@@ -18,47 +18,88 @@ import RentPayement from "./components/renting/RentPayement";
 import Settings from "./components/Settings";
 import RentingPayment from "./components/renting/RentPayement";
 // import ProtectedRoute from "./ProtectedRoute";
-import NightList from "./components/nightServices/NightList";
-import NightRegister from "./components/nightServices/NightRegister";
-import NightPayement from "./components/nightServices/NightPayment";
+import NightList from "./components/nightServices/nyabugogo/NightList";
+
 import AfterSignUp from "./pages/AfterSigUp";
 import EditDayService from "./components/dayServices/EditDaySevice";
-import EdtitNight from "./components/nightServices/EditNight";
+import EdtitNyabugogo from "./components/nightServices/nyabugogo/EditNight";
 import RentingEdit from "./components/renting/RentingEdit";
 import Unauthorized from "../src/pages/Unauthorized";
 import ProtectedRoute from "../src/components/ProtectedRoute";
 import NotFound from "../src/pages/NotFound";
 import ExpenseRegister from "./components/expenses/ExpenseRegister";
 import ExpenseList from "./components/expenses/ExpenseList";
+import Night from "./components/nightServices/NightChoose"
+import RegN from "./components/nightServices/nyabugogo/NightRegister"
+import Main from "./components/reports/Main";
+import Daily from "./components/reports/invoices/Daily"
+import TableReport from "./components/reports/TableReport"
+import Weekly from "./components/reports/invoices/Weekly"
+
+import NList from "./components/nightServices/remera/NightList"
+import Redit from "./components/nightServices/remera/EditNight"
+import Reg from "./components/nightServices/remera/NightRegister"
+
 
 function App() {
-  const [token, setToken] = useState("");
-  const [open, setOpen] = useState(true);
-  const [serviceList, setServiceList] = useState("");
-  const [toBePayed, setToBePayed] = useState("");
-  const [user, setUser] = useState();
-  const [roles, setRoles] = useState();
-  const [loged, setLoged] = useState(true);
-  const [toEdit, setToEdit] = useState("");
-  const [search, setSearch] = useState("");
-  const [notifications, setNotifications] = useState("");
 
-  async function getRoles() {
-    await axios
-      .get("/roles", {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((response) => {
-        setServiceList(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+const [token,setToken]=useState(localStorage.getItem("token"));
+const [open, setOpen] =useState(true);
+const [serviceList,setServiceList]=useState("");
+const [toBePayed,setToBePayed]=useState("");
+const [user,setUser]=useState(); 
+const [roles,setRoles]=useState();
+const [loged,setLoged]=useState(true);
+const [toEdit,setToEdit]=useState("");
+const [ search,setSearch]=useState("");
+const [ notifications,setNotifications,]=useState("");
+const [groups,setGroups]=useState("");
+const [reporter,setReporter]=useState("");
+const [invoicer,setinvoicer]=useState("");
 
-  useEffect(() => {}, []);
+
+
+async function getRoles(){
+  await axios.get('/roles',
+  {
+   headers: {
+     'Authorization':token
+
+   }
+   
+ }).then((response)=>{
+
+  
+  setServiceList(response.data)
+
+ }).catch(error=>{
+   console.log(error);
+ })
+}
+
+const getGroups=async()=>{
+  await axios.get('/group',
+  {
+   headers: {
+     'Authorization':token
+
+   }
+   
+ }).then((response)=>{
+
+  
+  setGroups(response.data);
+
+ }).catch(error=>{
+   console.log(error);
+ })
+}
+
+
+
+  useEffect(()=>{
+    getGroups();
+  },[])
 
   const history = createBrowserHistory();
 
@@ -81,6 +122,9 @@ function App() {
         setSearch,
         notifications,
         setNotifications,
+        groups,setGroups,
+        reporter,setReporter,
+        invoicer,setinvoicer
       }}
     >
       <div className="App">
@@ -115,6 +159,7 @@ function App() {
               exact
               component={RentingRegister}
             />
+
             <ProtectedRoute
               path="/app/rent/edit"
               user={token}
@@ -148,22 +193,50 @@ function App() {
             />
 
             <ProtectedRoute
-              path="/app/nightservices"
+              path="/app/nyabugogoNight"
               user={token}
               exact
               component={NightList}
             />
             <ProtectedRoute
-              path="/app/nightservices/register"
+              path="/app/night"
               user={token}
               exact
-              component={NightRegister}
+              component={Night}
+            />
+
+<ProtectedRoute
+              path="/app/night/remera"
+              user={token}
+              exact
+              component={NList}
             />
             <ProtectedRoute
-              path="/app/nightservices/payment"
+              path="/app/night/remera/edit"
               user={token}
               exact
-              component={NightPayement}
+              component={Redit}
+            />
+
+<ProtectedRoute
+              path="/app/night/remera/register"
+              user={token}
+              exacts
+              component={Reg}
+            />
+
+<ProtectedRoute
+              path="/app/night/nyabugogo/register"
+              user={token}
+              exact
+              component={RegN}
+            />
+    
+    <ProtectedRoute
+              path="/app/night/nyabugogo/edit"
+              user={token}
+              exact
+              component={EdtitNyabugogo}
             />
 
             <ProtectedRoute
@@ -177,6 +250,32 @@ function App() {
               user={token}
               exact
               component={ExpenseRegister}
+            />
+             <ProtectedRoute
+
+              path="/app/reports"
+              user={token}
+              exact
+              component={Main}
+            />
+
+<ProtectedRoute
+              path="/app/invoice/daily"
+              user={token}
+              exact
+              component={Daily}
+            />
+            <ProtectedRoute
+              path="/app/invoice/weekly"
+              user={token}
+              exact
+              component={Weekly}
+            />
+            <ProtectedRoute
+              path="/app/report/table"
+              user={token}
+              exact
+              component={TableReport}
             />
 
             <Route path="/wait" exact component={AfterSignUp} />

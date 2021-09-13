@@ -102,48 +102,33 @@ function DayServices() {
 const  handleBlur=(e)=>{
 
   if(e.target.name==="plate"){
-    if (e.target.value==="") {
-     
-    }
-    else{
+   
       setPlate(e.target.value);
-    }
+ 
   }
 
    if(e.target.name==="type"){
-    if (e.target.value==="") {
-    
-    }
-    else{
+   
       setType(e.target.value);
-    }
   }
 
   if(e.target.name==="cus_name"){
-    if (e.target.value==="") {
-      
-    }
-    else{
+   
+  
       setCusName(e.target.value);
-    }
+
   }
 
   if(e.target.name==="cus_phone"){
-    if (e.target.value==="") {
-     
-    }
-    else{
+
       setCusPhone(e.target.value);
-    }
+   
   }
 
    if(e.target.name==="care_phone"){
-    if (e.target.value==="") {
-    
-    }
-    else{
+ 
       setCarePhone(e.target.value);
-    }
+
   }
    if(e.target.name==="care_lname"){
    

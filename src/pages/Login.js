@@ -92,7 +92,9 @@ export default function SignInSide() {
         .then(
           (response) => {
             if (response.data.message === "Success") {
-              setToken(response.data.token);
+              localStorage.setItem("token",response.data.token)
+              setToken(localStorage.getItem("token"));
+
               setLoged(true);
               setNot(false);
               history.push("/app");
