@@ -12,24 +12,24 @@ const TAX_RATE = 0.07;
 
 const useStyles = makeStyles({
   table: {
-    width:"50%"
+  minWidth:"700"
   },
 wid:{
   width:"50%"
 }
 });
 
-function ccyFormat(num) {
-  return `${num.toFixed(2)}`;
-}
+// function ccyFormat(num) {
+//   return `${num.toFixed(2)}`;
+// }
 
 function priceRow(qty, unit) {
   return qty * unit;
 }
 
-function createRow(desc, qty, unit) {
+function createRow(desc, qty, unit,total) {
   const price = priceRow(qty, unit);
-  return { desc, qty, unit, price };
+  return { desc, qty, unit ,total};
 }
 
 function subtotal(items) {
@@ -37,9 +37,8 @@ function subtotal(items) {
 }
 
 const rows = [
-  createRow('Paperclips (Box)', 100, 1.15),
-  createRow('Paper (Case)', 10, 45.99),
-  createRow('Waste Basket', 2, 17.99),
+  createRow('895', "washed coasters", 380,380),
+  createRow('895', "washed buses", 380,380),
 ];
 
 const invoiceSubtotal = subtotal(rows);
@@ -50,45 +49,33 @@ export default function SpanningTable() {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.wid  }>
       <Table className={classes.table} aria-label="spanning table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center" colSpan={3}>
-              Details
-            </TableCell>
-            <TableCell align="right">Price</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Desc</TableCell>
-            <TableCell align="right">Qty.</TableCell>
-            <TableCell align="right">Unit</TableCell>
-            <TableCell align="right">Sum</TableCell>
-          </TableRow>
-        </TableHead>
+     
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.desc}>
               <TableCell>{row.desc}</TableCell>
-              <TableCell align="right">{row.qty}</TableCell>
-              <TableCell align="right">{row.unit}</TableCell>
-              <TableCell align="right">{ccyFormat(row.price)}</TableCell>
+              <TableCell align="left">{row.qty}</TableCell>
+              <TableCell align="left">{row.unit}</TableCell>
+              <TableCell align="right">{row.total}</TableCell>
             </TableRow>
           ))}
 
           <TableRow>
             <TableCell rowSpan={3} />
             <TableCell colSpan={2}>Subtotal</TableCell>
-            <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Tax</TableCell>
-            <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
-            <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
+            <TableCell className="font-bold">VAT 18%</TableCell>
+            <TableCell align="left"></TableCell>
+            <TableCell align="right">1</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={2}>Total</TableCell>
-            <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+            <TableCell align="right">1</TableCell>
+         
           </TableRow>
         </TableBody>
       </Table>
