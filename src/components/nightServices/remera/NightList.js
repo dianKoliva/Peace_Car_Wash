@@ -76,6 +76,13 @@ export default function StickyHeadTable() {
   
   async function fetch(){
    
+   
+   }
+   fetch();
+
+
+  useEffect(async()=>{
+  
     await axios.get('night.rm',
     {
      headers: {
@@ -90,13 +97,6 @@ export default function StickyHeadTable() {
    }).catch(error=>{
      console.log(error);
    })
-   }
-
-
-  useEffect(()=>{
-  
-   
-   fetch()
 
   },[])
 
