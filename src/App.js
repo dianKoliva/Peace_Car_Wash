@@ -132,11 +132,12 @@ const getGroups=async()=>{
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
-            <ProtectedRoute path="/app" user={token} exact component={Dash} />
+            <ProtectedRoute path="/app" permissions={["admin","user"]} user={token} exact component={Dash} />
 
             <ProtectedRoute
               path="/app/settings"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={Settings}
             />
@@ -144,18 +145,21 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/rent"
               user={token}
+              permissions={["admin"]}
               exact
               component={RentingList}
             />
             <ProtectedRoute
               path="/app/rent/payment"
               user={token}
+              permissions={["admin"]}
               exact
               component={RentingPayment}
             />
             <ProtectedRoute
               path="/app/rent/register"
               user={token}
+              permissions={["admin"]}
               exact
               component={RentingRegister}
             />
@@ -163,6 +167,7 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/rent/edit"
               user={token}
+              permissions={["admin"]}
               exact
               component={RentingEdit}
             />
@@ -170,24 +175,28 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/dayservices"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={DayServices}
             />
             <ProtectedRoute
               path="/app/dayservices/payment"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={VehichlePayment}
             />
             <ProtectedRoute
               path="/app/dayservices/register"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={RegisterDay}
             />
             <ProtectedRoute
               path="/app/dayservices/edit"
               user={token}
+              permissions={["admin"]}
               exact
               component={EditDayService}
             />
@@ -195,12 +204,14 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/nyabugogoNight"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={NightList}
             />
             <ProtectedRoute
               path="/app/night"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={Night}
             />
@@ -208,12 +219,14 @@ const getGroups=async()=>{
 <ProtectedRoute
               path="/app/night/remera"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={NList}
             />
             <ProtectedRoute
               path="/app/night/remera/edit"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={Redit}
             />
@@ -221,6 +234,7 @@ const getGroups=async()=>{
 <ProtectedRoute
               path="/app/night/remera/register"
               user={token}
+              permissions={["admin","user"]}
               exacts
               component={Reg}
             />
@@ -228,6 +242,7 @@ const getGroups=async()=>{
 <ProtectedRoute
               path="/app/night/nyabugogo/register"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={RegN}
             />
@@ -235,6 +250,7 @@ const getGroups=async()=>{
     <ProtectedRoute
               path="/app/night/nyabugogo/edit"
               user={token}
+              permissions={["admin"]}
               exact
               component={EdtitNyabugogo}
             />
@@ -242,12 +258,14 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/expense"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={ExpenseList}
             />
             <ProtectedRoute
               path="/app/expense/register"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={ExpenseRegister}
             />
@@ -255,25 +273,29 @@ const getGroups=async()=>{
 
               path="/app/reports"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={Main}
             />
 
-<ProtectedRoute
+            <ProtectedRoute
               path="/app/invoice/daily"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={Daily}
             />
             <ProtectedRoute
               path="/app/invoice/weekly"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={Weekly}
             />
             <ProtectedRoute
               path="/app/report/table"
               user={token}
+              permissions={["admin","user"]}
               exact
               component={TableReport}
             />
