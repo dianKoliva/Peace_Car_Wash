@@ -35,8 +35,8 @@ fetch();
 let c=coaster;
 let b=bus;
 
-for(let i=0;i>data.length();i++){
-  if(data[i].car_type.toLoweCase()==="coaster"){
+for(let i=0;i>data.length;i++){
+  if(data[i].car_type.toLoweCase==="coaster"){
   c++;
    setCoaster( c);
   }
