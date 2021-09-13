@@ -1,90 +1,97 @@
 import React from 'react';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
+const TAX_RATE = 0.07;
 
-function Daily(){
-
-  function gen()
-{
-
-
-  const input = document.getElementById('print');  
-    html2canvas(input)  
-      .then((canvas) => {  
-        var imgWidth = 200;  
-        var imgHeight = canvas.height * imgWidth / canvas.width;  
-        var heightLeft = imgHeight;  
-        const imgData = canvas.toDataURL('image/png');  
-        const pdf = new jsPDF('p', 'mm', 'a4')  
-        var position = 0;  
-        var heightLeft = imgHeight;  
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);  
-        pdf.save("download.pdf");  
-      }); 
-
-
+const useStyles = makeStyles({
+  table: {
+    width:"50%"
+  },
+wid:{
+  width:"50%"
 }
-    return(
-        <div>
-          <div className="ml-96 mt-20 " id="print">
-          <p className="font-bold underline mb-6">List of Car washed in one day/Nyabugogo</p>
-            <table className="border-solid border-2 border-black  border-collapse">
-            <thead className="border-solid border-2 border-black  border-collapse ">
-              <tr className="border-solid border-2 border-black border-collapse ">
-                <th className="text-left py-4 text-gray-600  border-solid border-2 border-black p-4">Date</th>
-                <th className="text-left  text-gray-600  border-solid border-2 border-black p-4">Car Type</th>
-                <th className="text-center  text-gray-600  border-solid border-2 border-black p-4">Quantity</th>
-                <th className="text-center text-gray-600 border-solid border-2 border-black p-4">Unit Price</th>
-                <th className="text-center  text-gray-600 border-solid border-2 border-black p-4">Net Price</th>
-                <th className="text-center  text-gray-600 border-solid border-2 border-black p-4">Vat 18%</th>
-                <th className="text-center  text-gray-600  border-solid border-2 border-black p-4">Total Price</th>
-              </tr>
-            </thead>
-  
-    
-<tbody>
-  <tr >
-  <td className="border-solid border-2 border-black p-4"></td>
-    <td  className="border-solid border-2 border-black p-4">Bus</td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4" ></td>
-  </tr>
-  <tr >
-  <td className="border-solid border-2 border-black p-4"></td>
-    <td  className="border-solid border-2 border-black p-4">Coaster</td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4" ></td>
-  </tr>
+});
 
-  <tr>
-  <td className="border-solid border-2 border-black p-4" colSpan="2">Total</td>
-    
-    <td className="border-solid border-2 border-black p-4 " colSpan="2">105</td>
-    
-    <td className="border-solid border-2 border-black p-4">34545</td>
-    <td className="border-solid border-2 border-black p-4">898989</td>
-    <td className="border-solid border-2 border-black p-4" >899898</td>
-  </tr>
-  
-  </tbody>
-</table>
-        </div>
-        <div className="ml-96 mt-4">
-        <Button variant="contained" onClick={()=>{gen()}} color="primary">Generate pdf</Button>
-        </div>
-        
-        </div>
-    )
-
-
+function ccyFormat(num) {
+  return `${num.toFixed(2)}`;
 }
 
-export default Daily;
+function priceRow(qty, unit) {
+  return qty * unit;
+}
+
+function createRow(desc, qty, unit) {
+  const price = priceRow(qty, unit);
+  return { desc, qty, unit, price };
+}
+
+function subtotal(items) {
+  return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+}
+
+const rows = [
+  createRow('Paperclips (Box)', 100, 1.15),
+  createRow('Paper (Case)', 10, 45.99),
+  createRow('Waste Basket', 2, 17.99),
+];
+
+const invoiceSubtotal = subtotal(rows);
+const invoiceTaxes = TAX_RATE * invoiceSubtotal;
+const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+
+export default function SpanningTable() {
+  const classes = useStyles();
+
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="spanning table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center" colSpan={3}>
+              Details
+            </TableCell>
+            <TableCell align="right">Price</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Desc</TableCell>
+            <TableCell align="right">Qty.</TableCell>
+            <TableCell align="right">Unit</TableCell>
+            <TableCell align="right">Sum</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.desc}>
+              <TableCell>{row.desc}</TableCell>
+              <TableCell align="right">{row.qty}</TableCell>
+              <TableCell align="right">{row.unit}</TableCell>
+              <TableCell align="right">{ccyFormat(row.price)}</TableCell>
+            </TableRow>
+          ))}
+
+          <TableRow>
+            <TableCell rowSpan={3} />
+            <TableCell colSpan={2}>Subtotal</TableCell>
+            <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Tax</TableCell>
+            <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
+            <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell colSpan={2}>Total</TableCell>
+            <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}

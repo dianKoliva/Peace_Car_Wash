@@ -32,21 +32,26 @@ function Daily(){
 
   useEffect(()=>{
 fetch();
-let c=coaster;
-let b=bus;
 
-for(let i=0;i>data.length;i++){
-  if(data[i].car_type.toLoweCase==="coaster"){
-  c++;
-   setCoaster( c);
-  }
-  else{
-    b++;
-    setBus( b);
-  }
-}
 
   },[])
+
+  if(data){
+    let c=coaster;
+  let b=bus;
+    for(let i=0;i>data.length;i++){
+      if(data[i].car_type.toLoweCase==="coaster"){
+      c++;
+       setCoaster( c);
+      }
+      else{
+        b++;
+        setBus( b);
+      }
+  }
+  
+  
+  }
 
   function gen()
 {
@@ -90,7 +95,7 @@ for(let i=0;i>data.length;i++){
   <tr >
   <td className="border-solid border-2 border-black p-4"> {invoicer.from}</td>
     <td  className="border-solid border-2 border-black p-4">Bus</td>
-    <td className="border-solid border-2 border-black p-4"></td>
+    <td className="border-solid border-2 border-black p-4">{bus}</td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4"></td>
@@ -99,7 +104,7 @@ for(let i=0;i>data.length;i++){
   <tr >
   <td className="border-solid border-2 border-black p-4"></td>
     <td  className="border-solid border-2 border-black p-4">Coaster</td>
-    <td className="border-solid border-2 border-black p-4"></td>
+    <td className="border-solid border-2 border-black p-4">{coaster}</td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4"></td>
