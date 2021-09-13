@@ -8,32 +8,31 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
+import PrintOutlinedIcon from "@material-ui/icons/PrintOutlined";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import Delete from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import { Grid } from "@material-ui/core";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { Grid, IconButton, TextField } from "@material-ui/core";
 import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const columns = [
   { id: "item", label: "Item", minWidth: 100, align: "left" },
   { id: "amount", label: "Amount", minWidth: 100, align: "left" },
   { id: "observation", label: "Observation", minWidth: 100, align: "left" },
-  { id: "record_date", label: "Record Date", minWidth: 100, align: "left" },
+  // { id: "record_date", label: "Record Date", minWidth: 100, align: "left" },
 ];
-
-function createData(plot, customer, date, status, actions) {
-  return {
-    plot,
-    customer,
-    date,
-    status,
-    actions,
-  };
-}
 
 const rows = [
   ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "payed"),
@@ -41,7 +40,7 @@ const rows = [
   ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "pending"),
 ];
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
@@ -63,7 +62,29 @@ const useStyles = makeStyles({
   background: {
     fontWeight: "bold",
   },
-});
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  formHidden: { display: "none" },
+  printable: {
+    padding: 20,
+    width: 800,
+    marginLeft: 20,
+  },
+  classNone: {},
+  borderClass: {
+    // border: "1px solid #00000060",
+    borderTop: "1px solid black",
+    borderRight: "1px solid black",
+    // // borderLeft: "1px solid black",
+  },
+  borderLB: {
+    borderBottom: "1px solid black",
+    borderLeft: "1px solid black",
+    // // borderLeft: "1px solid black",
+  },
+}));
 
 export default function ExpenseList() {
   const classes = useStyles();
@@ -71,6 +92,13 @@ export default function ExpenseList() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [error, setError] = React.useState("");
   const [data, setData] = React.useState([]);
+  const [allRecords, setAllRecords] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [printOption, setPrintOption] = React.useState("0");
+  const [openDial, setOpenDial] = React.useState(false);
+  const [from_date, setFromDate] = React.useState();
+  const [to_date, setToDate] = React.useState();
+  const [printing, setPrinting] = React.useState(false);
   const { token, setToken } = useContext(MyContext);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -89,23 +117,76 @@ export default function ExpenseList() {
         },
       })
       .then((response) => {
-        // console.log(response.data);
-        setData(response.data);
+        setAllRecords(response.data);
+        let temp = response.data.filter(
+          (d) =>
+            d.record_date.split("T")[0] ===
+            new Date().toISOString().split("T")[0]
+        );
+
+        setData(temp);
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
-  const formatDate = (date) => {
-    let value = date.split(" ");
-    return value[1] + " " + value[2] + " " + value[3];
+  const printDocument = (reset) => {
+    let pdf = new jsPDF("l", "pt", [595, 842]);
+    pdf.html(document.getElementById("pdfdiv"), {
+      callback: function () {
+        pdf.save("report.pdf");
+        if (reset) {
+          setOpenDial(false);
+          setFromDate();
+          setToDate();
+          // }
+          let temp = allRecords.filter(
+            (d) =>
+              d.record_date.split("T")[0] ===
+              new Date().toISOString().split("T")[0]
+          );
+          setData(temp);
+        }
+        setPrinting(false);
+        // window.open(pdf.output("bloburl")); // to debug
+      },
+    });
   };
+
+  const handlePrintRange = () => {
+    let temp = [...allRecords];
+    temp = temp.filter(
+      (d) =>
+        d.record_date.split("T")[0] >= from_date &&
+        d.record_date.split("T")[0] <= from_date
+    );
+    setData(temp);
+  };
+
+  const getTotal = () =>
+    data.reduce((partial_sum, a) => partial_sum + a.amount, 0);
 
   useEffect(() => {
     fetch();
     // fetchRental();
   }, []);
+
+  useEffect(() => {
+    if (from_date && to_date) {
+      // if (printDocument()) {
+      setPrinting(true);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (printOption === "2") setOpenDial(true);
+    if (printOption === "1") setPrinting(true);
+  }, [printOption]);
+
+  useEffect(() => {
+    if (printing) printDocument(true);
+  }, [printing]);
 
   const history = useHistory();
 
@@ -113,9 +194,9 @@ export default function ExpenseList() {
     <Dashboard>
       <Paper className={classes.root}>
         <Grid container spacing={3} xs="12">
-          <Grid item xs="10">
+          <Grid item xs="8">
             <div className="flex ml-4 mb-6 mt-4 ">
-              <p className="font-bold">List of Expenses</p>
+              <p className="font-bold">List of Daily Expenses</p>
               <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
             </div>
           </Grid>
@@ -135,57 +216,132 @@ export default function ExpenseList() {
               </Button>
             </div>
           </Grid>
+          <Grid item xs="2">
+            <div className="ml-6 mb-2">
+              <IconButton
+                value="ddd"
+                size="medium"
+                // onClick={printDocument}
+                onClick={() => setOpen(!open)}
+              >
+                <PrintOutlinedIcon
+                  fontSize="medium"
+                  className="text-gray-500"
+                ></PrintOutlinedIcon>
+              </IconButton>
+              <FormControl
+                className={open ? classes.formControl : classes.formHidden}
+              >
+                <Select
+                  labelId="demo-controlled-open-select-label"
+                  id="demo-controlled-open-select"
+                  value={printOption}
+                  // open={false}
+                  onChange={(e) => setPrintOption(e.target.value)}
+                >
+                  <MenuItem value="1">Today</MenuItem>
+                  <MenuItem value="2">Range</MenuItem>
+                  {/* <MenuItem value="3">3</MenuItem> */}
+                </Select>
+              </FormControl>
+            </div>
+          </Grid>
         </Grid>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column, index) => (
-                  <TableCell
-                    key={index}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                    className={classes.background}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((item) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={item._id}
+        <div
+          className={printing ? classes.printable : classes.classNone}
+          id="pdfdiv"
+        >
+          <TableContainer
+            className={[classes.container, printing && classes.borderLB]}
+          >
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column, index) => (
+                    <TableCell
+                      key={index}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                      className={[
+                        classes.background,
+                        printing && classes.borderClass,
+                      ]}
                     >
-                      <TableCell>{item.item}</TableCell>
-                      <TableCell>{item.amount}</TableCell>
-                      <TableCell>{item.observation}</TableCell>
-                      <TableCell>{formatDate(item.record_date)}</TableCell>
-                      {/* <TableCell align="left">
-                        <EditIcon
-                          fontSize="small"
-                          className="ml-2 text-gray-500"
-                        ></EditIcon>
-                        <Delete
-                          className="ml-1 text-gray-500"
-                          fontSize="small"
-                          onClick={() => {
-                            deleteRent(item._id);
-                          }}
-                        ></Delete>
-                      </TableCell> */}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((item) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={item._id}
+                      >
+                        <TableCell
+                          border={1}
+                          className={
+                            printing ? classes.borderClass : classes.classNone
+                          }
+                        >
+                          {item.item}
+                        </TableCell>
+                        <TableCell
+                          className={
+                            printing ? classes.borderClass : classes.classNone
+                          }
+                        >
+                          {item.amount}
+                        </TableCell>
+                        <TableCell
+                          className={
+                            printing ? classes.borderClass : classes.classNone
+                          }
+                        >
+                          {item.observation}
+                        </TableCell>
+                        {/* <TableCell className={classes.borderClass}>
+                          {item.record_date.split("T")[0]}
+                        </TableCell> */}
+                      </TableRow>
+                    );
+                  })}
+                <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  className={printing ? classes.borderClass : classes.classNone}
+                >
+                  <TableCell
+                    className={[
+                      printing && classes.borderClass,
+                      classes.background,
+                    ]}
+                  >
+                    Total
+                  </TableCell>
+                  <TableCell
+                    className={
+                      printing ? classes.borderClass : classes.classNone
+                    }
+                  >
+                    {getTotal()}
+                  </TableCell>
+                  <TableCell
+                    className={
+                      printing ? classes.borderClass : classes.classNone
+                    }
+                  ></TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
@@ -196,6 +352,52 @@ export default function ExpenseList() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+      <Dialog
+        open={openDial}
+        onClose={() => setOpenDial(false)}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Select Date Range</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            id="date"
+            label="From"
+            variant="outlined"
+            type="date"
+            size="small"
+            className={classes.width}
+            name="from_date"
+            onChange={(e) => setFromDate(e.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <span style={{ margin: "0 10px" }}> </span>
+          <TextField
+            margin="dense"
+            id="date"
+            label="To"
+            variant="outlined"
+            type="date"
+            size="small"
+            className={classes.width}
+            name="to_date"
+            onChange={(e) => setToDate(e.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDial(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handlePrintRange} color="primary">
+            Print
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Dashboard>
   );
 }

@@ -63,8 +63,12 @@ export default function StickyHeadTable() {
       name: "admin",
     },
     {
-      _id: "611d8a2191640d4534c50e64",
-      name: "user",
+      _id: "613d1e67f09f8d39c86ae0e0",
+      name: "Remera",
+    },
+    {
+      _id: "613d1e72f09f8d39c86ae0e2",
+      name: "Nyabugogo",
     },
   ]);
   const handleChangePage = (event, newPage) => {
@@ -197,6 +201,9 @@ export default function StickyHeadTable() {
                             </MenuItem>
                             <MenuItem value={roles[1]._id}>
                               {roles[1].name}
+                            </MenuItem>
+                            <MenuItem value={roles[2]._id}>
+                              {roles[2].name}
                             </MenuItem>
                           </Select>
                         </FormControl>
