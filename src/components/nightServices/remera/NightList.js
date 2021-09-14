@@ -74,6 +74,7 @@ export default function StickyHeadTable() {
   async function fetch() {}
   fetch();
 
+<<<<<<< HEAD
   useEffect(async () => {
     const res = await axios.get("/night.rm", {
       headers: {
@@ -98,6 +99,49 @@ export default function StickyHeadTable() {
       })
       .catch((error) => {});
   };
+=======
+
+  useEffect(()=>{
+  
+    axios
+    .get("/night.rm", {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+    
+  },[])
+
+  const deleter=async(index)=>{
+
+    var id=data[index]._id;
+
+    await axios.delete(`/night.rm/${id}`,
+    {
+     headers: {
+       'Authorization': token
+     }
+     
+   }).then((response)=>{
+     
+fetch();
+   }).catch(error=>{
+
+   })
+
+
+
+  }
+
+  const change=async(index)=>{
+
+  
+
+  
+
+>>>>>>> d4730846e82043c8c6a5f5cf1d0afa37c570fee4
 
   const change = async (index) => {
     const json = JSON.stringify({

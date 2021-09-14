@@ -258,6 +258,15 @@ else if(col.id==="washed"){
       </TableCell>
   )
 }
+else if(col.id==="entry_date"){
+
+
+  return(
+    <TableCell key={index} align="center">
+      {value.split("T")[0]}
+      </TableCell>
+  )
+}
 
 else{
 

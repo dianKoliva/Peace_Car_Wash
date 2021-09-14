@@ -27,11 +27,7 @@ const columns = [
   { id: "actions", label: "Actions", minWidth: 100, align: "left" },
 ];
 
-const rows = [
-  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "payed"),
-  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "incomplete"),
-  ("23412355-2", "Gisa Kaze Fredson", "04/28/2021", "pending"),
-];
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -231,7 +227,7 @@ export default function StickyHeadTable() {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

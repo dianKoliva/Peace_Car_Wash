@@ -55,6 +55,7 @@ export default function StickyHeadTable() {
   const [invoDay,setInvoDay]=useState("daily");
   const [invoWeek,setInvoWeek]=useState("weekly");
   const {invoicer,setinvoicer}=useContext(MyContext);
+  const {theReport,setTheReport}=useContext(MyContext);
 
   const {reporter,setReporter}=useContext(MyContext);
   const history=useHistory();
@@ -62,10 +63,12 @@ export default function StickyHeadTable() {
 
   const printReport=(type,branch,from,to)=>{
 
-    setReporter({"type":type,"branch":branch,"from":from,"to":to});
+    let d={type:type,branch:branch,from:from,to:to}
 
+    setTheReport(branch);
+    console.log(theReport);
     
-      history.push("/app/report/table");
+      // history.push("/app/report/table");
    
   }
 

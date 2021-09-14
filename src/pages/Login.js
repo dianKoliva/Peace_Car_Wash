@@ -101,9 +101,11 @@ export default function SignInSide() {
             }
           },
           (error) => {
-            if (error.message === "Request failed with status code 404") {
-              setNot(true);
-            }
+            // if (error.message === "Request failed with status code 404") {
+            //   console.log(error.message);
+            //   
+            // }
+            setNot(true);
           }
         );
     }
