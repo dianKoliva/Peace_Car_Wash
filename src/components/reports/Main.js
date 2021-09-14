@@ -61,29 +61,21 @@ export default function StickyHeadTable() {
   const history=useHistory();
 
 
-  const printReport=(type,branch,from,to)=>{
-
-    let d={type:type,branch:branch,from:from,to:to}
-
-    setTheReport(branch);
-    console.log(theReport);
-    
-      // history.push("/app/report/table");
-   
-  }
 
   const printInvoice=(invoice,invoBranch,invoTo,invoFrom)=>{
 
-    setinvoicer({"type":invoice,"branch":invoBranch,"from":invoFrom,"to":invoTo});
+    setinvoicer({invoice:invoice,branch:invoBranch,from:invoFrom,to:invoTo});
 
-    if(invoice==="daily"){
+    console.log(invoicer);
+
+//     if(invoice==="daily"){
 
 
-history.push("/app/invoice/daily")
-    }
-    else{
- history.push("/app/invoice/weekly");
-    }
+// history.push("/app/invoice/daily")
+//     }
+//     else{
+//  history.push("/app/invoice/weekly");
+//     }
 
   }
 
@@ -192,7 +184,9 @@ history.push("/app/invoice/daily")
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
-                  printReport(report,branch,from,to)               
+                  // console.log(report,branch,from,to)   ;
+                  setTheReport(branch);
+                  console.log(theReport)            
                 }}
               >
               Get Report    
