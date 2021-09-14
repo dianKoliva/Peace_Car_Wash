@@ -89,6 +89,7 @@ export default function ExpenseList() {
   const [error, setError] = React.useState("");
   const [data, setData] = React.useState([]);
   const [allRecords, setAllRecords] = React.useState([]);
+  // const [incomeRecords, setIncomeRecords] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [printOption, setPrintOption] = React.useState("0");
   const [openDial, setOpenDial] = React.useState(false);
@@ -121,6 +122,17 @@ export default function ExpenseList() {
         );
 
         setData(temp);
+        
+      //   await axios.post('/dactivity',json,
+      //   {
+      //    headers: {
+      //      'Authorization': token,
+      //      'Content-Type': 'application/json'
+      //    }
+         
+      //  }).then(res => setIncomeRecords(res.data))
+      //      })
+      //      .catch(err => console.log(err))
       })
       .catch((error) => {
         console.log(error);
@@ -155,7 +167,7 @@ export default function ExpenseList() {
     temp = temp.filter(
       (d) =>
         d.record_date.split("T")[0] >= from_date &&
-        d.record_date.split("T")[0] <= from_date
+        d.record_date.split("T")[0] <= to_date
     );
     setData(temp);
   };
