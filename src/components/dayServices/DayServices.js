@@ -176,6 +176,7 @@ console.log(entry_date);
       taker_lname: "string",
       service: service,
       status: "PENDING",
+      amount_to_pay:1000
   
   })
    await axios.post('/dactivity',json,

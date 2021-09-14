@@ -21,6 +21,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  bold:{
+    fontWeight:"bold"
+  }
 });
 
 
@@ -123,12 +126,12 @@ nyabu();
       <Table className={classes.table} aria-label="simple table" id="print">
         <TableHead>
           <TableRow>
-            <TableCell align="center">Number</TableCell>
+            <TableCell align="center" className={classes.bold}>Number</TableCell>
             
-            <TableCell align="center">Date</TableCell>
-            <TableCell align="center">Car Type</TableCell>
-            <TableCell align="center">Plate number</TableCell>
-            <TableCell align="center">Observation</TableCell>
+            <TableCell align="center" className={classes.bold}>Date</TableCell>
+            <TableCell align="center" className={classes.bold}>Car Type</TableCell>
+            <TableCell align="center" className={classes.bold}>Plate number</TableCell>
+            <TableCell align="center" className={classes.bold}>Observation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

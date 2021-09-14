@@ -31,7 +31,7 @@ import ExpenseRegister from "./components/expenses/ExpenseRegister";
 import ExpenseList from "./components/expenses/ExpenseList";
 import Night from "./components/nightServices/NightChoose"
 import RegN from "./components/nightServices/nyabugogo/NightRegister"
-import Main from "./components/reports/New";
+import Main from "./components/reports/Main";
 import Daily from "./components/reports/invoices/Daily"
 import TableReport from "./components/reports/TableReport"
 import Weekly from "./components/reports/invoices/Weekly"
