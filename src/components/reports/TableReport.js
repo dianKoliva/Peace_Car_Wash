@@ -27,10 +27,10 @@ const useStyles = makeStyles({
 export default function BasicTable() {
   const classes = useStyles();
   const [data,setData]=useState();
-  const {reporter,setReporter}=useContext(MyContext);
+  const {theReport,setTheReport}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
 
-  console.log(reporter);
+  console.log(theReport);
 
   async function nyabu(){
     await axios.get('/night.ng',
@@ -70,7 +70,7 @@ export default function BasicTable() {
 
   useEffect(()=>{
     nyabu();
-  if(reporter.branch==="nyabugogo"){
+  if(theReport.branch==="nyabugogo"){
 nyabu();
   }
   else{

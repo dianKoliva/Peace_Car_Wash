@@ -186,7 +186,7 @@ export default function StickyHeadTable() {
                 onClick={()=>{
                   // console.log(report,branch,from,to)   ;
                   setTheReport(branch);
-                  console.log(theReport)            
+                  history.push("/app/report/table")          
                 }}
               >
               Get Report    
