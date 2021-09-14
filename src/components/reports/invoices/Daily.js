@@ -3,9 +3,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Button } from '@material-ui/core';
+import { Button, makeStyles, TextField } from '@material-ui/core';
 import { MyContext } from '../../../MyContext';
 import axios from 'axios';
+
+const useStyles = makeStyles({
+  table: {
+  minWidth:"700"
+  },
+wid:{
+  width:"50%"
+},
+bol:{
+  fontWeight:"bold"
+}
+});
 
 
 function Daily(){
@@ -15,7 +27,12 @@ function Daily(){
   const [data,setData]=useState("");
   const [coaster,setCoaster]=useState(0);
   const [bus,setBus]=useState(0);
-  async function fetch(){
+  const [cunit,setCunit]=useState(0);
+  const [bunit,setBunit]=useState(0);
+  const classes=useStyles();
+
+
+  async function nyabu(){
     await axios.get('/night.ng',
     {
      headers: {
@@ -23,15 +40,14 @@ function Daily(){
      }
      
    }).then((response)=>{
-     setData(response.data.activities);
-     
+   console.log(response);
    }).catch(error=>{
      console.log(error);
    })
    }
 
   useEffect(()=>{
-fetch();
+nyabu();
 
 
   },[])
@@ -62,7 +78,7 @@ fetch();
       .then((canvas) => {  
         var imgWidth = 200;  
         var imgHeight = canvas.height * imgWidth / canvas.width;  
-        var heightLeft = imgHeight;  
+        
         const imgData = canvas.toDataURL('image/png');  
         const pdf = new jsPDF('p', 'mm', 'a4')  
         var position = 0;  
@@ -75,7 +91,32 @@ fetch();
 }
     return(
         <div id="print">
-          <div className="ml-96 mt-20 " >
+           <div className="flex ml-96 mt-20">
+      <TextField
+                margin="dense"
+                label="Coaster unit price"
+                variant="outlined"
+                name="plate"
+                size="small"
+                className={classes.width}
+               value={cunit}
+               onChange={(e)=>setCunit(e.target.value)}
+              />
+              <div className="ml-6">
+
+              </div>
+               <TextField
+                margin="dense"
+                label="Bus unit price"
+                variant="outlined"
+                name="plate"
+                size="small"
+                className={`${classes.width} `}
+                 value={bunit}
+                onChange={(e)=>setBunit(e.target.value)}
+              />
+      </div>
+          <div className="ml-96 mt-10 " >
           <p className="font-bold underline mb-6">List of Car washed in one day/Nyabugogo</p>
             <table className="border-solid border-2 border-black  border-collapse">
             <thead className="border-solid border-2 border-black  border-collapse ">
@@ -96,7 +137,7 @@ fetch();
   <td className="border-solid border-2 border-black p-4"> {invoicer.from}</td>
     <td  className="border-solid border-2 border-black p-4">Bus</td>
     <td className="border-solid border-2 border-black p-4">{bus}</td>
-    <td className="border-solid border-2 border-black p-4"></td>
+    <td className="border-solid border-2 border-black p-4">{bunit}</td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4" ></td>
@@ -105,7 +146,7 @@ fetch();
   <td className="border-solid border-2 border-black p-4"></td>
     <td  className="border-solid border-2 border-black p-4">Coaster</td>
     <td className="border-solid border-2 border-black p-4">{coaster}</td>
-    <td className="border-solid border-2 border-black p-4"></td>
+    <td className="border-solid border-2 border-black p-4">{cunit}</td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4"></td>
     <td className="border-solid border-2 border-black p-4" ></td>

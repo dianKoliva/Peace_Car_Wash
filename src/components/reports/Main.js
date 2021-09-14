@@ -68,7 +68,7 @@ export default function StickyHeadTable() {
     setTheReport(d);
     console.log(theReport.branch);
     
-      history.push("/app/report/table");
+      // history.push("/app/report/table");
    
   }
 

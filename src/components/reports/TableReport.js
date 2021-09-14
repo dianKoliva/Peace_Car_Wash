@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -104,7 +105,7 @@ nyabu();
         .then((canvas) => {  
           var imgWidth = 200;  
           var imgHeight = canvas.height * imgWidth / canvas.width;  
-          var heightLeft = imgHeight;  
+        
           const imgData = canvas.toDataURL('image/png');  
           const pdf = new jsPDF('p', 'mm', 'a4')  
           var position = 0;  
