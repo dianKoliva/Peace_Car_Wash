@@ -66,7 +66,7 @@ export default function StickyHeadTable() {
     let d={type:type,branch:branch,from:from,to:to}
 
     setTheReport(d);
-    console.log(theReport.branch);
+    console.log(theReport);
     
       // history.push("/app/report/table");
    
