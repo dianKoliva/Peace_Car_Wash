@@ -159,7 +159,7 @@ export default function ExpenseList() {
     temp = temp.filter(
       (d) =>
         d.record_date.split("T")[0] >= from_date &&
-        d.record_date.split("T")[0] <= from_date
+        d.record_date.split("T")[0] <= to_date
     );
     setData(temp);
   };
