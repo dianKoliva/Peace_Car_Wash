@@ -68,6 +68,7 @@ export default function BasicTable() {
   }
 
   useEffect(()=>{
+    nyabu();
   if(reporter.branch==="nyabugogo"){
 nyabu();
   }
@@ -79,18 +80,18 @@ nyabu();
 
   useEffect(()=>{
 
-    if(reporter.type==="daily"){
-      if(reporter.from !=="" ){
-      let info = data.filter((d) => d.entry_date.split("T")[0] === reporter.from);
-      setData(info);
-      }
-    }
-    else{
-      if(reporter.from !=="" &&reporter.to !==""){
-      let info = data.filter((d) => d.entry_date("T")[0] >= reporter.from && d.record_date.split("T")[0] <= reporter.from);
-      setData(info);
-      }
-    }
+    // if(reporter.type==="daily"){
+    //   if(reporter.from !=="" ){
+    //   let info = data.filter((d) => d.entry_date.split("T")[0] === reporter.from);
+    //   setData(info);
+    //   }
+    // }
+    // else{
+    //   if(reporter.from !=="" &&reporter.to !==""){
+    //   let info = data.filter((d) => d.entry_date("T")[0] >= reporter.from && d.record_date.split("T")[0] <= reporter.from);
+    //   setData(info);
+    //   }
+    // }
 
   },[data])
 
@@ -135,7 +136,7 @@ nyabu();
               <TableCell  align="center">
                 {index+1}
               </TableCell>
-              <TableCell align="center">{row.entry_date}</TableCell>
+              <TableCell align="center">{row.entry_date.split("T")[0] }</TableCell>
               <TableCell align="center">{row.car_type}</TableCell>
               <TableCell align="center">{row.plate_number}</TableCell>
               <TableCell align="center">{row.washed===true?"OK":"NO"}</TableCell>
