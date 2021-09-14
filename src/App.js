@@ -56,7 +56,7 @@ const [ notifications,setNotifications,]=useState("");
 const [groups,setGroups]=useState("");
 const [reporter,setReporter]=useState("");
 const [invoicer,setinvoicer]=useState("");
-const [theReport,setTheReport]=useState("");
+const [theReport,setTheReport]=useState({report:"",branch:"",from:"",to:""});
 
 
 
