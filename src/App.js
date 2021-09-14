@@ -56,6 +56,9 @@ const [ notifications,setNotifications,]=useState("");
 const [groups,setGroups]=useState("");
 const [reporter,setReporter]=useState("");
 const [invoicer,setinvoicer]=useState("");
+const [theReport,setTheReport]=useState("");
+
+
 
 
 
@@ -124,7 +127,8 @@ const getGroups=async()=>{
         setNotifications,
         groups,setGroups,
         reporter,setReporter,
-        invoicer,setinvoicer
+        invoicer,setinvoicer,
+        theReport,setTheReport
       }}
     >
       <div className="App">
