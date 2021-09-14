@@ -62,8 +62,9 @@ export default function StickyHeadTable() {
 
   const printReport=(type,branch,from,to)=>{
 
-    setReporter({"type":type,"branch":branch,"from":from,"to":to});
+    let d={type:type,branch:branch,from:from,to:to}
 
+    setReporter(d);
     
       history.push("/app/report/table");
    
