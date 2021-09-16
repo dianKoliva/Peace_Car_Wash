@@ -12,9 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { CheckBox, LocalGasStationRounded } from "@material-ui/icons";
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import App from "../../App";
-
-
-
+import { buildQueries } from "@testing-library/dom";
 
 
 const useStyles = makeStyles({
@@ -184,9 +182,12 @@ history.push("/app/invoice/daily")
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
-                  // console.log(report,branch,from,to)   ;
-                  setTheReport(branch);
-                  history.push("/app/report/table")          
+                
+                  var b={"report":report,"branch":branch,"from":from,"to":to}
+                  
+                  setTheReport(b);
+                  console.log(theReport)   ;
+                  // history.push("/app/report/table")          
                 }}
               >
               Get Report    
@@ -292,7 +293,8 @@ history.push("/app/invoice/daily")
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
-                printInvoice(invoice,invoBranch,invoTo,invoFrom);
+                // printInvoice(invoice,invoBranch,invoTo,invoFrom);
+                console.log(invoice,invoBranch,invoTo,invoFrom)
                 
                 }}
               >
