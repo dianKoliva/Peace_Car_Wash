@@ -15,6 +15,7 @@ import html2canvas from 'html2canvas';
 import { MyContext } from '../../MyContext';
 import axios from 'axios'
 import { set } from 'lodash';
+import { Report } from '@material-ui/icons';
 
 
 const useStyles = makeStyles({
@@ -33,8 +34,6 @@ export default function BasicTable() {
   const {theReport,setTheReport}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
 
-  console.log(theReport);
-
   async function nyabu(){
     await axios.get('/night.ng',
     {
@@ -44,7 +43,7 @@ export default function BasicTable() {
      
    }).then((response)=>{
      setData(response.data);
-     console.log(data);
+    
      
   
     
@@ -72,7 +71,7 @@ export default function BasicTable() {
   }
 
   useEffect(()=>{
-    nyabu();
+   
   if(theReport.branch==="nyabugogo"){
 nyabu();
   }
@@ -84,19 +83,29 @@ nyabu();
 
   useEffect(()=>{
 
-    // if(reporter.type==="daily"){
-    //   if(reporter.from !=="" ){
-    //   let info = data.filter((d) => d.entry_date.split("T")[0] === reporter.from);
+    // if(theReport.type==="daily"){
+    //   if(theReport.from !=="" ){
+    //   let info = data.filter((d) => d.entry_date.split("T")[0] === theReport.from);
     //   setData(info);
+    //   console.log(info)
     //   }
     // }
     // else{
-    //   if(reporter.from !=="" &&reporter.to !==""){
-    //   let info = data.filter((d) => d.entry_date("T")[0] >= reporter.from && d.record_date.split("T")[0] <= reporter.from);
-    //   setData(info);
+    //   if(theReport.from !=="" &&theReport.to !==""){
+    //   let info = data.filter((d) => d.entry_date("T")[0] >= theReport.from && d.record_date.split("T")[0] <= theReport.from);
+    //   setData(data);
     //   }
     // }
 
+   if(theReport.type==="daily"){
+      if(theReport.from !=="" ){
+      // let info = data.filter((d) => d.entry_date.split("T")[0] === theReport.from);
+      // setData(info);
+      console.log("yoo")
+      } 
+   }
+
+   
   },[data])
 
   function gen()

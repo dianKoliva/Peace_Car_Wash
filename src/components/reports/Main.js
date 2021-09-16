@@ -183,11 +183,11 @@ history.push("/app/invoice/daily")
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
                 
-                  var b={"report":report,"branch":branch,"from":from,"to":to}
+                  var b={"type":report,"branch":branch,"from":from,"to":to}
                   
                   setTheReport(b);
-                  console.log(theReport)   ;
-                  // history.push("/app/report/table")          
+                 
+                  history.push("/app/report/table")          
                 }}
               >
               Get Report    
