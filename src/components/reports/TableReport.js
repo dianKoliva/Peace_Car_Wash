@@ -110,7 +110,7 @@ nyabu();
    else{
      if(data){
       if(theReport.from !=="" &&theReport.to !==""){
-      let info = data.filter((d) => d.entry_date.split("T")[0] >= theReport.from && d.record_date.split("T")[0] <= theReport.from);
+      let info = data.filter((d) => d.entry_date.split("T")[0] >= theReport.from && d.entry_date.split("T")[0] <= theReport.to);
       setData(info);
       }
     }
