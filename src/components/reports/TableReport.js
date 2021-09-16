@@ -83,19 +83,7 @@ nyabu();
 
   useEffect(()=>{
 
-    // if(theReport.type==="daily"){
-    //   if(theReport.from !=="" ){
-    //   let info = data.filter((d) => d.entry_date.split("T")[0] === theReport.from);
-    //   setData(info);
-    //   console.log(info)
-    //   }
-    // }
-    // else{
-    //   if(theReport.from !=="" &&theReport.to !==""){
-    //   let info = data.filter((d) => d.entry_date("T")[0] >= theReport.from && d.record_date.split("T")[0] <= theReport.from);
-    //   setData(data);
-    //   }
-    // }
+    
 
    if(theReport.type==="daily"){
       if(theReport.from !=="" ){

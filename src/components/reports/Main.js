@@ -293,8 +293,17 @@ history.push("/app/invoice/daily")
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
+                
                 // printInvoice(invoice,invoBranch,invoTo,invoFrom);
-                console.log(invoice,invoBranch,invoTo,invoFrom)
+                var b={"type":invoice,"branch":invoBranch,"from":invoFrom,"to":invoTo}
+                setinvoicer(b);
+                if(b.type==="daily"){
+                  history.push("/app/invoice/daily");
+                }
+                else{
+                  history.push("/app/invoice/weekly")
+                }
+               
                 
                 }}
               >
