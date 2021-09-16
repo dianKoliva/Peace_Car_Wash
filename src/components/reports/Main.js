@@ -66,16 +66,16 @@ export default function StickyHeadTable() {
 
     setinvoicer({invoice:invoice,branch:invoBranch,from:invoFrom,to:invoTo});
 
-    console.log(invoicer);
+  
 
-//     if(invoice==="daily"){
+    if(invoice==="daily"){
 
 
-// history.push("/app/invoice/daily")
-//     }
-//     else{
-//  history.push("/app/invoice/weekly");
-//     }
+history.push("/app/invoice/daily")
+    }
+    else{
+ history.push("/app/invoice/weekly");
+    }
 
   }
 
@@ -293,6 +293,7 @@ export default function StickyHeadTable() {
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
                 printInvoice(invoice,invoBranch,invoTo,invoFrom);
+                
                 }}
               >
                Get Invoice
