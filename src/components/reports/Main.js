@@ -57,6 +57,13 @@ export default function StickyHeadTable() {
   const {invoicer,setinvoicer}=useContext(MyContext);
   const {theReport,setTheReport}=useContext(MyContext);
 
+
+  const [dayReport,setDayReport]=useState("");
+  const [dayServiceDaily, setDayServiceDaily]= useState(false);
+  // console.log("jhljhjjh ",dayReport);
+  // if(dayReport==="daily"){
+  //   setDayServiceDaily(true);
+  // }
   const {reporter,setReporter}=useContext(MyContext);
   const history=useHistory();
 
@@ -70,6 +77,12 @@ export default function StickyHeadTable() {
     
       // history.push("/app/report/table");
    
+  }
+
+  const printDayReport=(type,from,to)=>{
+    history.push("/app/dayReport/table", {
+      dayReportData:{type,to,from},
+    });
   }
 
   const printInvoice=(invoice,invoBranch,invoTo,invoFrom)=>{
@@ -176,7 +189,6 @@ history.push("/app/invoice/daily")
                 variant="outlined"
                 value={to}
                 type="date"
-            
                 size="small"
                 name="entry_date"
                 className={`${classes.width} ${classes.margin}`}
@@ -192,7 +204,7 @@ history.push("/app/invoice/daily")
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
-                  printReport(report,branch,from,to)               
+                  printReport(dayReport,branch,from,to)               
                 }}
               >
               Get Report    
@@ -308,7 +320,95 @@ history.push("/app/invoice/daily")
     
     </Paper>
         </Grid>
+        <Grid item xs={6}></Grid>
+        <Grid item xs={6} >
+        <Paper className={classes.root}>
+        <div className="p-6">
+        <p className="mb-4">Day Services</p>
+        <div className="flex">
+       
+        <FormControl
+                variant="outlined"
+                size="small"
+                className={` ${classes.width}`}
+                margin="dense"
+               
+              >
+                <InputLabel>Report Type</InputLabel>
+                <Select label="Report Type"
+                value={dayReport}
+                onChange={(e)=>{
+                  setDayReport (e.target.value);  
+                   if(e.target.value==="daily"){
+                    setDayServiceDaily(true);
+                  }else{
+                    setDayServiceDaily(false);
+                  }      
+               }}
+                
+                >
+              
+           
+          <MenuItem value={daily} >Daily Report</MenuItem>
+          <MenuItem value={weekly} >Weekly Report</MenuItem>
+                 
+                </Select>
+              </FormControl>
 
+              
+        </div>
+        <div className="flex">
+
+        <TextField
+                margin="dense"
+                id="date"
+                label="From"
+                variant="outlined"
+                value={from}
+                type="date"
+                disabled={dayServiceDaily}
+                size="small"
+                name="entry_date"
+                className={`${classes.width} `}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                 onChange={(e)=>setFrom(e.target.value)}
+              />
+
+<TextField
+                margin="dense"
+                id="date"
+                label="To"
+                variant="outlined"
+                value={to}
+                type="date"
+                disabled={dayServiceDaily}
+                size="small"
+                name="entry_date"
+                className={`${classes.width} ${classes.margin}`}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e)=>setTo(e.target.value)}
+              />
+
+        </div>
+        <Button
+                variant="contained"
+                color="primary"
+                className={`${classes.greenBut} ${classes.width} mt-2`}
+                onClick={()=>{
+                  printDayReport(dayReport,from,to)               
+                }}
+              >
+              Get Report    
+              </Button>
+
+        </div>
+    
+    </Paper>
+        </Grid>
     </Grid>
    
     </Dashboard>

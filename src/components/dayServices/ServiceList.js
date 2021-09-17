@@ -19,6 +19,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment';
 
 const columns = [
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
@@ -259,6 +260,10 @@ if(col.id==="action"){
 </Button>}
   
 </TableCell>
+  )
+}else if (col.id==="entry_date"){
+  return(
+    <TableCell key={index} align={col.align}>{moment(value).format('L')}</TableCell>
   )
 }
 else{
