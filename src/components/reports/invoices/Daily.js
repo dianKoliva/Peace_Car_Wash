@@ -31,7 +31,6 @@ function Daily(){
   const [bunit,setBunit]=useState(0);
   const classes=useStyles();
 
-
   async function nyabu(){
     await axios.get('/night.ng',
     {
@@ -40,34 +39,60 @@ function Daily(){
      }
      
    }).then((response)=>{
-   console.log(response);
+    setData(response.data)
    }).catch(error=>{
      console.log(error);
    })
    }
 
+   async function rem(){
+    await axios.get('/night.rm',
+    {
+     headers: {
+       'Authorization':token
+    }
+     
+   }).then((response)=>{
+     setData(response.data);
+    
+     
+  
+    
+   }).catch(error=>{
+     console.log(error);
+   })
+  }
+
+
   useEffect(()=>{
-nyabu();
+    if(invoicer.branch==="nyabugogo"){
+      nyabu();
+      
+    }
+    else {
+      rem();
+    }
+
 
 
   },[])
 
-  if(data){
-    let c=coaster;
-  let b=bus;
-    for(let i=0;i>data.length;i++){
-      if(data[i].car_type.toLoweCase==="coaster"){
-      c++;
-       setCoaster( c);
-      }
-      else{
-        b++;
-        setBus( b);
-      }
-  }
-  
+  function number(){
   
   }
+
+  useEffect(()=>{
+    if(data){
+      if(invoicer.from !=="" ){
+      
+    let info = data.filter((d) => d.entry_date.split("T")[0] === invoicer.from);
+    setData(info)
+      }
+    
+     }
+  },[data])
+
+ 
 
   function gen()
 {

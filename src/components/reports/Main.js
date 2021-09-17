@@ -48,8 +48,8 @@ export default function StickyHeadTable() {
   const [invoBranch,setInvoBra]=useState("");
   const [invoFrom,setInvoFrom]=useState("");
   const [invoTo,setInvoTo]=useState("");
-  const [invoNyabu,setinvoNyabu]=useState("Nyabugogo");
-  const [invoRem,setInvoRem]=useState("Remera");
+  const [invoNyabu,setinvoNyabu]=useState("nyabugogo");
+  const [invoRem,setInvoRem]=useState("remera");
   const [invoDay,setInvoDay]=useState("daily");
   const [invoWeek,setInvoWeek]=useState("weekly");
   const {invoicer,setinvoicer}=useContext(MyContext);
