@@ -123,10 +123,6 @@ fetch();
 
   const change=async(index)=>{
 
-  
-
-  
-
 
     const json = JSON.stringify({
  washed:!data[index].washed
@@ -143,7 +139,7 @@ fetch();
      
    }).then((response)=>{
     
-   console.log(response);  
+   
   
  
    })
@@ -213,7 +209,7 @@ fetch();
               if(search===""){
                 return val;
               }
-              else if(val.customer_name.toLowerCase().includes(search.toLowerCase())||val.service.toLowerCase().includes(search.toLowerCase())||
+              else if(val.driver_name.toLowerCase().includes(search.toLowerCase())||val.phone_number.toLowerCase().includes(search.toLowerCase())||
               val.plate_number.toLowerCase().includes(search.toLowerCase())
               ){
               return val;
@@ -242,12 +238,13 @@ if(col.id==="action"){
   )
 }
 else if(col.id==="washed"){
+
   return(
   <TableCell key={index} align="center">
   <FormControlLabel
         control={
           <Checkbox
-            checked={value.washed}
+            checked={value}
             onChange={()=>change(num)}
             name="checkedB"
             color="primary"
