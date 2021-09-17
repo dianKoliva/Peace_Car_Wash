@@ -53,11 +53,7 @@ function Daily(){
     }
      
    }).then((response)=>{
-     setData(response.data);
-    
-     
-  
-    
+     setData(response.data); 
    }).catch(error=>{
      console.log(error);
    })
@@ -72,9 +68,6 @@ function Daily(){
     else {
       rem();
     }
-
-
-
   },[])
 
   function number(){
@@ -84,9 +77,13 @@ function Daily(){
   useEffect(()=>{
     if(data){
       if(invoicer.from !=="" ){
-      
     let info = data.filter((d) => d.entry_date.split("T")[0] === invoicer.from);
     setData(info)
+    if(info){
+for(var i=0;i<=info.length;i++){
+  console.log("hey")
+}
+    }
       }
     
      }
