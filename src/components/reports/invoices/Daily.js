@@ -25,10 +25,10 @@ function Daily(){
   const {invoicer,setInvoicer}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
-  const [coaster,setCoaster]=useState(0);
-  const [bus,setBus]=useState(0);
-  const [cunit,setCunit]=useState(0);
-  const [bunit,setBunit]=useState(0);
+  const [coaster,setCoaster]=useState(20);
+  const [bus,setBus]=useState(20);
+  const [cunit,setCunit]=useState();
+  const [bunit,setBunit]=useState();
   const classes=useStyles();
   const[bnet,setBnet]=useState(0);
   const [bvat,setbvat]=useState(0);
@@ -80,7 +80,16 @@ function Daily(){
     }
   },[])
 
-  function number(){
+  function number(e){
+if(e.target.name==="c"){
+  
+  setCunit(e.target.value);
+  console.log(cunit);
+}
+else{
+  setBunit(e.target.value);
+  console.log(bunit);
+}
   
   }
 
@@ -139,33 +148,13 @@ function Daily(){
                 margin="dense"
                 label="Coaster unit price"
                 variant="outlined"
-                name="plate"
+                name="c"
                 size="small"
                 className={classes.width}
                value={cunit}
                onChange={(e)=>
                 {
-                  setCunit(e.target.value);
-                  var net=cunit*coaster;
-                  setCnet(net);
-                  var vt=(cnet*18)/100;
-                  setcvat(vt);
-          
-                  var ctotal=cnet+cvat;
-                  setctotal(ctotal);
-
-                  var total=ctotal+btotal;
-                  setTotal(total);
-
-                  var q=bus+coaster;
-                  setTotalQ(q);
-                  
-                  var n=cnet+bnet;
-                  setTotalN(n);
-
-                  var v=bvat+cvat;
-                  setTotalV(v);
-                  
+              number(e)
                 }
                 
                
@@ -174,26 +163,21 @@ function Daily(){
               <div className="ml-6">
 
               </div>
-               <TextField
+              <TextField
                 margin="dense"
                 label="Bus unit price"
                 variant="outlined"
-                name="plate"
+                name="b"
                 size="small"
-                className={`${classes.width} `}
-                 value={bunit}
-                onChange={(e)=>{
-                  setBunit(e.target.value)
-                  var net=bunit*bus;
-                  setBnet(net);
-                  var vt=(bnet*18)/100;
-                  setbvat(vt);
-                  var btotal=bnet+bvat;
-                  setbtotal(btotal);
-                  var total=ctotal+btotal;
-                  setTotal(total);
-
-                }}
+                className={classes.width}
+               value={bunit}
+               onChange={(e)=>
+                {
+              number(e)
+                }
+                
+               
+              }
               />
       </div>
           <div className="ml-96 mt-10 " >
@@ -218,28 +202,28 @@ function Daily(){
     <td  className="border-solid border-2 border-black p-4">Bus</td>
     <td className="border-solid border-2 border-black p-4">{bus}</td>
     <td className="border-solid border-2 border-black p-4">{bunit}</td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4" ></td>
+    <td className="border-solid border-2 border-black p-4">{bnet}</td>
+    <td className="border-solid border-2 border-black p-4">{bvat}</td>
+    <td className="border-solid border-2 border-black p-4" >{btotal}</td>
   </tr>
   <tr >
   <td className="border-solid border-2 border-black p-4"></td>
     <td  className="border-solid border-2 border-black p-4">Coaster</td>
     <td className="border-solid border-2 border-black p-4">{coaster}</td>
     <td className="border-solid border-2 border-black p-4">{cunit}</td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4" ></td>
+    <td className="border-solid border-2 border-black p-4">{cnet}</td>
+    <td className="border-solid border-2 border-black p-4">{cvat}</td>
+    <td className="border-solid border-2 border-black p-4" >{ctotal}</td>
   </tr>
 
   <tr>
   <td className="border-solid border-2 border-black p-4" colSpan="2">Total</td>
     
-    <td className="border-solid border-2 border-black p-4 " colSpan="2">105</td>
+    <td className="border-solid border-2 border-black p-4 " colSpan="2">{totalQ}</td>
     
-    <td className="border-solid border-2 border-black p-4">34545</td>
-    <td className="border-solid border-2 border-black p-4">898989</td>
-    <td className="border-solid border-2 border-black p-4" >899898</td>
+    <td className="border-solid border-2 border-black p-4">{totalN}</td>
+    <td className="border-solid border-2 border-black p-4">{totalV}</td>
+    <td className="border-solid border-2 border-black p-4" >0</td>
   </tr>
   
   </tbody>
