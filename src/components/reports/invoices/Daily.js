@@ -37,6 +37,9 @@ function Daily(){
   const [cvat,setcvat]=useState(0);
   const [ctotal,setctotal]=useState(0);
   const [total,setTotal]=useState(0);
+  const [totalV,setTotalV]=useState(0);
+  const [totalN,setTotalN]=useState(0);
+  const [totalQ,setTotalQ]=useState(0);
 
   async function nyabu(){
     await axios.get('/night.ng',
@@ -152,6 +155,14 @@ function Daily(){
 
                   var total=ctotal+btotal;
                   setTotal(total);
+
+                  var q=bus+coaster;
+                  setTotalQ(q);
+                  var n=cnet+bnet;
+                  setTotalN(n);
+
+                  var v=bvat+cvat;
+                  setTotalV(v);
                   
                 }
                 
