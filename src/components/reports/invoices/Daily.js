@@ -152,12 +152,14 @@ function Daily(){
                   setcvat(vt);
           
                   var ctotal=cnet+cvat;
+                  setctotal(ctotal);
 
                   var total=ctotal+btotal;
                   setTotal(total);
 
                   var q=bus+coaster;
                   setTotalQ(q);
+                  
                   var n=cnet+bnet;
                   setTotalN(n);
 
@@ -187,6 +189,7 @@ function Daily(){
                   var vt=(bnet*18)/100;
                   setbvat(vt);
                   var btotal=bnet+bvat;
+                  setbtotal(btotal);
                   var total=ctotal+btotal;
                   setTotal(total);
 
