@@ -30,6 +30,13 @@ function Daily(){
   const [cunit,setCunit]=useState(0);
   const [bunit,setBunit]=useState(0);
   const classes=useStyles();
+  const[bnet,setBnet]=useState(0);
+  const [bvat,setbvat]=useState(0);
+  const [btotal,setbtotal]=useState(0);
+  const[cnet,setCnet]=useState(0);
+  const [cvat,setcvat]=useState(0);
+  const [ctotal,setctotal]=useState(0);
+  const [total,setTotal]=useState(0);
 
   async function nyabu(){
     await axios.get('/night.ng',
@@ -74,20 +81,31 @@ function Daily(){
   
   }
 
-  useEffect(()=>{
-    if(data){
-      if(invoicer.from !=="" ){
-    let info = data.filter((d) => d.entry_date.split("T")[0] === invoicer.from);
-    setData(info)
-    if(info){
-for(var i=0;i<=info.length;i++){
-  console.log("hey")
-}
-    }
-      }
+//   useEffect(()=>{
+//     if(data){
+//       if(invoicer.from !=="" ){
+//     let info = data.filter((d) => d.entry_date.split("T")[0] === invoicer.from);
+//     setData(info)
+//     if(info){
+// for(var i=0;i<info.length;i++){
+//   if (info.car_type==="Bus")
+//   {
+//     var b=bus;
+//     b++;
+//     setBus(b);
+
+//   }
+//   else{
+//     var c=coaster;
+//     c++;
+//     setCoaster(c);
+//   }
+// }
+//     }
+//       }
     
-     }
-  },[data])
+//      }
+//   },[data])
 
  
 
@@ -122,7 +140,23 @@ for(var i=0;i<=info.length;i++){
                 size="small"
                 className={classes.width}
                value={cunit}
-               onChange={(e)=>setCunit(e.target.value)}
+               onChange={(e)=>
+                {
+                  setCunit(e.target.value);
+                  var net=cunit*coaster;
+                  setCnet(net);
+                  var vt=(cnet*18)/100;
+                  setcvat(vt);
+          
+                  var ctotal=cnet+cvat;
+
+                  var total=ctotal+btotal;
+                  setTotal(total);
+                  
+                }
+                
+               
+              }
               />
               <div className="ml-6">
 
@@ -135,7 +169,17 @@ for(var i=0;i<=info.length;i++){
                 size="small"
                 className={`${classes.width} `}
                  value={bunit}
-                onChange={(e)=>setBunit(e.target.value)}
+                onChange={(e)=>{
+                  setBunit(e.target.value)
+                  var net=bunit*bus;
+                  setBnet(net);
+                  var vt=(bnet*18)/100;
+                  setbvat(vt);
+                  var btotal=bnet+bvat;
+                  var total=ctotal+btotal;
+                  setTotal(total);
+
+                }}
               />
       </div>
           <div className="ml-96 mt-10 " >
