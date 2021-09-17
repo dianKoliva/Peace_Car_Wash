@@ -2,17 +2,16 @@
 import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import React, { useContext, useEffect } from "react";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import FormControl from "@material-ui/core/FormControl";
+// import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { MyContext } from "../../MyContext";
 import{useState} from 'react';
 import axios from 'axios';
 import Dashboard from "../../layout/Dashboard";
 import { useHistory } from "react-router-dom";
-import { Redirect } from "react-router";
 
 
 
@@ -64,9 +63,9 @@ function DayServices() {
   
   const classes = useStyles();
   const {token,setToken}=useContext(MyContext);
-  const [serviceList,setServiceList]=useState([{value:"Washing",name:"Washing"},
-  {value:"Mechanic",name:"Mechanic"}
-]);
+//   const [serviceList,setServiceList]=useState([{value:"Washing",name:"Washing"},
+//   {value:"Mechanic",name:"Mechanic"}
+// ]);
   const [plate,setPlate]=useState("");
   const [type,setType]=useState("")
   const [cus_name,setCusName]=useState("");
@@ -74,7 +73,7 @@ function DayServices() {
   const[taker_fname,setTakerFname]=useState("")
   const[care_lname,setCareLname]=useState("");
   const [care_phone,setCarePhone]=useState("");
-  const [service,setService]=useState("");
+  // const [service,setService]=useState("");
   const [amount,setAMount]=useState("");
   const[entry_date,setEntryDate]=useState(final);
   const[error,setError]=useState();
@@ -154,7 +153,7 @@ const  handleBlur=(e)=>{
 const submit=async()=>{
 
 
-  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_phone===""||service===""){
+  if(plate===""||type===""||cus_name===""||cus_phone===""||taker_fname===""||care_phone===""){
    setError(true);
   
   
@@ -174,7 +173,7 @@ console.log(entry_date);
       taker_fname: taker_fname,
       taker_number: care_phone,
       taker_lname: "string",
-      service: service,
+      // service: service,
       status: "PENDING",
       
   
@@ -187,8 +186,6 @@ console.log(entry_date);
     }
     
   }).then((response)=>{
-
-  
   
   if(response.statusText==="Created"){
 history.push("/app/dayservices");
@@ -197,7 +194,7 @@ history.push("/app/dayservices");
     setCusName("");
     setCusPhone("");setTakerFname("");
     setCareLname("");setCareLname("");
-    setCarePhone("");setService("");
+    setCarePhone("");
   }
 
   }).catch(error=>{
@@ -286,8 +283,8 @@ history.push("/app/dayservices");
           <Grid 
           container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
-              <p className="text-lg text-gray-500">Service</p>   
-              <FormControl
+              {/* <p className="text-lg text-gray-500">Service</p>    */}
+              {/* <FormControl
                 variant="outlined"
                 size="small"
                 className={` ${classes.width}`}
@@ -313,7 +310,7 @@ history.push("/app/dayservices");
           
                  
                 </Select>
-              </FormControl>
+              </FormControl> */}
               
               <br></br>
           

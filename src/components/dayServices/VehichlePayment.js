@@ -3,8 +3,12 @@
 import { Grid, TextField, Typography, makeStyles } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import Dashboard from "../../layout/Dashboard";
 import { MyContext } from "../../MyContext";
 import axios from 'axios';
@@ -37,12 +41,16 @@ function VehichlePayment(props) {
   var final=`${dat.getFullYear()}-${month}-${dat.getDate()}`
   const classes = useStyles();
 
+  const [serviceList,setServiceList]=useState([{value:"Washing",name:"Washing"},
+  {value:"Mechanic",name:"Mechanic"}
+  ]);
   const[agree,setAgree]=React.useState(false);
   const[complete,setComplete]=React.useState(false);
   const[pay,setPay]=React.useState();
   const[payed,setPayed]=React.useState();
   const[date,setDate]=React.useState();
   const[done,setDone]=React.useState();
+  const [service,setService]=useState("");
   const{toBePayed,setToBePayed}=useContext(MyContext)
   const history=useHistory();
   const {token,setToken}=useContext(MyContext);
@@ -73,7 +81,7 @@ if(e.target.name==="payed"){
 
   const save= async()=>{
     
-    if(pay===0||payed===""||pay===""){
+    if(pay===0||payed===""||pay===""||service===""){
  setError(true);
     }
     else{
@@ -87,16 +95,7 @@ if(e.target.name==="payed"){
    
     
     var status;
-    if(amount_payed===pay){
-    status="COMPLETE"
-    }
-    else if(amount_payed===0){
-    status="PENDING"
-    }
-    else{
-      status="INCOMPLETE"
-    }
-  var out_date;
+    var out_date;
     if(status==="COMPLETE"){
       var date=new Date();
       var month=date.getMonth();
@@ -122,9 +121,13 @@ if(e.target.name==="payed"){
     
       amount_to_pay: pay,
       amount_payed:amount_payed,
-      status:status,
-      out_date:out_date
+      service: service,
+      out_date:new Date()
     }
+    
+  // console.log(json);
+  // console.log(token);
+  // console.log(toBePayed._id);
      await axios.post(`/dactivity/pay/${toBePayed._id}`,json,
      {
       headers: {
@@ -180,6 +183,35 @@ if(e.target.name==="payed"){
         
             <br></br>
           
+           <p className="text-lg text-gray-500">Service</p>   
+              <FormControl
+                variant="outlined"
+                size="small"
+                className={` ${classes.width}`}
+                margin="dense"
+               
+              >
+                <InputLabel>Select</InputLabel>
+                <Select label="Service"
+                name="service"
+                onChange={(e)=>{
+                  setService (e.target.value);          
+               }}
+                
+                >
+              
+              {serviceList?serviceList.map((s)=>{
+        return(
+          <MenuItem value={s.value} key={s.value}>{s.name}</MenuItem>
+        )
+              }):null}
+             
+       
+          
+                 
+                </Select>
+              </FormControl>
+
           </Grid>
 
           <Grid item xs={6}>
