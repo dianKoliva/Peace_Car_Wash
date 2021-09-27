@@ -50,11 +50,24 @@ function VehichlePayment(props) {
   const[payed,setPayed]=React.useState();
   const[date,setDate]=React.useState();
   const[done,setDone]=React.useState();
-  const [service,setService]=useState("");
+  const [service,setService]=useState([]);
   const{toBePayed,setToBePayed}=useContext(MyContext)
   const history=useHistory();
   const {token,setToken}=useContext(MyContext);
   const [error,setError]=React.useState(false);
+
+  const [state, setState] = React.useState({
+    Washing: false,
+    Machine_washing: false,
+    Mechanic: false,
+  });
+  
+  const handleChanges = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
 
 
  useEffect(()=>{
@@ -117,6 +130,16 @@ if(e.target.name==="payed"){
       out_date="string";
     }
    
+    
+  if(state.Machine_washing === true){
+    service.push("washing machine")
+  }else if(state.Mechanic === true){
+    service.push("mechanics")
+  }else if(state.Washing === true){
+    service.push("washing")
+  }
+
+
     const json = { 
     
       amount_to_pay: pay,
@@ -124,10 +147,6 @@ if(e.target.name==="payed"){
       service: service,
       out_date:new Date()
     }
-    
-  // console.log(json);
-  // console.log(token);
-  // console.log(toBePayed._id);
      await axios.post(`/dactivity/pay/${toBePayed._id}`,json,
      {
       headers: {
@@ -184,7 +203,7 @@ if(e.target.name==="payed"){
             <br></br>
           
            <p className="text-lg text-gray-500">Service</p>   
-              <FormControl
+              {/* <FormControl
                 variant="outlined"
                 size="small"
                 className={` ${classes.width}`}
@@ -210,6 +229,26 @@ if(e.target.name==="payed"){
           
                  
                 </Select>
+              </FormControl> */}
+              <FormControl>
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={state.Washing} onChange={handleChanges} name="Washing" color="primary" />
+                  }
+                  label="Washing"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={state.Machine_washing} onChange={handleChanges} name="Machine_washing" color="primary"/>
+                  }
+                  label="Machine Washing"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={state.Mechanic} onChange={handleChanges} name="Mechanic" color="primary"/>
+                  }
+                  label="Mechanic"
+                />
               </FormControl>
 
           </Grid>

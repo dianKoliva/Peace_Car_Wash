@@ -27,8 +27,8 @@ export function Reports(){
 </div>
 <div>
     <div className="ml-6">
-    <IconButton size="small">
-    <VisibilityIcon  onClick={()=>{view(index)}} fontSize="small" color="primary"></VisibilityIcon>
+    <IconButton size="small" onClick={()=>{view(index)}}>
+    <VisibilityIcon fontSize="small" color="primary"></VisibilityIcon>
     </IconButton>
   
     </div>

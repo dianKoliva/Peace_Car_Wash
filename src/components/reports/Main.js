@@ -58,10 +58,7 @@ export default function StickyHeadTable() {
 
   const [dayReport,setDayReport]=useState("");
   const [dayServiceDaily, setDayServiceDaily]= useState(false);
-  // console.log("jhljhjjh ",dayReport);
-  // if(dayReport==="daily"){
-  //   setDayServiceDaily(true);
-  // }
+  
   const {reporter,setReporter}=useContext(MyContext);
   const history=useHistory();
 
@@ -101,7 +98,7 @@ history.push("/app/invoice/daily")
   return (
     <Dashboard>
     <Grid container spacing={3}>
-        <Grid item xs={6} >
+        <Grid item={true} xs={6} >
         <Paper className={classes.root}>
         <div className="p-6">
         <p className="mb-4">Night Services</p>
@@ -210,9 +207,9 @@ history.push("/app/invoice/daily")
     </Paper>
         </Grid>
 
-<Grid item xs={6}></Grid>
+<Grid item={true} xs={6}></Grid>
 
-<Grid item xs={6}>
+<Grid item={true} xs={6}>
         <Paper className={classes.root}>
         <div className="p-6">
         <p className="mb-4">Night Invoices</p>
@@ -326,8 +323,10 @@ history.push("/app/invoice/daily")
     
     </Paper>
         </Grid>
-        <Grid item xs={6}></Grid>
-        <Grid item xs={6} >
+
+        <Grid item={true} xs={6}></Grid>
+
+        <Grid item={true} xs={6} >
         <Paper className={classes.root}>
         <div className="p-6">
         <p className="mb-4">Day Services</p>
@@ -415,6 +414,7 @@ history.push("/app/invoice/daily")
     
     </Paper>
         </Grid>
+        
     </Grid>
    
     </Dashboard>

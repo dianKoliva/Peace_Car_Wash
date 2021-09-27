@@ -169,14 +169,14 @@ export default function StickyHeadTable() {
   return (
     <Dashboard>
       <Paper className={classes.root}>
-        <Grid container spacing={3} xs="12">
-          <Grid item xs="10">
+        <Grid item={true} container spacing={3} xs={12}>
+          <Grid item={true} xs={10}>
             <div className="flex ml-4 mb-6 mt-4 ">
               <p className="font-bold">List of Renters</p>
               <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
             </div>
           </Grid>
-          <Grid item xs="2">
+          <Grid item={true} xs={2}>
             <div className="ml-6 mb-2 mt-1">
               <Button
                 variant="outlined"

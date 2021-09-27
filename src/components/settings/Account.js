@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useCallback,useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -67,6 +67,8 @@ export default function StickyHeadTable() {
       name: "Nyabugogo",
     },
   ]);
+
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -76,7 +78,7 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
-  const getPendingAccounts = async () => {
+  const getPendingAccounts =useCallback( async () => {
     axios({
       method: "post",
       url: "/users/pending",
@@ -84,7 +86,7 @@ export default function StickyHeadTable() {
     })
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
-  };
+  },[token]);
 
   const getRoles = async () => {
     axios
@@ -142,13 +144,13 @@ export default function StickyHeadTable() {
   useEffect(() => {
     getPendingAccounts();
     // getRoles();
-  }, []);
+  }, [getPendingAccounts]);
 
   return (
     <div className="mt-10">
       <Paper className={classes.root}>
-        <Grid container spacing={3} xs="12">
-          <Grid item xs="10">
+        <Grid item={true} container spacing={3} xs={12}>
+          <Grid item={true} xs={10}>
             <div className="flex ml-4 mb-6 mt-4 ">
               <p className="font-bold">List of Pending accounts</p>
               <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
