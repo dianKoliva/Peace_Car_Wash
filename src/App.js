@@ -1,21 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import axios from 'axios';
-import { createBrowserHistory } from 'history';
+import axios from "axios";
+import { createBrowserHistory } from "history";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import "./App.css";
 import { MyContext } from "./MyContext";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Dash from "./components/Dash";
-import DayServices from "./components/dayServices/ServiceList"
+import DayServices from "./components/dayServices/ServiceList";
 import VehichlePayment from "./components/dayServices/VehichlePayment";
-import {  BrowserRouter as Router, Route, Link, Switch  } from "react-router-dom";
-import RegisterDay from "./components/dayServices/DayServices"
-import RentingList from "./components/renting/RentingList"
-import RentingRegister from "./components/renting/RentingRegister"
-import RentPayement from "./components/renting/RentPayement"
-import Settings from "./components/Settings"
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import RegisterDay from "./components/dayServices/DayServices";
+import RentingList from "./components/renting/RentingList";
+import RentingRegister from "./components/renting/RentingRegister";
+import RentPayement from "./components/renting/RentPayement";
+import Settings from "./components/Settings";
 import RentingPayment from "./components/renting/RentPayement";
 // import ProtectedRoute from "./ProtectedRoute";
 import NightList from "./components/nightServices/nyabugogo/NightList";
@@ -29,80 +29,67 @@ import ProtectedRoute from "../src/components/ProtectedRoute";
 import NotFound from "../src/pages/NotFound";
 import ExpenseRegister from "./components/expenses/ExpenseRegister";
 import ExpenseList from "./components/expenses/ExpenseList";
-import Night from "./components/nightServices/NightChoose"
-import RegN from "./components/nightServices/nyabugogo/NightRegister"
+import Night from "./components/nightServices/NightChoose";
+import RegN from "./components/nightServices/nyabugogo/NightRegister";
 import Main from "./components/reports/Main";
-import Daily from "./components/reports/invoices/Daily"
-import TableReport from "./components/reports/TableReport"
-import Weekly from "./components/reports/invoices/Weekly"
+import Daily from "./components/reports/invoices/Daily";
+import TableReport from "./components/reports/TableReport";
+import Weekly from "./components/reports/invoices/Weekly";
 
-import NList from "./components/nightServices/remera/NightList"
-import Redit from "./components/nightServices/remera/EditNight"
-import Reg from "./components/nightServices/remera/NightRegister"
-
+import NList from "./components/nightServices/remera/NightList";
+import Redit from "./components/nightServices/remera/EditNight";
+import Reg from "./components/nightServices/remera/NightRegister";
 
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [open, setOpen] = useState(true);
+  const [serviceList, setServiceList] = useState("");
+  const [toBePayed, setToBePayed] = useState("");
+  const [user, setUser] = useState();
+  const [roles, setRoles] = useState();
+  const [loged, setLoged] = useState(true);
+  const [toEdit, setToEdit] = useState("");
+  const [search, setSearch] = useState("");
+  const [notifications, setNotifications] = useState("");
+  const [groups, setGroups] = useState("");
+  const [reporter, setReporter] = useState("");
+  const [invoicer, setinvoicer] = useState("");
+  const [theReport, setTheReport] = useState("");
 
-const [token,setToken]=useState(localStorage.getItem("token"));
-const [open, setOpen] =useState(true);
-const [serviceList,setServiceList]=useState("");
-const [toBePayed,setToBePayed]=useState("");
-const [user,setUser]=useState(); 
-const [roles,setRoles]=useState();
-const [loged,setLoged]=useState(true);
-const [toEdit,setToEdit]=useState("");
-const [ search,setSearch]=useState("");
-const [ notifications,setNotifications,]=useState("");
-const [groups,setGroups]=useState("");
-const [reporter,setReporter]=useState("");
-const [invoicer,setinvoicer]=useState("");
-const [theReport,setTheReport]=useState("");
+  async function getRoles() {
+    await axios
+      .get("/roles", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((response) => {
+        setRoles(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
+  const getGroups = async () => {
+    await axios
+      .get("/group", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((response) => {
+        setGroups(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-
-
-
-async function getRoles(){
-  await axios.get('/roles',
-  {
-   headers: {
-     'Authorization':token
-
-   }
-   
- }).then((response)=>{
-
-  
-  setServiceList(response.data)
-
- }).catch(error=>{
-   console.log(error);
- })
-}
-
-const getGroups=async()=>{
-  await axios.get('/group',
-  {
-   headers: {
-     'Authorization':token
-
-   }
-   
- }).then((response)=>{
-
-  
-  setGroups(response.data);
-
- }).catch(error=>{
-   console.log(error);
- })
-}
-
-
-
-  useEffect(()=>{
+  useEffect(() => {
     getGroups();
-  },[])
+    getRoles();
+  }, []);
 
   const history = createBrowserHistory();
 
@@ -125,10 +112,15 @@ const getGroups=async()=>{
         setSearch,
         notifications,
         setNotifications,
-        groups,setGroups,
-        reporter,setReporter,
-        invoicer,setinvoicer,
-        theReport,setTheReport
+        groups,
+        setGroups,
+        reporter,
+        setReporter,
+        invoicer,
+        setinvoicer,
+        theReport,
+        setTheReport,
+        roles,
       }}
     >
       <div className="App">
@@ -136,12 +128,18 @@ const getGroups=async()=>{
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
-            <ProtectedRoute path="/app" permissions={["admin","user"]} user={token} exact component={Dash} />
+            <ProtectedRoute
+              path="/app"
+              permissions={["admin", "user"]}
+              user={token}
+              exact
+              component={Dash}
+            />
 
             <ProtectedRoute
               path="/app/settings"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={Settings}
             />
@@ -179,21 +177,21 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/dayservices"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={DayServices}
             />
             <ProtectedRoute
               path="/app/dayservices/payment"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={VehichlePayment}
             />
             <ProtectedRoute
               path="/app/dayservices/register"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={RegisterDay}
             />
@@ -208,50 +206,50 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/nyabugogoNight"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={NightList}
             />
             <ProtectedRoute
               path="/app/night"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={Night}
             />
 
-<ProtectedRoute
+            <ProtectedRoute
               path="/app/night/remera"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={NList}
             />
             <ProtectedRoute
               path="/app/night/remera/edit"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={Redit}
             />
 
-<ProtectedRoute
+            <ProtectedRoute
               path="/app/night/remera/register"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exacts
               component={Reg}
             />
 
-<ProtectedRoute
+            <ProtectedRoute
               path="/app/night/nyabugogo/register"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={RegN}
             />
-    
-    <ProtectedRoute
+
+            <ProtectedRoute
               path="/app/night/nyabugogo/edit"
               user={token}
               permissions={["admin"]}
@@ -262,22 +260,21 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/expense"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={ExpenseList}
             />
             <ProtectedRoute
               path="/app/expense/register"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={ExpenseRegister}
             />
-             <ProtectedRoute
-
+            <ProtectedRoute
               path="/app/reports"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={Main}
             />
@@ -285,21 +282,21 @@ const getGroups=async()=>{
             <ProtectedRoute
               path="/app/invoice/daily"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={Daily}
             />
             <ProtectedRoute
               path="/app/invoice/weekly"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={Weekly}
             />
             <ProtectedRoute
               path="/app/report/table"
               user={token}
-              permissions={["admin","user"]}
+              permissions={["admin", "user"]}
               exact
               component={TableReport}
             />
