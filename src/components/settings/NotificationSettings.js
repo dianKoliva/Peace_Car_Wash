@@ -43,7 +43,9 @@ export default function SavedInputs() {
         <Grid item xs="2">
           <div className="ml-10 text-sm">
             <FormControlLabel
-              control={<Checkbox name="checkedB" color="primary" />}
+              control={
+                <Checkbox name="checkedB" color="primary" checked={true} />
+              }
               label="Email"
               className={classes.font}
             />

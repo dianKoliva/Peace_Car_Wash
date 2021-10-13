@@ -11,7 +11,8 @@ import CryptoENC from "crypto-js/enc-utf8";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    marginTop: "10px",
+    marginTop: "15px",
+    marginRight: "15px",
   },
   marginBottom: {
     marginBottom: "10px",
