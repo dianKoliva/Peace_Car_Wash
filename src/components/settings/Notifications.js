@@ -21,9 +21,8 @@ function Notifications(props) {
   const { classes } = props;
   const { token, setToken } = useContext(MyContext);
   const { notifications, setNotifications } = useContext(MyContext);
+  const [nots, setNots] = useState([]);
   // const [data, setData] = useState(null);
-
-  const formatDate = (date) => new Date(date).toDateString();
 
   const removeNotification = (id, index, type) => {
     let api = type === "day" ? "dactivity" : "nactivity";
@@ -40,45 +39,39 @@ function Notifications(props) {
       )
       .then((res) => {
         let temp = [...notifications];
-        // temp.slice(index, 1);
-        temp = temp.filter((x, i) => i !== index);
+        temp.slice(index, 1);
+        // temp = temp.filter((x, i) => i !== index);
         setNotifications(temp);
       })
       .catch((err) => console.log(err));
   };
 
-  // console.log(data);
+  // console.log(notifications);
+  // useEffect(() => {
+  //   let temp = localStorage.getItem("notifications");
+  //   if (temp) setNots(temp);
+  //   else setNots([]);
+  // }, [notifications]);
 
   return (
     <div className="ml-20">
       <div className="mb-5 font-bold">Notifications</div>
-      {notifications.length > 0 ? (
-        <List className={classes.root}>
-          {notifications &&
-            notifications.map((item, index) => (
-              <ListItem
-                key={item._id}
-                button
-                onClick={() =>
-                  removeNotification(item._id, index, item.car_type)
-                }
-              >
-                <ListItemText
-                  selected
-                  primary={
-                    item.registered_by.first_name +
-                    " " +
-                    item.registered_by.last_name +
-                    " registered a new activity"
-                  }
-                  secondary={formatDate(item.entry_date)}
-                />
-              </ListItem>
-            ))}
-        </List>
-      ) : (
-        <div className="mb-5">No new activities.</div>
-      )}
+
+      <List className={classes.root}>
+        {notifications.length > 0 ? (
+          notifications.map((item, index) => (
+            <ListItem
+              key={index}
+              button
+              onClick={() => removeNotification(index)}
+            >
+              <ListItemText selected primary={item.msg} secondary={item.date} />
+            </ListItem>
+          ))
+        ) : (
+          <div className="mb-5">No new activities.</div>
+        )}
+      </List>
     </div>
   );
 }
