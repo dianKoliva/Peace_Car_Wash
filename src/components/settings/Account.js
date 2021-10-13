@@ -68,7 +68,7 @@ export default function StickyHeadTable() {
       headers: { Authorization: token },
     })
       .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err));
   };
 
   const getAllUsers = async () => {
@@ -101,7 +101,7 @@ export default function StickyHeadTable() {
         if (object === "data") setData(temp);
         else setAllUsers(temp);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err));
   };
 
   const changeRole = async (e, id, object) => {
@@ -118,8 +118,8 @@ export default function StickyHeadTable() {
         { role: e.target.value },
         { headers: { Authorization: token } }
       )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => {})
+      .catch((err) => setError(err));
   };
 
   useEffect(() => {

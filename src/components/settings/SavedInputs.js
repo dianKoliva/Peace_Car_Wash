@@ -36,6 +36,7 @@ export default function SavedInputs() {
   const [log, setLog] = useState("");
   const [creds, setCreds] = useState({});
   const [edited, setEdited] = useState({});
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState("password");
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function SavedInputs() {
           setLog(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          setError(error);
         });
     }
     fetch();
@@ -83,7 +84,7 @@ export default function SavedInputs() {
             role: res.data.user.role,
           });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => setError(err));
     }
   };
   return (

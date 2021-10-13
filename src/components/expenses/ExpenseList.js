@@ -34,8 +34,6 @@ const columns = [
   // { id: "record_date", label: "Record Date", minWidth: 100, align: "left" },
 ];
 
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -80,6 +78,10 @@ const useStyles = makeStyles((theme) => ({
     borderLeft: "1px solid black",
     // // borderLeft: "1px solid black",
   },
+  date_div: {
+    padding: "30px 20px",
+    fontWeight: "bold",
+  },
 }));
 
 export default function ExpenseList() {
@@ -122,20 +124,20 @@ export default function ExpenseList() {
         );
 
         setData(temp);
-        
-      //   await axios.post('/dactivity',json,
-      //   {
-      //    headers: {
-      //      'Authorization': token,
-      //      'Content-Type': 'application/json'
-      //    }
-         
-      //  }).then(res => setIncomeRecords(res.data))
-      //      })
-      //      .catch(err => console.log(err))
+
+        //   await axios.post('/dactivity',json,
+        //   {
+        //    headers: {
+        //      'Authorization': token,
+        //      'Content-Type': 'application/json'
+        //    }
+
+        //  }).then(res => setIncomeRecords(res.data))
+        //      })
+        //      .catch(err => console.log(err))
       })
       .catch((error) => {
-        console.log(error);
+        setError(error);
       });
   }
 
@@ -157,6 +159,7 @@ export default function ExpenseList() {
           setData(temp);
         }
         setPrinting(false);
+        setPrintOption(0);
         // window.open(pdf.output("bloburl")); // to debug
       },
     });
@@ -349,6 +352,12 @@ export default function ExpenseList() {
               </TableBody>
             </Table>
           </TableContainer>
+          <div className={classes.date_div}>
+            Date :{" "}
+            {printOption === "2"
+              ? from_date + " - " + to_date
+              : new Date().toISOString().split("T")[0]}
+          </div>
         </div>
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}

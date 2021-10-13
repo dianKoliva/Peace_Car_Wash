@@ -21,8 +21,7 @@ function Notifications(props) {
   const { classes } = props;
   const { token, setToken } = useContext(MyContext);
   const { notifications, setNotifications } = useContext(MyContext);
-  const [nots, setNots] = useState([]);
-  // const [data, setData] = useState(null);
+  const [error, setError] = useState("");
 
   const removeNotification = (id, index, type) => {
     let api = type === "day" ? "dactivity" : "nactivity";
@@ -43,7 +42,7 @@ function Notifications(props) {
         // temp = temp.filter((x, i) => i !== index);
         setNotifications(temp);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err));
   };
 
   // console.log(notifications);
