@@ -29,8 +29,8 @@ export default function SavedInputs() {
   const classes = useStyles();
   return (
     <Paper>
-      <Grid container xs="12" spacing={2}>
-        <Grid item xs="12">
+      <Grid container xs={12} spacing={2}>
+        <Grid item xs={12}>
           <div className="flex mt-2 mb-2">
             <p className=" font-bold ml-4"> Notification </p>
             <p className="ml-4 text-sm text-gray-500">
@@ -51,7 +51,7 @@ export default function SavedInputs() {
             />
           </div>
         </Grid>
-        <Grid item xs="2">
+        <Grid item xs={2}>
           <div className="ml-10">
             <FormControlLabel
               control={<Checkbox name="checkedB" color="primary" />}
@@ -60,10 +60,10 @@ export default function SavedInputs() {
           </div>
         </Grid>
 
-        <Grid item xs="12">
+        <Grid item xs={12}>
           <Divider></Divider>
         </Grid>
-        <Grid item xs="12">
+        <Grid item xs={12}>
           <Button
             variant="contained"
             color="primary"

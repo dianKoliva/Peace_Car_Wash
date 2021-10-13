@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 import Dash from "./components/Dash";
 import DayServices from "./components/dayServices/ServiceList";
 import VehichlePayment from "./components/dayServices/VehichlePayment";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import socketIOClient from "socket.io-client";
 import RegisterDay from "./components/dayServices/DayServices";
 import RentingList from "./components/renting/RentingList";
 import RentingRegister from "./components/renting/RentingRegister";
@@ -39,6 +40,7 @@ import Weekly from "./components/reports/invoices/Weekly";
 import NList from "./components/nightServices/remera/NightList";
 import Redit from "./components/nightServices/remera/EditNight";
 import Reg from "./components/nightServices/remera/NightRegister";
+const ENDPOINT = "https://garage--backend.herokuapp.com";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -50,7 +52,7 @@ function App() {
   const [loged, setLoged] = useState(true);
   const [toEdit, setToEdit] = useState("");
   const [search, setSearch] = useState("");
-  const [notifications, setNotifications] = useState("");
+  const [notifications, setNotifications] = useState([]);
   const [groups, setGroups] = useState("");
   const [reporter, setReporter] = useState("");
   const [invoicer, setinvoicer] = useState("");
@@ -89,6 +91,21 @@ function App() {
   useEffect(() => {
     getGroups();
     getRoles();
+  }, []);
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    socket.once("new_notification", (data) => {
+      // let nots = localStorage.getItem("notifications");
+      // if (!nots) nots = [];
+      let nots = [...notifications];
+      nots.push({
+        msg: data.message,
+        date: new Date().toISOString().split("T")[0],
+      });
+      setNotifications(nots);
+      // localStorage.setItem("notifications", nots);
+    });
   }, []);
 
   const history = createBrowserHistory();

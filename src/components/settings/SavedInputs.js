@@ -38,8 +38,6 @@ export default function SavedInputs() {
   const [edited, setEdited] = useState({});
   const [showPassword, setShowPassword] = useState("password");
 
-  console.log(user);
-
   useEffect(() => {
     setUser(jwt(token));
 
@@ -91,8 +89,8 @@ export default function SavedInputs() {
   return (
     <Paper>
       {user && (
-        <Grid container xs="12">
-          <Grid item xs="12">
+        <Grid container xs={12}>
+          <Grid item xs={12}>
             <div className="flex mt-2 mb-2">
               <p className=" font-bold ml-4"> Basic Profile </p>
               <p className="ml-4 text-sm text-gray-500">
@@ -101,7 +99,7 @@ export default function SavedInputs() {
             </div>
             <Divider></Divider>
           </Grid>
-          <Grid container xs="6">
+          <Grid container xs={6}>
             <form
               noValidate
               autoComplete="off"
@@ -148,7 +146,7 @@ export default function SavedInputs() {
               />
             </form>
           </Grid>
-          <Grid xs="6" container>
+          <Grid xs={6} container>
             <form noValidate autoComplete="off">
               <TextField
                 label="Last Name"
@@ -170,10 +168,10 @@ export default function SavedInputs() {
               />
             </form>
           </Grid>
-          <Grid item xs="12">
+          <Grid item xs={12}>
             <Divider></Divider>
           </Grid>
-          <Grid item xs="12">
+          <Grid item xs={12}>
             <Button
               variant="contained"
               color="primary"
