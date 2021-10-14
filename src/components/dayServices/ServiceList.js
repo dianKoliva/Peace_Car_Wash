@@ -182,13 +182,13 @@ fetch();
     <Paper className={classes.root}>
       <Grid container spacing={3
       } >
-        <Grid item xs={10}>
+        <Grid item={true} xs={10}>
           <div className="flex ml-4 mb-4 mt-2 ">
             <p className="font-bold">List of vehicles</p>
             <p className="text-sm text-gray-500 ml-2">{data?data.length:0} total</p>
           </div>
         </Grid>
-        <Grid item xs={2} 
+        <Grid item={true} xs={2} 
         >
           
             <Button variant="outlined" color="primary"  onClick={()=>{history.push("/app/dayservices/register")}}>

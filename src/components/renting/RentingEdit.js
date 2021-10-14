@@ -138,6 +138,8 @@ function RentingEdit() {
 const submit=async()=>{
   if(first_name===""||last_name===""||phone_number===""||occupation===""||amount_to_pay===""){
    setError(true);
+  }else if(phone_number.length !== 10){
+    setError('Phone number must be 10 numbers');
   }
   else{
     setError(false);
@@ -188,7 +190,7 @@ const submit=async()=>{
   return (
     <Dashboard>
     <div>
-      <Grid xs="12" container spacing={3}>
+      <Grid item xs={12} container spacing={3}>
         <Grid item xs={6}>
           <Typography variant="h6">Add Renter</Typography>
         </Grid>
@@ -199,7 +201,7 @@ const submit=async()=>{
             establish their workings
           </p>
           {error?<p className="text-red-500 mt-2">Some Fields shouldn't be left empty</p>:null}
-          <Grid xs={12} container spacing={3} className={classes.margin}>
+          <Grid item xs={12} container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
               <TextField
                 margin="dense"
@@ -274,6 +276,7 @@ const submit=async()=>{
                 margin="dense"
                 label="Amount to pay"
                 variant="outlined"
+                type="number"
                 size="small"
                 name="amount_to_pay"
                 value={amount_to_pay}
@@ -285,7 +288,7 @@ const submit=async()=>{
             </Grid>
           </Grid>
 
-          <Grid xs={12} container spacing={3}>
+          <Grid item xs={12} container spacing={3}>
             <Grid item xs={6}>
               <Button
               onClick={()=>{

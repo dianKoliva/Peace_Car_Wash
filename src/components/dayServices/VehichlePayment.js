@@ -38,21 +38,17 @@ function VehichlePayment(props) {
   var dat=new Date();
   var month=dat.getMonth();
   month+=1;
-  var final=`${dat.getFullYear()}-${month}-${dat.getDate()}`
+  var final=`${dat.getFullYear()}-${month}-${dat.getDate()}`;
   const classes = useStyles();
-
-  const [serviceList,setServiceList]=useState([{value:"Washing",name:"Washing"},
-  {value:"Mechanic",name:"Mechanic"}
-  ]);
   const[agree,setAgree]=React.useState(false);
   const[complete,setComplete]=React.useState(false);
-  const[pay,setPay]=React.useState();
-  const[payed,setPayed]=React.useState();
-  const[date,setDate]=React.useState();
-  const[done,setDone]=React.useState();
+  const[pay,setPay]=React.useState('');
+  const[payed,setPayed]=React.useState('');
+  const[date,setDate]=React.useState('');
+  const[done,setDone]=React.useState('');
   const [service,setService]=useState([]);
   const{toBePayed,setToBePayed}=useContext(MyContext)
-  const history=useHistory();
+  const history=useHistory('');
   const {token,setToken}=useContext(MyContext);
   const [error,setError]=React.useState(false);
 
@@ -174,9 +170,7 @@ if(e.target.name==="payed"){
       <Grid  container spacing={3}>
      
         <Grid container  className={classes.margin}>
-          <Grid item xs={12
-          
-          }>
+          <Grid item xs={12}>
              
             <p className="text-lg font-bold">Payment for {toBePayed.plate_number}</p>
             {toBePayed.amount_payed>0? <p className="mt-2 mb-2 text-xs ">Already payed: {toBePayed.amount_payed} frw</p>:null}

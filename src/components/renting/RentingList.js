@@ -281,7 +281,7 @@ export default function StickyHeadTable() {
                                     <Button
                                       variant="contained"
                                       disabled
-                                      className={classes.buttonWid}
+                                      className={classes.complete}
                                     >
                                       {value}
                                     </Button>
