@@ -40,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#f2f3f7",
     color: "#3F51B5",
   },
+  font:{
+    fontSize:"10px"
+  }
+
 }));
 
 export default function Show() {
@@ -81,9 +85,9 @@ export default function Show() {
   }, []);
 
   return (
-    <div>
-      <div>
-        <List>
+    <div className="text-sm">
+      <div className="text-sm">
+        <List >
           <ListItem
             button
             className={
@@ -95,7 +99,7 @@ export default function Show() {
               <DashboardIcon />
             </ListItemIcon>
 
-            <ListItemText primary="Dashboard" />
+            <ListItemText className={classes.font} primary="Dashboard" />
           </ListItem>
 
           <ListItem
