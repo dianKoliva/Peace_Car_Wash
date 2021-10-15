@@ -19,6 +19,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Visibility from '@material-ui/icons/Visibility';
 import moment from 'moment';
 
 const columns = [
@@ -26,7 +27,6 @@ const columns = [
  
   { id: "phone_number", label: "Customer_no", minWidth: 100, align: "left" },
   { id: "entry_date", label: "Entry Date", minWidth: 100, align: "left" },
-  { id: "car_type", label: "Car Type", minWidth: 100, align: "left" },
   { id: "service", label: "Service", minWidth: 100, align: "left" },
   { id: "amount_to_pay", label: "Amount", minWidth: 100, align: "left" },
   { id: "status", label: "status", minWidth: 100 },
@@ -238,6 +238,9 @@ if(col.id==="action"){
   </IconButton>
   <IconButton size="small"  onClick={()=>deleter(num)}  >
   <DeleteIcon   fontSize="small" className="text-gray-500"></DeleteIcon>
+  </IconButton>
+  <IconButton size="small"  >
+  <Visibility   fontSize="small" className="text-gray-500"></Visibility>
   </IconButton>
 
                           </TableCell>
