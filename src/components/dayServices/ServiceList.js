@@ -241,7 +241,7 @@ if(col.id==="action"){
   </IconButton>
   <IconButton size="small" onClick={()=>{history.push({
   pathname: '/app/day/view',
-  state: { data:data}
+  state: data
 })}}  >
   <Visibility   fontSize="small" className="text-gray-500"></Visibility>
   </IconButton>

@@ -14,8 +14,15 @@ const useStyles = makeStyles({
   root: {
     width: "50%",
     marginLeft:"20%",
-    marginTop:"10%"
+    marginTop:"15%"
   },
+  text:{
+      fontSize:"12px",
+      marginLeft:"4px",
+      textDecoration:"underline",
+      color:"#3F51B5",
+      letterSpacing:"1px"
+  }
  
 });
 
@@ -25,13 +32,14 @@ const useStyles = makeStyles({
 export default function StickyHeadTable() {
   const classes = useStyles();
   const state = useHistory();
-  const  data  = state.location.state.data;
+  const  data  = state.location.state
+  console.log(data)
 
  
   return (
     <Dashboard>
     <Paper className={classes.root}>
-     <p className="text-sm font-bold p-4">Car Details</p>
+     <p className=" font-bold p-4 pl-14">Car Details <span className={classes.text} >edit</span></p>
 
 
      {/* amount_payed: 5002000
@@ -53,57 +61,51 @@ taker_number: "0788132345" */}
 
 
 
-<div className="flex pb-4">
+<div className="flex pb-4 text-xs">
     <div className="ml-14">
 
 <div className="flex">
     <p>Plate number:</p>
-    <p>o---</p>
+    <p className="ml-2">{data.plate_number}</p>
 </div>
 <div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
+    <p>Customer name:</p>
+    <p className="ml-2">{data.customer_name}</p>
 </div>
 <div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
+    <p>Customer number:</p>
+    <p className="ml-2">{data.phone_number}</p>
 </div>
 <div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
+    <p>Service:</p>
+    <p className="ml-2">{data.service}</p>
 </div>
-<div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
-</div>
+
 
     </div>
 
 
     <div className="ml-14">
+    <div className="flex">
+    <p>Entry Date: </p>
+    <p className="ml-2">{data.entry_date}</p>
+</div>
+    <div className="flex">
+    <p>Amount Payed: </p>
+    <p className="ml-2"> {data.amount_payed}</p>
+</div>
 
 
 
     <div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
+    <p>Care Taker: </p>
+    <p className="ml-2">{data.taker_fname} {data.taker_lname}</p>
 </div>
 <div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
+    <p>Taker Number: </p>
+    <p className="ml-2">{data.taker_number}</p>
 </div>
-<div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
-</div>
-<div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
-</div>
-<div className="flex">
-    <p>Plate number</p>
-    <p>o---</p>
-</div>
+
 
 
     </div>
