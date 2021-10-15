@@ -41,6 +41,9 @@ import Redit from "./components/nightServices/remera/EditNight"
 import Reg from "./components/nightServices/remera/NightRegister"
 
 
+import ShowDay from "./components/dayServices/ShowDay"
+
+
 function App() {
 
 const [token,setToken]=useState(localStorage.getItem("token"));
@@ -196,6 +199,13 @@ const getGroups=async()=>{
               permissions={["admin","user"]}
               exact
               component={RegisterDay}
+            />
+               <ProtectedRoute
+              path="/app/day/view"
+              user={token}
+              permissions={["admin","user"]}
+              exact
+              component={ShowDay}
             />
             <ProtectedRoute
               path="/app/dayservices/edit"

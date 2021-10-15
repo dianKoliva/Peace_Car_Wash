@@ -239,7 +239,10 @@ if(col.id==="action"){
   <IconButton size="small"  onClick={()=>deleter(num)}  >
   <DeleteIcon   fontSize="small" className="text-gray-500"></DeleteIcon>
   </IconButton>
-  <IconButton size="small"  >
+  <IconButton size="small" onClick={()=>{history.push({
+  pathname: '/app/day/view',
+  state: { data:data}
+})}}  >
   <Visibility   fontSize="small" className="text-gray-500"></Visibility>
   </IconButton>
 
