@@ -189,6 +189,7 @@ export default function StickyHeadTable() {
                       </TableCell>
                       <TableCell align="left">
                         <Button
+                          title="Approve"
                           onClick={() =>
                             changeAccountStatus(item._id, "APPROVED", "data")
                           }
@@ -290,6 +291,7 @@ export default function StickyHeadTable() {
                       </TableCell>
                       <TableCell align="left">
                         <Button
+                          title="Suspend User"
                           onClick={() =>
                             changeAccountStatus(item._id, "PENDING", "users")
                           }
@@ -300,6 +302,7 @@ export default function StickyHeadTable() {
                           ></CloseIcon>
                         </Button>
                         <Button
+                          title="Delete User"
                           onClick={() =>
                             changeAccountStatus(item._id, "DELETE", "users")
                           }
