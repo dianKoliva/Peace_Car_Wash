@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
     minwidth: 400,
   },
   blueBut: {
-    backgroundColor: "#e0e0e0",
-    color: "black",
+    backgroundColor: "#FF5756",
+    color: "white",
   },
 
   width: {
@@ -113,10 +113,9 @@ function ExpenseRegister() {
       axios
         .post("/expense", newExpense, { headers: { Authorization: token } })
         .then((res) => {
-          console.log(res.data);
           history.push("/app/expense");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => setError(err));
     }
   };
 
