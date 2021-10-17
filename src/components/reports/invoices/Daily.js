@@ -25,12 +25,21 @@ function Daily(){
   const {invoicer,setInvoicer}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
   const [data,setData]=useState("");
-  const [coaster,setCoaster]=useState(0);
-  const [bus,setBus]=useState(0);
-  const [cunit,setCunit]=useState(0);
-  const [bunit,setBunit]=useState(0);
+  const [coaster,setCoaster]=useState(20);
+  const [bus,setBus]=useState(20);
+  const [cunit,setCunit]=useState();
+  const [bunit,setBunit]=useState();
   const classes=useStyles();
-
+  const[bnet,setBnet]=useState(0);
+  const [bvat,setbvat]=useState(0);
+  const [btotal,setbtotal]=useState(0);
+  const[cnet,setCnet]=useState(0);
+  const [cvat,setcvat]=useState(0);
+  const [ctotal,setctotal]=useState(0);
+  const [total,setTotal]=useState(0);
+  const [totalV,setTotalV]=useState(0);
+  const [totalN,setTotalN]=useState(0);
+  const [totalQ,setTotalQ]=useState(0);
 
   async function nyabu(){
     await axios.get('/night.ng',
@@ -40,34 +49,77 @@ function Daily(){
      }
      
    }).then((response)=>{
-   console.log(response);
+    setData(response.data)
    }).catch(error=>{
      console.log(error);
    })
    }
 
+   async function rem(){
+    await axios.get('/night.rm',
+    {
+     headers: {
+       'Authorization':token
+    }
+     
+   }).then((response)=>{
+     setData(response.data); 
+   }).catch(error=>{
+     console.log(error);
+   })
+  }
+
+
   useEffect(()=>{
-nyabu();
-
-
+    if(invoicer.branch==="nyabugogo"){
+      nyabu();
+      
+    }
+    else {
+      rem();
+    }
   },[])
 
-  if(data){
-    let c=coaster;
-  let b=bus;
-    for(let i=0;i>data.length;i++){
-      if(data[i].car_type.toLoweCase==="coaster"){
-      c++;
-       setCoaster( c);
-      }
-      else{
-        b++;
-        setBus( b);
-      }
-  }
+  function number(e){
+if(e.target.name==="c"){
   
+  setCunit(e.target.value);
+  console.log(cunit);
+}
+else{
+  setBunit(e.target.value);
+  console.log(bunit);
+}
   
   }
+
+//   useEffect(()=>{
+//     if(data){
+//       if(invoicer.from !=="" ){
+//     let info = data.filter((d) => d.entry_date.split("T")[0] === invoicer.from);
+//     setData(info)
+//     if(info){
+// for(var i=0;i<info.length;i++){
+//   if (info.car_type==="Bus")
+//   {
+//     var b=bus;
+//     b++;
+//     setBus(b);
+
+//   }
+//   else{
+//     var c=coaster;
+//     c++;
+//     setCoaster(c);
+//   }
+// }
+//     }
+//       }
+    
+//      }
+//   },[data])
+
+ 
 
   function gen()
 {
@@ -96,24 +148,36 @@ nyabu();
                 margin="dense"
                 label="Coaster unit price"
                 variant="outlined"
-                name="plate"
+                name="c"
                 size="small"
                 className={classes.width}
                value={cunit}
-               onChange={(e)=>setCunit(e.target.value)}
+               onChange={(e)=>
+                {
+              number(e)
+                }
+                
+               
+              }
               />
               <div className="ml-6">
 
               </div>
-               <TextField
+              <TextField
                 margin="dense"
                 label="Bus unit price"
                 variant="outlined"
-                name="plate"
+                name="b"
                 size="small"
-                className={`${classes.width} `}
-                 value={bunit}
-                onChange={(e)=>setBunit(e.target.value)}
+                className={classes.width}
+               value={bunit}
+               onChange={(e)=>
+                {
+              number(e)
+                }
+                
+               
+              }
               />
       </div>
           <div className="ml-96 mt-10 " >
@@ -138,28 +202,28 @@ nyabu();
     <td  className="border-solid border-2 border-black p-4">Bus</td>
     <td className="border-solid border-2 border-black p-4">{bus}</td>
     <td className="border-solid border-2 border-black p-4">{bunit}</td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4" ></td>
+    <td className="border-solid border-2 border-black p-4">{bnet}</td>
+    <td className="border-solid border-2 border-black p-4">{bvat}</td>
+    <td className="border-solid border-2 border-black p-4" >{btotal}</td>
   </tr>
   <tr >
   <td className="border-solid border-2 border-black p-4"></td>
     <td  className="border-solid border-2 border-black p-4">Coaster</td>
     <td className="border-solid border-2 border-black p-4">{coaster}</td>
     <td className="border-solid border-2 border-black p-4">{cunit}</td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4"></td>
-    <td className="border-solid border-2 border-black p-4" ></td>
+    <td className="border-solid border-2 border-black p-4">{cnet}</td>
+    <td className="border-solid border-2 border-black p-4">{cvat}</td>
+    <td className="border-solid border-2 border-black p-4" >{ctotal}</td>
   </tr>
 
   <tr>
   <td className="border-solid border-2 border-black p-4" colSpan="2">Total</td>
     
-    <td className="border-solid border-2 border-black p-4 " colSpan="2">105</td>
+    <td className="border-solid border-2 border-black p-4 " colSpan="2">{totalQ}</td>
     
-    <td className="border-solid border-2 border-black p-4">34545</td>
-    <td className="border-solid border-2 border-black p-4">898989</td>
-    <td className="border-solid border-2 border-black p-4" >899898</td>
+    <td className="border-solid border-2 border-black p-4">{totalN}</td>
+    <td className="border-solid border-2 border-black p-4">{totalV}</td>
+    <td className="border-solid border-2 border-black p-4" >0</td>
   </tr>
   
   </tbody>

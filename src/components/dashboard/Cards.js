@@ -32,7 +32,7 @@ const classes=useStyles();
     <div>
      <Grid container spacing={3} >
        {cardInfo.map((info,index)=>(
-         <Grid item xs={4} key={index}>
+         <Grid item={true} xs={4} key={index}>
          <Paper className={classes.paper}>
            <div className="flex">
            <div className="ml-4 pt-2">

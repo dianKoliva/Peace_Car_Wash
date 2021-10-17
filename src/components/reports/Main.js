@@ -12,9 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { CheckBox, LocalGasStationRounded } from "@material-ui/icons";
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import App from "../../App";
-
-
-
+import { buildQueries } from "@testing-library/dom";
 
 
 const useStyles = makeStyles({
@@ -50,31 +48,33 @@ export default function StickyHeadTable() {
   const [invoBranch,setInvoBra]=useState("");
   const [invoFrom,setInvoFrom]=useState("");
   const [invoTo,setInvoTo]=useState("");
-  const [invoNyabu,setinvoNyabu]=useState("Nyabugogo");
-  const [invoRem,setInvoRem]=useState("Remera");
+  const [invoNyabu,setinvoNyabu]=useState("nyabugogo");
+  const [invoRem,setInvoRem]=useState("remera");
   const [invoDay,setInvoDay]=useState("daily");
   const [invoWeek,setInvoWeek]=useState("weekly");
   const {invoicer,setinvoicer}=useContext(MyContext);
   const {theReport,setTheReport}=useContext(MyContext);
 
+
+  const [dayReport,setDayReport]=useState("");
+  const [dayServiceDaily, setDayServiceDaily]= useState(false);
+  
   const {reporter,setReporter}=useContext(MyContext);
   const history=useHistory();
 
 
-  const printReport=(type,branch,from,to)=>{
 
-    let d={type:type,branch:branch,from:from,to:to}
-
-    setTheReport(branch);
-    console.log(theReport);
-    
-      // history.push("/app/report/table");
-   
+  const printDayReport=(type,from,to)=>{
+    history.push("/app/dayReport/table", {
+      dayReportData:{type,to,from},
+    });
   }
 
   const printInvoice=(invoice,invoBranch,invoTo,invoFrom)=>{
 
-    setinvoicer({"type":invoice,"branch":invoBranch,"from":invoFrom,"to":invoTo});
+    setinvoicer({invoice:invoice,branch:invoBranch,from:invoFrom,to:invoTo});
+
+  
 
     if(invoice==="daily"){
 
@@ -98,7 +98,7 @@ history.push("/app/invoice/daily")
   return (
     <Dashboard>
     <Grid container spacing={3}>
-        <Grid item xs={6} >
+        <Grid item={true} xs={6} >
         <Paper className={classes.root}>
         <div className="p-6">
         <p className="mb-4">Night Services</p>
@@ -176,7 +176,6 @@ history.push("/app/invoice/daily")
                 variant="outlined"
                 value={to}
                 type="date"
-            
                 size="small"
                 name="entry_date"
                 className={`${classes.width} ${classes.margin}`}
@@ -192,7 +191,12 @@ history.push("/app/invoice/daily")
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
-                  printReport(report,branch,from,to)               
+                
+                  var b={"type":report,"branch":branch,"from":from,"to":to}
+                  
+                  setTheReport(b);
+                 
+                  history.push("/app/report/table")          
                 }}
               >
               Get Report    
@@ -203,9 +207,9 @@ history.push("/app/invoice/daily")
     </Paper>
         </Grid>
 
-<Grid item xs={6}></Grid>
+<Grid item={true} xs={6}></Grid>
 
-<Grid item xs={6}>
+<Grid item={true} xs={6}>
         <Paper className={classes.root}>
         <div className="p-6">
         <p className="mb-4">Night Invoices</p>
@@ -298,7 +302,18 @@ history.push("/app/invoice/daily")
                 color="primary"
                 className={`${classes.greenBut} ${classes.width} mt-2`}
                 onClick={()=>{
-                printInvoice(invoice,invoBranch,invoTo,invoFrom);
+                
+                // printInvoice(invoice,invoBranch,invoTo,invoFrom);
+                var b={"type":invoice,"branch":invoBranch,"from":invoFrom,"to":invoTo}
+                setinvoicer(b);
+                if(b.type==="daily"){
+                  history.push("/app/invoice/daily");
+                }
+                else{
+                  history.push("/app/invoice/weekly")
+                }
+               
+                
                 }}
               >
                Get Invoice
@@ -309,6 +324,97 @@ history.push("/app/invoice/daily")
     </Paper>
         </Grid>
 
+        <Grid item={true} xs={6}></Grid>
+
+        <Grid item={true} xs={6} >
+        <Paper className={classes.root}>
+        <div className="p-6">
+        <p className="mb-4">Day Services</p>
+        <div className="flex">
+       
+        <FormControl
+                variant="outlined"
+                size="small"
+                className={` ${classes.width}`}
+                margin="dense"
+               
+              >
+                <InputLabel>Report Type</InputLabel>
+                <Select label="Report Type"
+                value={dayReport}
+                onChange={(e)=>{
+                  setDayReport (e.target.value);  
+                   if(e.target.value==="daily"){
+                    setDayServiceDaily(true);
+                  }else{
+                    setDayServiceDaily(false);
+                  }      
+               }}
+                
+                >
+              
+           
+          <MenuItem value={daily} >Daily Report</MenuItem>
+          <MenuItem value={weekly} >Weekly Report</MenuItem>
+                 
+                </Select>
+              </FormControl>
+
+              
+        </div>
+        <div className="flex">
+
+        <TextField
+                margin="dense"
+                id="date"
+                label="From"
+                variant="outlined"
+                value={from}
+                type="date"
+                disabled={dayServiceDaily}
+                size="small"
+                name="entry_date"
+                className={`${classes.width} `}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                 onChange={(e)=>setFrom(e.target.value)}
+              />
+
+<TextField
+                margin="dense"
+                id="date"
+                label="To"
+                variant="outlined"
+                value={to}
+                type="date"
+                disabled={dayServiceDaily}
+                size="small"
+                name="entry_date"
+                className={`${classes.width} ${classes.margin}`}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e)=>setTo(e.target.value)}
+              />
+
+        </div>
+        <Button
+                variant="contained"
+                color="primary"
+                className={`${classes.greenBut} ${classes.width} mt-2`}
+                onClick={()=>{
+                  printDayReport(dayReport,from,to)               
+                }}
+              >
+              Get Report    
+              </Button>
+
+        </div>
+    
+    </Paper>
+        </Grid>
+        
     </Grid>
    
     </Dashboard>

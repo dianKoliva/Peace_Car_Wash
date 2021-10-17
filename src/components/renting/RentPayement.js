@@ -67,8 +67,6 @@ function RentingPayment() {
   const [payment_status, setpayment_status]= useState(rental.amount_remaining);
   const {token,setToken}=useContext(MyContext);
 
-  
-console.log(rental);
   const[error,setError]=useState();
 
   const  handleBlur=(e)=>{
@@ -95,7 +93,6 @@ const submit=async()=>{
       amount_payed: amount_payed,
       payment_date:payment_date
     })
-    console.log(json);
    await axios.put(`/rent/pay/${rental._id}`,json,
    {
     headers: {
@@ -123,12 +120,12 @@ const submit=async()=>{
   return (
     <Dashboard>
     <div>
-      <Grid xs="12" container spacing={3}>
+      <Grid item xs={12} container spacing={3}>
         <Grid item xs={6}>
           <Typography variant="h6">Rent Payment</Typography>
         </Grid>
-        <Grid container xs="12" className={classes.margin}>
-          <Grid item xs="12">
+        <Grid container item xs={12} className={classes.margin}>
+          <Grid item xs={12}>
             <p className="text-lg font-bold">
               Make Payment For Rent in Peace Car Wash
             </p>
@@ -136,12 +133,32 @@ const submit=async()=>{
               Pay now individual or group to rent place where they can establish
               their workings
             </p>
+            {rental.payment_status === "INCOMPLETE"? (
+              <p className="pt-4 text-sm text-gray-500">
+              Amount payed <span className="font-bold text-red-500">{rental.amount_payed}</span> 
+            </p>
+            ):null}
+            
           </Grid>
-          <Grid item xs="6" className={`${classes.othermargin}`}>
+          <Grid item xs={6} className={`${classes.othermargin}`}>
             <TextField
+              margin="dense"
+              label="Amount To Pay"
+              variant="outlined"
+              type="number"
+              size="small"
+              value={rental.amount_to_pay}
+              className={classes.width}
+            />
+            <br></br>
+          </Grid>
+
+          <Grid item xs={6} className={`${classes.othermargin}`}>
+          <TextField
               margin="dense"
               label="Amount"
               variant="outlined"
+              type="number"
               size="small"
               className={classes.width}
               name="amount_payed"
@@ -150,53 +167,11 @@ const submit=async()=>{
                 }}
             />
             <br></br>
-            <FormControlLabel
-              className={`${classes.inputmag}`}
-              control={
-                <Checkbox
-                  color="primary"
-                  inputProps={{ "aria-label": "secondary checkbox" }}
-                />
-              }
-              label="Accept Terms and Conditions"
-            />
           </Grid>
-
-          <Grid item xs="6" className={`${classes.othermargin}`}>
-            <TextField
-              margin="dense"
-              id="date"
-              label="Payement Date"
-              variant="outlined"
-              type="date"
-              size="small"
-              className={classes.width}
-              name="payment_date"
-                onChange={(e)=>{
-                  handleBlur(e);
-                }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <br></br>
-            <FormControlLabel
-              className={`${classes.inputmag}`}
-              control={
-                <Checkbox
-                  color="primary"
-                  inputProps={{ "aria-label": "secondary checkbox" }}
-                />
-              }
-              label="Completed Payment"
-            />
-          </Grid>
-          <Grid xs={12} container spacing={3} className={classes.inputmag}>
+          <Grid item xs={12} container spacing={3} className={classes.inputmag}>
             <Grid item xs={6}>
               <Button
                onClick={()=>{
-                // setPayRent(true);
-                // setNewRenter(false)
                 history.goBack()
               }}
                 variant="contained"

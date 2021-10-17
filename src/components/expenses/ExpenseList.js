@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useCallback,useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -87,6 +87,9 @@ const useStyles = makeStyles((theme) => ({
 export default function ExpenseList() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
+  
+  const [today,setTodai]=useState("today");
+  const [range,setRange]=useState("range");
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [error, setError] = React.useState("");
   const [data, setData] = React.useState([]);
@@ -108,7 +111,7 @@ export default function ExpenseList() {
     setPage(0);
   };
 
-  async function fetch() {
+  const fetch = useCallback( async() => {
     await axios
       .get("/expense", {
         headers: {
@@ -139,9 +142,9 @@ export default function ExpenseList() {
       .catch((error) => {
         setError(error);
       });
-  }
+  },[token]);
 
-  const printDocument = (reset) => {
+  const printDocument = useCallback( (reset) => {
     let pdf = new jsPDF("l", "pt", [595, 842]);
     pdf.html(document.getElementById("pdfdiv"), {
       callback: function () {
@@ -163,7 +166,7 @@ export default function ExpenseList() {
         // window.open(pdf.output("bloburl")); // to debug
       },
     });
-  };
+  },[allRecords]);
 
   const handlePrintRange = () => {
     let temp = [...allRecords];
@@ -181,14 +184,14 @@ export default function ExpenseList() {
   useEffect(() => {
     fetch();
     // fetchRental();
-  }, []);
+  }, [fetch]);
 
   useEffect(() => {
     if (from_date && to_date) {
       // if (printDocument()) {
       setPrinting(true);
     }
-  }, [data]);
+  }, [data,from_date, to_date]);
 
   useEffect(() => {
     if (printOption === "2") setOpenDial(true);
@@ -197,21 +200,21 @@ export default function ExpenseList() {
 
   useEffect(() => {
     if (printing) printDocument(true);
-  }, [printing]);
+  }, [printing,printDocument]);
 
   const history = useHistory();
 
   return (
     <Dashboard>
       <Paper className={classes.root}>
-        <Grid container spacing={3} xs="12">
-          <Grid item xs="8">
+        <Grid item={true} container spacing={3} xs={12}>
+          <Grid item={true} xs={8}>
             <div className="flex ml-4 mb-6 mt-4 ">
               <p className="font-bold">List of Daily Expenses</p>
               <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
             </div>
           </Grid>
-          <Grid item xs="2">
+          <Grid item={true} xs={2}>
             <div className="ml-6 mb-2 mt-1">
               <Button
                 variant="outlined"
@@ -227,7 +230,7 @@ export default function ExpenseList() {
               </Button>
             </div>
           </Grid>
-          <Grid item xs="2">
+          <Grid item={true} xs={2}>
             <div className="ml-6 mb-2">
               <IconButton
                 value="ddd"
@@ -250,8 +253,8 @@ export default function ExpenseList() {
                   // open={false}
                   onChange={(e) => setPrintOption(e.target.value)}
                 >
-                  <MenuItem value="1">Today</MenuItem>
-                  <MenuItem value="2">Range</MenuItem>
+                  <MenuItem value={0}>Today</MenuItem>
+                  <MenuItem value={1}>Range</MenuItem>
                   {/* <MenuItem value="3">3</MenuItem> */}
                 </Select>
               </FormControl>
@@ -263,7 +266,8 @@ export default function ExpenseList() {
           id="pdfdiv"
         >
           <TableContainer
-            className={[classes.container, printing && classes.borderLB]}
+            // className={[classes.container, printing && classes.borderLB]}
+            // !!!!!!!! keli uzashake ubundi buryo ukoresha butari array kuko biteza error muri browser ko className itakira array
           >
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -273,10 +277,12 @@ export default function ExpenseList() {
                       key={index}
                       align={column.align}
                       style={{ minWidth: column.minWidth }}
-                      className={[
-                        classes.background,
-                        printing && classes.borderClass,
-                      ]}
+                      // className={[
+                      //   classes.background,
+                      //   printing && classes.borderClass,
+                      // ]}
+                      // !!!!!!!! keli uzashake ubundi buryo ukoresha butari array kuko biteza error muri browser ko className itakira array
+
                     >
                       {column.label}
                     </TableCell>
@@ -329,10 +335,12 @@ export default function ExpenseList() {
                   className={printing ? classes.borderClass : classes.classNone}
                 >
                   <TableCell
-                    className={[
-                      printing && classes.borderClass,
-                      classes.background,
-                    ]}
+                    // className={[
+                    //   printing && classes.borderClass,
+                    //   classes.background,
+                    // ]}
+                    // !!!!!!!! keli uzashake ubundi buryo ukoresha butari array kuko biteza error muri browser ko className itakira array
+
                   >
                     Total
                   </TableCell>

@@ -83,9 +83,10 @@ function DayServices() {
   const [payment_status, setpayment_status]= useState("pending");
   const [registration_date, setregistration_date]= useState(fromDatetoDate(new Date()));
   
-  const[error,setError]=useState();
+  const[error,setError]=useState('');
 
   const  handleBlur=(e)=>{
+
 
     if(e.target.name==="first_name"){
       if (e.target.value==="") {
@@ -110,6 +111,7 @@ function DayServices() {
         
       }
       else{
+
         setphone_number(e.target.value);
       }
     }
@@ -137,11 +139,11 @@ function DayServices() {
 const submit=async()=>{
 
   if(first_name===""||last_name===""||phone_number===""||occupation===""||amount_to_pay===""){
-   setError(true);
-  }
-
-  else{
-    setError(false);
+   setError(`Some Fields shouldn't be left empty`);
+  }else if(phone_number.length !== 10){
+    setError('Phone number must be 10 numbers');
+  }else{
+    setError('');
     const json = JSON.stringify({
       first_name: first_name,
       last_name: last_name,
@@ -149,7 +151,6 @@ const submit=async()=>{
       occupation: occupation,
       amount_to_pay: amount_to_pay,
     })
-    console.log(json);
    await axios.post('/rent',json,
    {
     headers: {
@@ -180,7 +181,7 @@ const submit=async()=>{
   return (
     <Dashboard>
     <div>
-      <Grid xs="12" container spacing={3}>
+      <Grid item xs={12} container spacing={3}>
         <Grid item xs={6}>
           <Typography variant="h6">Add Renter</Typography>
         </Grid>
@@ -190,8 +191,8 @@ const submit=async()=>{
             Register new individual or group to rent place where they can
             establish their workings
           </p>
-          {error?<p className="text-red-500 mt-2">Some Fields shouldn't be left empty</p>:null}
-          <Grid xs={12} container spacing={3} className={classes.margin}>
+          {error?<p className="text-red-500 mt-2">{error}</p>:null}
+          <Grid item xs={12} container spacing={3} className={classes.margin}>
             <Grid item xs={6}>
               <TextField
                 margin="dense"
@@ -205,11 +206,10 @@ const submit=async()=>{
                 }}
               />
               <TextField
+                type="tel"
                 margin="dense"
                 label="Phone Number"
                 variant="outlined"
-                // inputProps={{ style: { fontSize: 17 } }}
-                // InputLabelProps={{ style: { fontSize: 15 } }}
                 size="small"
                 name="phone_number"
                 className={`${classes.width} ${classes.otherMarg}`}
@@ -258,6 +258,7 @@ const submit=async()=>{
                 }}
               />
               <TextField
+              type="number"
                 margin="dense"
                 label="Amount to pay"
                 variant="outlined"
@@ -271,7 +272,7 @@ const submit=async()=>{
             </Grid>
           </Grid>
 
-          <Grid xs={12} container spacing={3}>
+          <Grid item xs={12} container spacing={3}>
             <Grid item xs={6}>
               <Button
               onClick={()=>{

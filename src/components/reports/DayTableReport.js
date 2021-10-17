@@ -13,100 +13,67 @@ import { Button } from '@material-ui/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { MyContext } from '../../MyContext';
-import axios from 'axios'
-import { set } from 'lodash';
-import { Report } from '@material-ui/icons';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import moment from 'moment';
 
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
-  bold:{
-    fontWeight:"bold"
-  }
 });
 
 
 export default function BasicTable() {
   const classes = useStyles();
+  const state = useHistory();
+  const  dayReportData  = state.location.state.dayReportData;
   const [data,setData]=useState();
-  const {theReport,setTheReport}=useContext(MyContext);
   const {token,setToken}=useContext(MyContext);
 
-  async function nyabu(){
-    await axios.get('/night.ng',
+  async function dayActivity(){
+    await axios.get('/dactivity',
     {
      headers: {
        'Authorization':token
     }
      
    }).then((response)=>{
-     setData(response.data);
-    
-     
-  
-    
-   }).catch(error=>{
-     console.log(error);
-   })
-  }
+    const res = response.data.activities;
+    const weeklyDayServices = [];
+    const DailyDayService = [];
 
-  async function rem(){
-    await axios.get('/night.rm',
-    {
-     headers: {
-       'Authorization':token
-    }
-     
-   }).then((response)=>{
-     setData(response.data);
-    
-     
-  
-    
-   }).catch(error=>{
-     console.log(error);
-   })
-  }
-
-  useEffect(()=>{
-   
-  if(theReport.branch==="nyabugogo"){
-nyabu();
-  }
-  else{
-    rem();
-  }
- 
-  },[])
-
-  useEffect(()=>{
-
-    
-
-   if(theReport.type==="daily"){
-      if(theReport.from !=="" ){
-        if (data){
- let info = data.filter((d) => d.entry_date.split("T")[0] === theReport.from);
- setData(info)
+    for (let index = 0; index < res.length; index++) {
+        const element = res[index];
+        console.log(moment(moment(element.entry_date).format('L')).isAfter(moment(dayReportData.from).format('L')),"  ",moment(element.entry_date).format('L')," and ",moment(dayReportData.from).format('L'));
+        console.log(moment(moment(element.entry_date).format('L')).isBefore((moment(dayReportData.to).format('L'))),"  ",moment(element.entry_date).format('L')," and ",moment(dayReportData.to).format('L'));
+        if(moment(moment(element.entry_date).format('L')).isSame((moment(new Date()).format('L')))){
+            DailyDayService.push(element);
+        }else if( dayReportData.to !== "" && dayReportData.from !== "" ){
+            if(moment(moment(element.entry_date).format('L')).isAfter((moment(dayReportData.from).format('L'))) && moment(moment(element.entry_date).format('L')).isBefore((moment(dayReportData.to).format('L')))){
+                weeklyDayServices.push(element);
+            }
+        }else{
+            setData(response.data.activities);  
         }
-     
-   
-      } 
-   }
-   else{
-     if(data){
-      if(theReport.from !=="" &&theReport.to !==""){
-      let info = data.filter((d) => d.entry_date.split("T")[0] >= theReport.from && d.entry_date.split("T")[0] <= theReport.to);
-      setData(info);
-      }
-    }
     }
 
-   
-  },[data])
+    if(dayReportData.type === "daily"){
+        setData(DailyDayService);
+    }else{
+        setData(weeklyDayServices)
+    }
 
+    //  setData(response.data.activities);   
+   }).catch(error=>{
+     console.log(error);
+   })
+  }
+
+  useEffect(()=>{
+    dayActivity();
+  },[]) 
   function gen()
   {
   
@@ -134,17 +101,17 @@ nyabu();
       <Table className={classes.table} aria-label="simple table" id="print">
         <TableHead>
           <TableRow>
-            <TableCell align="center" className={classes.bold}>Number</TableCell>
+            <TableCell align="center">Number</TableCell>
             
-            <TableCell align="center" className={classes.bold}>Date</TableCell>
-            <TableCell align="center" className={classes.bold}>Car Type</TableCell>
-            <TableCell align="center" className={classes.bold}>Plate number</TableCell>
-            <TableCell align="center" className={classes.bold}>Observation</TableCell>
+            <TableCell align="center">Date</TableCell>
+            <TableCell align="center">Car Type</TableCell>
+            <TableCell align="center">Plate number</TableCell>
+            <TableCell align="center">Observation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data?data.map((row,index) => (
-            <TableRow key={row.name}>
+            <TableRow key={row._id}>
               <TableCell  align="center">
                 {index+1}
               </TableCell>

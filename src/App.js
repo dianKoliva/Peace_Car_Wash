@@ -18,7 +18,7 @@ import RentingRegister from "./components/renting/RentingRegister";
 import RentPayement from "./components/renting/RentPayement";
 import Settings from "./components/Settings";
 import RentingPayment from "./components/renting/RentPayement";
-// import ProtectedRoute from "./ProtectedRoute";
+import DayTableReport from "./components/reports/DayTableReport";
 import NightList from "./components/nightServices/nyabugogo/NightList";
 
 import AfterSignUp from "./pages/AfterSigUp";
@@ -316,6 +316,13 @@ function App() {
               permissions={["admin", "user"]}
               exact
               component={TableReport}
+            />
+            <ProtectedRoute
+              path="/app/dayReport/table"
+              user={token}
+              permissions={["admin","user"]}
+              exact
+              component={DayTableReport}
             />
 
             <Route path="/wait" exact component={AfterSignUp} />

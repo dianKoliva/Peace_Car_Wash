@@ -19,6 +19,7 @@ import { MyContext } from "../../MyContext";
 import Dashboard from "../../layout/Dashboard";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import moment from 'moment';
 
 const columns = [
   { id: "last_name", label: "Customer", minWidth: 100, align: "left" },
@@ -102,6 +103,21 @@ export default function StickyHeadTable() {
       rental: data[index],
     });
   };
+
+  const calculateRentalMonth = async()=>{
+    for (let index = 0; index < data.length; index++) {
+      const timeToPay = moment(new Date(data[index].registration_date)).add(30, 'days').calendar();
+      if(new Date(timeToPay) === new Date()){
+        
+        // console.log("it is time to pay for :",data[index].last_name,"\n");
+        //call an api to register a notification
+        
+      }else{
+        // console.log("it is not time to pay for :",data[index].last_name,"\n");
+        continue;
+      }
+    }
+  }
   const fetch = async () => {
     await axios
       .get("/rent", {
@@ -118,6 +134,7 @@ export default function StickyHeadTable() {
   };
   useEffect(() => {
     fetch();
+    calculateRentalMonth();
   }, []);
 
   const deleteRent = async (index) => {
@@ -152,14 +169,14 @@ export default function StickyHeadTable() {
   return (
     <Dashboard>
       <Paper className={classes.root}>
-        <Grid container spacing={3} xs="12">
-          <Grid item xs="10">
+        <Grid item={true} container spacing={3} xs={12}>
+          <Grid item={true} xs={10}>
             <div className="flex ml-4 mb-6 mt-4 ">
               <p className="font-bold">List of Renters</p>
               <p className="text-sm text-gray-500 ml-2">{data.length} total</p>
             </div>
           </Grid>
-          <Grid item xs="2">
+          <Grid item={true} xs={2}>
             <div className="ml-6 mb-2 mt-1">
               <Button
                 variant="outlined"
@@ -264,7 +281,7 @@ export default function StickyHeadTable() {
                                     <Button
                                       variant="contained"
                                       disabled
-                                      className={classes.buttonWid}
+                                      className={classes.complete}
                                     >
                                       {value}
                                     </Button>

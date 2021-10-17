@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState,useCallback } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import clsx from "clsx";
 import { makeStyles, alpha } from "@material-ui/core/styles";
@@ -98,7 +98,7 @@ function Header() {
     history.push({ pathname: "/app/settings", state: { nav: 2 } });
   };
 
-  const getNotifications = () => {
+  const getNotifications = useCallback(() => {
     axios
       .get("/activities", {
         headers: {
@@ -109,11 +109,11 @@ function Header() {
         setNotifications(res.data);
       })
       .catch((err) => console.log(err));
-  };
+  }, [setNotifications,token]);
 
   useEffect(() => {
     getNotifications();
-  }, []);
+  }, [getNotifications]);
   return (
     <AppBar
       position="absolute"

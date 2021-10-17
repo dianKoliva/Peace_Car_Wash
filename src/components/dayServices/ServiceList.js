@@ -19,6 +19,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment';
 
 const columns = [
   { id: "plate_number", label: "Plate_no", minWidth: 100, align: "left" },
@@ -181,13 +182,13 @@ fetch();
     <Paper className={classes.root}>
       <Grid container spacing={3
       } >
-        <Grid item xs={10}>
+        <Grid item={true} xs={10}>
           <div className="flex ml-4 mb-4 mt-2 ">
             <p className="font-bold">List of vehicles</p>
             <p className="text-sm text-gray-500 ml-2">{data?data.length:0} total</p>
           </div>
         </Grid>
-        <Grid item xs={2} 
+        <Grid item={true} xs={2} 
         >
           
             <Button variant="outlined" color="primary"  onClick={()=>{history.push("/app/dayservices/register")}}>
@@ -259,6 +260,10 @@ if(col.id==="action"){
 </Button>}
   
 </TableCell>
+  )
+}else if (col.id==="entry_date"){
+  return(
+    <TableCell key={index} align={col.align}>{moment(value).format('L')}</TableCell>
   )
 }
 else{
