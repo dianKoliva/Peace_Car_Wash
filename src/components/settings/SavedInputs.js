@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
+/* eslint-disable */
 import { Grid, makeStyles } from "@material-ui/core";
 import { Paper, TextField, Divider, Button } from "@material-ui/core";
 import { MyContext } from "../../MyContext.js";
@@ -11,7 +12,8 @@ import CryptoENC from "crypto-js/enc-utf8";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    marginTop: "10px",
+    marginTop: "15px",
+    marginRight: "15px",
   },
   marginBottom: {
     marginBottom: "10px",
@@ -35,9 +37,8 @@ export default function SavedInputs() {
   const [log, setLog] = useState("");
   const [creds, setCreds] = useState({});
   const [edited, setEdited] = useState({});
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState("password");
-
-  console.log(user);
 
   useEffect(() => {
     setUser(jwt(token));
@@ -53,7 +54,7 @@ export default function SavedInputs() {
           setLog(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          setError(error);
         });
     }
     fetch();
@@ -84,14 +85,14 @@ export default function SavedInputs() {
             role: res.data.user.role,
           });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => setError(err));
     }
   };
   return (
     <Paper>
       {user && (
-        <Grid item={true} container xs={12}>
-          <Grid item={true} xs={12}>
+        <Grid container xs={12}>
+          <Grid item xs={12}>
             <div className="flex mt-2 mb-2">
               <p className=" font-bold ml-4"> Basic Profile </p>
               <p className="ml-4 text-sm text-gray-500">
@@ -100,7 +101,7 @@ export default function SavedInputs() {
             </div>
             <Divider></Divider>
           </Grid>
-          <Grid item={true} container xs={6}>
+          <Grid container xs={6}>
             <form
               noValidate
               autoComplete="off"
@@ -147,7 +148,7 @@ export default function SavedInputs() {
               />
             </form>
           </Grid>
-          <Grid item={true} xs={6} container>
+          <Grid xs={6} container>
             <form noValidate autoComplete="off">
               <TextField
                 label="Last Name"
@@ -160,7 +161,7 @@ export default function SavedInputs() {
               />
               <TextField
                 label="
-                Phone Number"
+                 Phone Number"
                 variant="outlined"
                 size="small"
                 className={classes.margin}
@@ -169,10 +170,10 @@ export default function SavedInputs() {
               />
             </form>
           </Grid>
-          <Grid item={true} xs={12}>
+          <Grid item xs={12}>
             <Divider></Divider>
           </Grid>
-          <Grid item={true} xs={12}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               color="primary"
