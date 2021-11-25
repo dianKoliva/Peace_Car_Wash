@@ -109,9 +109,7 @@ history.push("/app/invoice/daily")
                 variant="outlined"
                 size="small"
                 className={` ${classes.width}`}
-                margin="dense"
-                
-               
+                margin="dense"  
               >
                 <InputLabel>Report Type</InputLabel>
                 <Select label="Report Type"
