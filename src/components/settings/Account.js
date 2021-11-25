@@ -61,7 +61,7 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
-  const getPendingAccounts = async () => {
+  const getPendingAccounts =React.useCallback( async() => {
     axios({
       method: "post",
       url: "/users/pending",
@@ -69,9 +69,9 @@ export default function StickyHeadTable() {
     })
       .then((res) => setData(res.data))
       .catch((err) => setError(err));
-  };
+  },[token]);
 
-  const getAllUsers = async () => {
+  const getAllUsers = React.useCallback( async () =>  {
     axios({
       method: "get",
       url: "/users",
@@ -84,7 +84,7 @@ export default function StickyHeadTable() {
         setAllUsers(fil_users);
       })
       .catch((err) => setError(err));
-  };
+  },[ user.id, token]);
 
   const changeAccountStatus = async (id, status, object) => {
     // axios.put(`/users/${id}`, {account_status:"APPROVED"})
@@ -125,7 +125,7 @@ export default function StickyHeadTable() {
   useEffect(() => {
     getPendingAccounts();
     getAllUsers();
-  }, []);
+  }, [getPendingAccounts, getAllUsers]);
 
   return (
     <div className="mt-10">
