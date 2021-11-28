@@ -35,7 +35,7 @@ export default function BasicTable() {
   const {token,setToken}=useContext(MyContext);
 
   async function nyabu(){
-    await axios.get('/night.ng',
+    await axios.get(`${process.env.REACT_APP_baseApi}/night.ng`,
     {
      headers: {
        'Authorization':token
@@ -53,7 +53,7 @@ export default function BasicTable() {
   }
 
   async function rem(){
-    await axios.get('/night.rm',
+    await axios.get(`${process.env.REACT_APP_baseApi}/night.rm`,
     {
      headers: {
        'Authorization':token
