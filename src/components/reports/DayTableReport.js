@@ -33,7 +33,7 @@ export default function BasicTable() {
   const {token,setToken}=useContext(MyContext);
 
   async function dayActivity(){
-    await axios.get('/dactivity',
+    await axios.get(`${process.env.REACT_APP_baseApi}/dactivity`,
     {
      headers: {
        'Authorization':token

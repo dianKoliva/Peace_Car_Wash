@@ -151,7 +151,7 @@ const submit=async()=>{
       occupation: occupation,
       amount_to_pay: amount_to_pay,
     })
-   await axios.post('/rent',json,
+   await axios.post(`${process.env.REACT_APP_baseApi}/rent`,json,
    {
     headers: {
       'Authorization': token,

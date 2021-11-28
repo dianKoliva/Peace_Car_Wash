@@ -178,7 +178,7 @@ console.log(entry_date);
       
   
   })
-   await axios.post('/dactivity',json,
+   await axios.post(`${process.env.REACT_APP_baseApi}/dactivity`,json,
    {
     headers: {
       'Authorization': token,

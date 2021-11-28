@@ -157,7 +157,7 @@ const submit=async()=>{
       registration_date: registration_date
     })
     
-   await axios.put(`/rent/update/${rental._id}`,json,
+   await axios.put(`${process.env.REACT_APP_baseApi}/rent/update/${rental._id}`,json,
    {
     headers: {
       'Authorization': token,

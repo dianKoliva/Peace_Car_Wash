@@ -164,7 +164,7 @@ const submit=async()=>{
     taker_number: care_phone,
     service: service
   }
-   await axios.put(`/dactivity/update/${toEdit._id}`,json,
+   await axios.put(`${process.env.REACT_APP_baseApi}/dactivity/update/${toEdit._id}`,json,
    {
     headers: {
       'Authorization': token,

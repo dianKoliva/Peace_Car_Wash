@@ -120,7 +120,7 @@ export default function StickyHeadTable() {
   }
   const fetch = async () => {
     await axios
-      .get("/rent", {
+      .get(`${process.env.REACT_APP_baseApi}/rent`, {
         headers: {
           Authorization: token,
         },
@@ -140,7 +140,7 @@ export default function StickyHeadTable() {
   const deleteRent = async (index) => {
     let id = data[index]._id;
     await axios
-      .delete(`/rent/${id}`, {
+      .delete(`${process.env.REACT_APP_baseApi}/rent/${id}`, {
         headers: {
           Authorization: token,
         },

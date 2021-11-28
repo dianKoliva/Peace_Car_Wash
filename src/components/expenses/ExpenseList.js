@@ -113,7 +113,7 @@ export default function ExpenseList() {
 
   const fetch = useCallback( async() => {
     await axios
-      .get("/expense", {
+      .get(`${process.env.REACT_APP_baseApi}/expense`, {
         headers: {
           Authorization: token,
         },

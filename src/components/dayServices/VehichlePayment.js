@@ -143,7 +143,7 @@ if(e.target.name==="payed"){
       service: service,
       out_date:new Date()
     }
-     await axios.post(`/dactivity/pay/${toBePayed._id}`,json,
+     await axios.post(`${process.env.REACT_APP_baseApi}/dactivity/pay/${toBePayed._id}`,json,
      {
       headers: {
         'Authorization': token,

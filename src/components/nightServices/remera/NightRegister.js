@@ -83,7 +83,7 @@ function DayServices() {
 
     
       })
-      await axios.post('/night.rm',json,
+      await axios.post(`${process.env.REACT_APP_baseApi}/night.rm`,json,
       {
        headers: {
          'Authorization': token,

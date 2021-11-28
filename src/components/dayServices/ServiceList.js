@@ -103,7 +103,7 @@ export default function StickyHeadTable() {
 
 
   async function fetch(){
-    await axios.get('/dactivity',
+    await axios.get(`${process.env.REACT_APP_baseApi}/dactivity`,
     {
      headers: {
        'Authorization': token
@@ -132,7 +132,7 @@ export default function StickyHeadTable() {
 
     var id=data[index]._id;
 
-    await axios.delete(`/dactivity/${id}`,
+    await axios.delete(`${process.env.REACT_APP_baseApi}/dactivity/${id}`,
     {
      headers: {
        'Authorization': token

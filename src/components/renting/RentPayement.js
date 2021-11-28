@@ -93,7 +93,7 @@ const submit=async()=>{
       amount_payed: amount_payed,
       payment_date:payment_date
     })
-   await axios.put(`/rent/pay/${rental._id}`,json,
+   await axios.put(`${process.env.REACT_APP_baseApi}/rent/pay/${rental._id}`,json,
    {
     headers: {
       'Authorization': token,

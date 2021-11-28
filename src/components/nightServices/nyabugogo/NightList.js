@@ -76,7 +76,7 @@ export default function StickyHeadTable() {
   
 
   async function fetch(){
-    await axios.get('/night.ng',
+    await axios.get(`${process.env.REACT_APP_baseApi}/night.ng`,
     {
      headers: {
        'Authorization':token
@@ -104,7 +104,7 @@ export default function StickyHeadTable() {
 
     var id=data[index]._id;
 
-    await axios.delete(`/night.ng/${id}`,
+    await axios.delete(`${process.env.REACT_APP_baseApi}/night.ng/${id}`,
     {
      headers: {
        'Authorization': token
@@ -130,7 +130,7 @@ fetch();
 
   
     })
-    await axios.put(`/night.ng/${toEdit._id}`,json,
+    await axios.put(`${process.env.REACT_APP_baseApi}/night.ng/${toEdit._id}`,json,
     {
      headers: {
        'Authorization': token,
